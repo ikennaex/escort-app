@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 const Login = () => {
   return (
+    <div className="flex items-center justify-center min-h-screen bg-customGray">
     <div className="mx-6 p-6 bg-pink-100 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">OS Villa</h1>
       <h2 className="text-lg font-semibold mb-4 text-gray-800">
@@ -48,8 +49,9 @@ const Login = () => {
           Login
         </button>
 
-        <p>New to Oscroh Villa? <Link to="/register"><span className="text-customPink">Register</span></Link></p>
+        <p>New to OscroVilla? <Link to="/register"><span className="text-customPink">Register</span></Link></p>
       </form>
+    </div>
     </div>
   );
 };
