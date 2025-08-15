@@ -1,5 +1,6 @@
 import React from 'react'
 import { BellIcon, ChatBubbleOvalLeftEllipsisIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router'
 
 
 const Navbar = () => {
@@ -16,7 +17,10 @@ const Navbar = () => {
 
         <div className='flex gap-3'>
           <button className='border border-customPink text-white p-2 rounded-2xl'>Sign Up</button>
+
+          <Link to={"/login"}>
           <button className='bg-customPink text-white p-2 rounded-2xl'>Login</button>
+          </Link>
         </div>
         </div>
     </div>
