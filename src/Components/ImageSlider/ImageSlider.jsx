@@ -66,25 +66,25 @@ const ImageSlider = () => {
     autoplaySpeed: 6000,
     cssEase: "linear",
       responsive: [
-    {
-      breakpoint: 1024, // screens <= 1024px
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 640, // screens <= 640px (mobile)
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
+        {
+          breakpoint: 1024, // screens <= 1024px
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 640, // screens <= 640px (mobile)
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="w-full p-4">
   <Slider {...settings}>
     {data.map((item, index) => (
       <div key={index} className="px-2">
@@ -94,7 +94,7 @@ const ImageSlider = () => {
           src={item.image}
           alt={item.name}
         />
-        <div className="text-white p-4 rounded-lg shadow-md max-w-sm">
+        <div className="text-white p-4 rounded-lg shadow-md w-full">
           {/* Name */}
           <div className="flex items-center gap-2 mb-2">
             <p className="font-semibold text-lg">{item.name}</p>
