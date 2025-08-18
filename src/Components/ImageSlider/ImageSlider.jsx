@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,6 +8,7 @@ import {
   MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/solid";
+import { useRef } from "react";
 
 const data = [
   {
@@ -65,70 +66,69 @@ const ImageSlider = () => {
     speed: 1000,
     autoplaySpeed: 6000,
     cssEase: "linear",
-      responsive: [
-        {
-          breakpoint: 1024, // screens <= 1024px
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
+    responsive: [
+      {
+        breakpoint: 1024, // screens <= 1024px
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
         },
-        {
-          breakpoint: 640, // screens <= 640px (mobile)
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 640, // screens <= 640px (mobile)
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
-      ],
+      },
+    ],
   };
 
   return (
-    <div className="w-full p-4">
-  <Slider {...settings}>
-    {data.map((item, index) => (
-      <div key={index} className="px-2">
-        <div className="bg-customGray rounded-xl">
-        <img
-          className="w-full h-96 object-cover"
-          src={item.image}
-          alt={item.name}
-        />
-        <div className="text-white p-4 rounded-lg shadow-md w-full">
-          {/* Name */}
-          <div className="flex items-center gap-2 mb-2">
-            <p className="font-semibold text-lg">{item.name}</p>
-            <CheckBadgeIcon className="text-green-500 h-5" />
+    <div className="container mx-auto p-10">
+      <Slider {...settings}>
+        {data.map((item, index) => (
+          <div key={index} className="px-2">
+            <div className="bg-customGray rounded-xl">
+              <img
+                className="w-full h-96 object-cover"
+                src={item.image}
+                alt={item.name}
+              />
+              <div className="text-white p-4 rounded-lg shadow-md max-w-sm">
+                {/* Name */}
+                <div className="flex items-center gap-2 mb-2">
+                  <p className="font-semibold text-lg">{item.name}</p>
+                  <CheckBadgeIcon className="text-green-500 h-5" />
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-center gap-2 mb-2">
+                  <PhoneIcon className="h-5 text-customPink" />
+                  <a
+                    href={`tel:${item.phone}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {item.phone}
+                  </a>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-center gap-2 mb-3">
+                  <MapPinIcon className="h-5 text-customPink" />
+                  <p className="text-sm">{item.location}</p>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm leading-relaxed">{item.description}</p>
+              </div>
+            </div>
           </div>
-
-          {/* Phone */}
-          <div className="flex items-center gap-2 mb-2">
-            <PhoneIcon className="h-5 text-customPink" />
-            <a
-              href={`tel:${item.phone}`}
-              className="text-blue-600 hover:underline"
-            >
-              {item.phone}
-            </a>
-          </div>
-
-          {/* Location */}
-          <div className="flex items-center gap-2 mb-3">
-            <MapPinIcon className="h-5 text-customPink" />
-            <p className="text-sm">{item.location}</p>
-          </div>
-
-          {/* Description */}
-          <p className="text-sm leading-relaxed">
-            {item.description}
-          </p>
-        </div>
-      </div>
-      </div>
-    ))}
-  </Slider>
-</div>
-
+        ))}
+      </Slider>
+    </div>
   );
 };
 
