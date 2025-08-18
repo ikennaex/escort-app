@@ -49,7 +49,7 @@ const Login = () => {
           Login
         </button>
 
-        <p>New to OscroVilla? <Link to="/register"><span className="text-customPink">Register</span></Link></p>
+        <p>New to OscroVilla? <Link to="/register-card"><span className="text-customPink">Register</span></Link></p>
       </form>
     </div>
     </div>

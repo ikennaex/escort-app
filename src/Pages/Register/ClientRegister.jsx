@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from "react-router";
+import { Link } from 'react-router'
 
-const Register = () => {
+const ClientRegister = () => {
   return (
 <div className="flex items-center justify-center min-h-screen bg-customGray">
     <div className="mx-6 p-6 bg-pink-100 rounded-lg shadow-md">
@@ -70,4 +70,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default ClientRegister
