@@ -57,16 +57,36 @@ const data = [
 ];
 
 const ImageSlider = () => {
+    const [slidesToShow, setSlidesToShow] = useState(1);
+
+  // Force correct slidesToShow on real devices
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) setSlidesToShow(3);
+      else if (w >= 640) setSlidesToShow(2);
+      else setSlidesToShow(1);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    window.addEventListener("orientationchange", compute);
+    return () => {
+      window.removeEventListener("resize", compute);
+      window.removeEventListener("orientationchange", compute);
+    };
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 3,
+    arrows: false,
+    slidesToShow,
     slidesToScroll: 1,
     autoplay: true,
     speed: 1000,
     autoplaySpeed: 6000,
-    mobileFirst: true,
     cssEase: "linear",
+    mobileFirst: true,
     responsive: [
       {
         breakpoint: 1024, // screens <= 1024px
@@ -88,17 +108,17 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="container mx-auto p-10">
-      <Slider {...settings}>
+    <div className="w-full mx-auto p-1">
+      <Slider key={slidesToShow} {...settings}>
         {data.map((item, index) => (
           <div key={index} className="px-2">
             <div className="bg-customGray rounded-xl">
               <img
-                className="w-full h-96 object-cover"
+                className="w-full h-72 object-cover"
                 src={item.image}
                 alt={item.name}
               />
-              <div className="text-white p-4 rounded-lg shadow-md max-w-sm">
+              <div className="text-white p-4 rounded-lg shadow-md w-full">
                 {/* Name */}
                 <div className="flex items-center gap-2 mb-2">
                   <p className="font-semibold text-lg">{item.name}</p>
