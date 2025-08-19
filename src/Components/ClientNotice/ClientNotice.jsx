@@ -2,7 +2,7 @@ import React from 'react'
 
 const ClientNotice = () => {
   return (
-<div className=" text-white flex flex-col items-center p-4 rounded-lg shadow-md max-w-xl mx-auto">
+<div className=" text-white flex flex-col items-center p-4 rounded-lg shadow-md max-w-xl mx-auto mt-4">
   <h2 className="flex items-center gap-2 font-bold text-lg">
     <span className="text-2xl">🚨</span> Client Notice
   </h2>

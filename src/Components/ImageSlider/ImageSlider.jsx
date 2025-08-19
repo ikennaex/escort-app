@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./imageslider.css"
 
 import {
   CheckBadgeIcon,
@@ -57,7 +58,7 @@ const data = [
 ];
 
 const ImageSlider = () => {
-    const [slidesToShow, setSlidesToShow] = useState(1);
+  const [slidesToShow, setSlidesToShow] = useState(1);
 
   // Force correct slidesToShow on real devices
   useEffect(() => {
@@ -102,6 +103,8 @@ const ImageSlider = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "70px",
         },
       },
     ],
@@ -111,8 +114,8 @@ const ImageSlider = () => {
     <div className="w-full mx-auto p-1">
       <Slider key={slidesToShow} {...settings}>
         {data.map((item, index) => (
-          <div key={index} className="px-2">
-            <div className="bg-customGray rounded-xl">
+          <div key={index} className="px-2 w-full">
+            <div className="bg-customGray rounded-xl w-full">
               <img
                 className="w-full h-72 object-cover"
                 src={item.image}
