@@ -1,11 +1,11 @@
 import React from 'react'
-import { BellIcon, ChatBubbleOvalLeftEllipsisIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { BellIcon, ChatBubbleOvalLeftEllipsisIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router'
 
 
 const Navbar = () => {
   return (
-    <div className='bg-customGray h-28 p-4'>
+    <div className='bg-customGray  p-4'>
         <h1 className='text-2xl text-white'>OS Villa</h1>
 
         <div className='flex justify-between items-center'>
@@ -17,11 +17,11 @@ const Navbar = () => {
 
         <div className='flex gap-3'>
           <Link to={"/register-card"}>
-          <button className='border border-customPink text-white p-2 rounded-2xl'>Sign Up</button>
+          <button className='border border-customPink text-white px-2 py-1 rounded-xl'>Sign Up</button>
           </Link>
 
           <Link to={"/login"}>
-          <button className='bg-customPink text-white p-2 rounded-2xl'>Login</button>
+          <button className='bg-customPink text-white px-2 py-1 rounded-xl'>Login</button>
           </Link>
         </div>
         </div>

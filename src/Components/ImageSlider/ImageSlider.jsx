@@ -65,6 +65,7 @@ const ImageSlider = () => {
     autoplay: true,
     speed: 1000,
     autoplaySpeed: 6000,
+    mobileFirst: true,
     cssEase: "linear",
     responsive: [
       {
