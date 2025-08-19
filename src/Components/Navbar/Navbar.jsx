@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 const Navbar = () => {
   return (
-    <div className='bg-customGray  p-4'>
+    <div className='bg-customGray  px-4 py-2'>
         <h1 className='text-2xl text-white'>OS Villa</h1>
 
         <div className='flex justify-between items-center'>

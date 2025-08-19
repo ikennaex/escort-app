@@ -18,7 +18,7 @@ const data = [
     id: 1,
     name: "Stella",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2apztSw2a9Nzw3jedprGNLItfXNrf2jI_cw&s",
+      "https://img.freepik.com/premium-photo/portrait-smiling-young-woman-red-dress-footpath_1048944-29109377.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
     phone: "+234 705 333 3484",
     location: "Ikeja, Lagos",
     description:
@@ -29,7 +29,7 @@ const data = [
     id: 2,
     name: "Mercy",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2apztSw2a9Nzw3jedprGNLItfXNrf2jI_cw&s",
+      "https://img.freepik.com/premium-photo/studio-photoshoot-modeling_1048944-3927801.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
     phone: "+234 705 333 3484",
     location: "Magodo, Lagos",
     description:
@@ -40,7 +40,7 @@ const data = [
     id: 3,
     name: "Jane",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2apztSw2a9Nzw3jedprGNLItfXNrf2jI_cw&s",
+      "https://img.freepik.com/free-photo/woman-wearing-red-body-suit-red-background_633478-239.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
     phone: "+234 705 333 3484",
     location: "Yaba, Lagos",
     description:
@@ -119,7 +119,7 @@ const ImageSlider = () => {
           <div key={index} className="px-2 w-full">
             <div className="bg-customGray rounded-xl w-full">
               <img
-                className="w-full h-72 object-cover object-top"
+                className="w-full h-96 object-cover object-top"
                 src={item.image}
                 alt={item.name}
               />
@@ -152,7 +152,7 @@ const ImageSlider = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm leading-relaxed">{item.description}</p>
+                <p className="text-sm leading-tight">{item.description}</p>
               </div>
             </div>
           </div>
