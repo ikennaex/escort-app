@@ -6,10 +6,12 @@ import "./imageslider.css"
 
 import {
   CheckBadgeIcon,
-  MapPinIcon,
+    MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/solid";
-import { useRef } from "react";
+
+import { HeartIcon } from "@heroicons/react/24/outline";
+
 
 const data = [
   {
@@ -117,16 +119,20 @@ const ImageSlider = () => {
           <div key={index} className="px-2 w-full">
             <div className="bg-customGray rounded-xl w-full">
               <img
-                className="w-full h-72 object-cover"
+                className="w-full h-72 object-cover object-top"
                 src={item.image}
                 alt={item.name}
               />
               <div className="text-white p-4 rounded-lg shadow-md w-full">
                 {/* Name */}
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
                   <p className="font-semibold text-lg">{item.name}</p>
                   <CheckBadgeIcon className="text-green-500 h-5" />
+                  </div>
+                <HeartIcon className="h-5 text-red-500 justify-end" />
                 </div>
+
 
                 {/* Phone */}
                 <div className="flex items-center gap-2 mb-2">
