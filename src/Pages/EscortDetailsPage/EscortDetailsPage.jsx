@@ -7,15 +7,15 @@ import { StarIcon } from '@heroicons/react/24/outline';
 
 const EscortDetailsPage = () => {
   return (
-    <div className='bg-pink-200'>
-        <div className='pb-5 bg-pink-100 mx-2 rounded-lg'>
+    <div className='bg-pink-100'>
+        <div className='pb-5 bg-[#fff8f9] mx-2 rounded-lg'>
             <img className='w-full h-96 object-cover object-top' src="https://img.freepik.com/premium-photo/studio-photoshoot-modeling_1048944-3927801.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80" alt="" />
 
-            <div className='px-3'>
+            <div className='px-3 py-3'>
             <div>
-                <div className='flex gap-3 items-center'>
+                <div className='flex gap-2 items-center'>
                 <p className='font-bold text-2xl'>Sandra</p>
-                <p className='font-bold text-2xl'>23</p>
+                <p className='font-bold text-2xl'>· 23</p>
                 <CheckBadgeIcon className="text-green-500 h-5" />
                 </div>
 
