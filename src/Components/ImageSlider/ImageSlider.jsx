@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router";
 
 
 const data = [
@@ -117,6 +118,7 @@ const ImageSlider = () => {
       <Slider key={slidesToShow} {...settings}>
         {data.map((item, index) => (
           <div key={index} className="px-2 w-full">
+            <Link to = "/:id" >
             <div className="bg-customGray rounded-xl w-full">
               <img
                 className="w-full h-96 object-cover object-top"
@@ -155,6 +157,7 @@ const ImageSlider = () => {
                 <p className="text-sm leading-tight">{item.description}</p>
               </div>
             </div>
+            </Link>
           </div>
         ))}
       </Slider>

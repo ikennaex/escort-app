@@ -6,7 +6,9 @@ import { Link } from 'react-router'
 const Navbar = () => {
   return (
     <div className='bg-customGray  px-4 py-2'>
+      <Link to={"/"}>
         <h1 className='text-2xl text-white'>OS Villa</h1>
+      </Link>
 
         <div className='flex justify-between items-center'>
         <div className='flex gap-3'>
