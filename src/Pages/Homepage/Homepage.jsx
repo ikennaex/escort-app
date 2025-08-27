@@ -5,7 +5,7 @@ import Escorts from '../../Components/Escorts/Escorts'
 
 const Homepage = () => {
   return (
-    <div>
+    <div className='my-2'>
         <ImageSlider />
         <ClientNotice />
         <Escorts />

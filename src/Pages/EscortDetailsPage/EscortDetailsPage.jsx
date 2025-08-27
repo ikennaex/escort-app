@@ -17,9 +17,9 @@ import { Link } from "react-router";
 const EscortDetailsPage = () => {
   return (
     <div className="bg-pink-100">
-      <div className="pb-5 bg-[#fff8f9] mx-2 rounded-lg">
+      <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
         <img
-          className="w-full h-96 object-cover object-top"
+          className="lg:h-full lg:w-40 w-full h-96 object-cover object-top"
           src="https://img.freepik.com/premium-photo/studio-photoshoot-modeling_1048944-3927801.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80"
           alt=""
         />
