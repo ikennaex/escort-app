@@ -13,12 +13,12 @@ const App = () => {
   return (
 <div className="flex">
   {/* Side Navbar */}
-  <div className="lg:w-32 w-full h-screen fixed top-0 left-0">
+  <div className="lg:w-32 w-14 h-screen fixed top-0 left-0">
     <SideNavbar />
   </div>
 
   {/* Main Content (shifted to the right of the sidebar) */}
-  <div className="flex-1 lg:ml-32 ml-10 overflow-x-hidden">
+  <div className="flex-1 lg:ml-32 ml-14 overflow-x-hidden">
     <Navbar />
     <Routes>
       <Route path="/" element={<Homepage />} />
