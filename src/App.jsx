@@ -9,6 +9,7 @@ import ClientRegister from "./Pages/Register/ClientRegister";
 import EscortDetailsPage from "./Pages/EscortDetailsPage/EscortDetailsPage";
 import SlideNavbar from "./Components/SideNavbar/SlideNavbar";
 import Layout from "./Layout";
+import AdminHome from "./Admin/Pages/AdminHome";
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
           <Route path="/register-card" element={<RegisterCard />} />
 
           <Route path="/:id" element={<EscortDetailsPage />} />
+
+          <Route path="/admin/home" element={<AdminHome />} />
         </Route>
       </Routes>
     </div>
