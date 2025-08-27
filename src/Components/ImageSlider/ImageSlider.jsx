@@ -106,7 +106,7 @@ const ImageSlider = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true,
+          centerMode: false,
           centerPadding: "70px",
         },
       },
@@ -114,10 +114,10 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-1">
+    <div className="w-full mx-auto p-1 ">
       <Slider key={slidesToShow} {...settings}>
         {data.map((item, index) => (
-          <div key={index} className="px-2 w-full">
+          <div key={index} className="px-2 w-full max-w-sm mx-auto">
             <Link to = "/:id" >
             <div className="bg-customGray rounded-xl w-full">
               <img

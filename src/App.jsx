@@ -10,24 +10,30 @@ import EscortDetailsPage from "./Pages/EscortDetailsPage/EscortDetailsPage";
 import SlideNavbar from "./Components/SideNavbar/SlideNavbar";
 import Layout from "./Layout";
 import AdminHome from "./Admin/Pages/AdminHome";
+import SideNavbar from "./Components/SideNavbar/SideNavbar";
 
 const App = () => {
   return (
-    <div>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register-client" element={<ClientRegister />} />
-          <Route path="/register-card" element={<RegisterCard />} />
+<div className="flex">
+  {/* Side Navbar */}
+  <div className="lg:w-32 w-14 h-screen fixed top-0 left-0">
+    <SideNavbar />
+  </div>
 
-          <Route path="/:id" element={<EscortDetailsPage />} />
+  {/* Main Content (shifted to the right of the sidebar) */}
+  <div className="flex-1 lg:ml-32 ml-14 overflow-x-hidden">
+    <Navbar />
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/register-client" element={<ClientRegister />} />
+      <Route path="/register-card" element={<RegisterCard />} />
+      <Route path="/:id" element={<EscortDetailsPage />} />
+    </Routes>
+  </div>
+</div>
 
-          <Route path="/admin/home" element={<AdminHome />} />
-        </Route>
-      </Routes>
-    </div>
   );
 };
 
