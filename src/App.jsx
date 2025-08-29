@@ -23,7 +23,7 @@ const App = () => {
     <div className="flex">
       {/* Side Navbar (only show if NOT admin) */}
       {!isAdminRoute && (
-        <div className="lg:w-32 w-14 h-screen fixed top-0 left-0">
+        <div className="hidden lg:block lg:w-32 w-14 h-screen fixed top-0 left-0">
           <SideNavbar />
         </div>
       )}
@@ -31,7 +31,7 @@ const App = () => {
       {/* Main Content */}
       <div
         className={`flex-1 ${
-          !isAdminRoute ? "lg:ml-32 ml-14" : ""
+          !isAdminRoute ? "lg:ml-32" : ""
         } overflow-x-hidden`}
       >
         {/* Only show Navbar if not admin */}
