@@ -7,6 +7,6 @@
 
 /* active */
 .slick-slider .slick-dots li.slick-active button:before {
-  color: #2563eb !important;
+  color: #fc037b !important;
   opacity: 1 !important;
 }

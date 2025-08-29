@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        customLightGray: '#29283f',
         customGray: '#13121f',
         customPink: '#fc037b',
       },

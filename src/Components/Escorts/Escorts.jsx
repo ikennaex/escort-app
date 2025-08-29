@@ -56,52 +56,54 @@ const escorts = [
 const Escorts = () => {
   return (
     <div className="p-1 bg-black py-10">
-      <div className="grid md:grid-cols-4 gap-3">
+      <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
         {escorts.map((item) => (
-          <Link to = "/:id" >
-          <div
-            key={item.id}
-            className="relative rounded-lg overflow-hidden h-[500px]"
-          >
-            {/* Background Image */}
-            <img
-              src={item.image}
-              alt={item.name}
-              className="absolute inset-0 w-full h-full object-cover object-top"
-            />
+          <Link to="/:id">
+            <div
+              key={item.id}
+              className="relative overflow-hidden h-[300px] border-2 border-white"
+            >
+              {/* Background Image */}
+              <img
+                src={item.image}
+                alt={item.name}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
 
-            {/* Overlay Info */}
-            <div className="absolute bottom-0 left-0 text-white p-4 bg-customGray/80  flex flex-col justify-end">
-              {/* Name */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-lg">{item.name}</p>
-                  <CheckBadgeIcon className="text-green-500 h-5" />
+              {/* Overlay Info */}
+              <div className="absolute bottom-0 left-0 text-white lg:p-4 p-2 bg-pink-950/70 w-full  flex flex-col justify-end">
+                {/* Name */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-md">{item.name}</p>
+                    <CheckBadgeIcon className="text-green-500 h-4" />
+                  </div>
+                  <HeartIcon className="h-5 text-red-500 justify-end" />
                 </div>
-                <HeartIcon className="h-5 text-red-500 justify-end" />
-              </div>
 
-              {/* Phone */}
-              <div className="flex items-center gap-2 mb-2">
-                <PhoneIcon className="h-5 text-customPink" />
-                <a
-                  href={`tel:${item.phone}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  {item.phone}
-                </a>
-              </div>
+                {/* Phone */}
+                <div className="flex items-center gap-2 lg:mb-2">
+                  <PhoneIcon className="h-4 text-white hidden md:block" />
+                  <a
+                    href={`tel:${item.phone}`}
+                    className="text-blue-600 lg:text-sm text-[10px] hover:underline"
+                  >
+                    {item.phone}
+                  </a>
+                </div>
 
-              {/* Location */}
-              <div className="flex items-center gap-2 mb-3">
-                <MapPinIcon className="h-5 text-customPink" />
-                <p className="text-sm">{item.location}</p>
-              </div>
+                {/* Location */}
+                <div className="flex items-center gap-2 lg:mb-2">
+                  <MapPinIcon className="h-4 text-white hidden md:block" />
+                  <p className="lg:text-sm text-[10px]">{item.location}</p>
+                </div>
 
-              {/* Description */}
-              <p className="text-sm leading-relaxed">{item.description}</p>
+                {/* Description */} 
+                <p className="lg:text-sm text-[10px] leading-relaxed">
+                  {item.description.split(" ").slice(0, 10).join(" ")}... {/* word count 20 */}
+                </p>
+              </div>
             </div>
-          </div>
           </Link>
         ))}
       </div>

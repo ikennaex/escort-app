@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const Login = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-customGray">
+    <div className="flex items-center justify-center min-h-screen bg-customLightGray">
     <div className="mx-6 p-6 bg-pink-100 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">OS Villa</h1>
       <h2 className="text-lg font-semibold mb-4 text-gray-800">

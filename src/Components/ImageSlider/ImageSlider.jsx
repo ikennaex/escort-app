@@ -121,7 +121,7 @@ const ImageSlider = () => {
             <Link to = "/:id" >
             <div className="bg-customGray rounded-xl w-full">
               <img
-                className="w-full h-96 object-cover object-top"
+                className="w-full h-60 object-cover object-top"
                 src={item.image}
                 alt={item.name}
               />
