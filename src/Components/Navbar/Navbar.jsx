@@ -23,7 +23,7 @@ const Navbar = () => {
       {/* Left side: Hamburger + Logo */}
       <div className="flex items-center gap-3">
         <Bars3Icon
-          className="text-white h-8 cursor-pointer"
+          className="text-white h-8 cursor-pointer lg:hidden"
           onClick={handleToggle}
         />
         <Link to={"/"}>
