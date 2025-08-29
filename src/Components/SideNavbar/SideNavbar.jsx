@@ -14,7 +14,7 @@ import {
   UserIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/solid";
-import { BedIcon, BedSingleIcon } from "lucide-react";
+import { BedSingleIcon } from "lucide-react";
 import React from "react";
 
 const menu = [
