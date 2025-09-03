@@ -2,6 +2,14 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
 import cities from "../../cities.json";
 import React, { useState } from "react";
+import VerifyEmail from "./VerifyEmail";
+
+  // Calculate the latest allowed birthdate (today - 18 years)
+  const today = new Date();
+  const year = today.getFullYear() - 18;
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const maxDate = `${year}-${month}-${day}`;
 
 const EscortRegister = () => {
   const [country, setCountry] = useState("");
@@ -10,7 +18,7 @@ const EscortRegister = () => {
 
   const countries = Country.getAllCountries();
   const states = country ? State.getStatesOfCountry(country) : [];
-  console.log(state)
+  const countryCode = country ? countries.find((c) => c.isoCode === country)?.phonecode : "";
 
   const lgas =
     country && state && cities[country] && cities[country][state]
@@ -19,6 +27,7 @@ const EscortRegister = () => {
 
   return (
     <div className="p-2">
+      <VerifyEmail />
       <div className="flex flex-col">
         <div className="flex gap-2">
           <div className="h-1 w-full rounded-full bg-yellow-400"></div>
@@ -176,7 +185,7 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="dob">
                 Date of Birth
               </label>
-              <input type="date" id="dob" name="dob" required />
+              <input type="date" max={maxDate} id="dob" name="dob" required />
               <p className="text-[12px] leading-tight text-gray-400">
                 Date of birth cannot be changed after registration.
               </p>
@@ -201,6 +210,9 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="phone">
                 Phone Number
               </label>
+
+              <div className="flex items-center justify-center">
+                <div className="px-1 font-bold">{countryCode ? `+${countryCode}` : "+ "}</div>
               <input
                 placeholder="Enter phone number"
                 type="tel"
@@ -208,6 +220,7 @@ const EscortRegister = () => {
                 name="phone"
                 required
               />
+              </div>
               <p className="text-[12px] leading-tight text-gray-400">
                 Your mobile number is determined by your country selection. To
                 change your country phone code, first change your country
