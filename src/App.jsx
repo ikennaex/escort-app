@@ -12,6 +12,7 @@ import SideNavbar from "./Components/SideNavbar/SideNavbar";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import AdminPending from "./Admin/Pages/AdminPending";
 import AdminSettings from "./Admin/Pages/AdminSettings";
+import EscortRegister from "./Pages/Register/EscortRegister";
 
 const App = () => {
   const location = useLocation();
@@ -42,8 +43,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register-client" element={<ClientRegister />} />
+          <Route path="/register-escort" element={<EscortRegister />} />
           <Route path="/register-card" element={<RegisterCard />} />
-          <Route path="/:id" element={<EscortDetailsPage />} />
+          <Route path="/escorts/:id" element={<EscortDetailsPage />} />
 
 
           <Route path="/admin" element={<AdminHome />} />

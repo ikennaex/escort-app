@@ -2,11 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    input {
+        @apply w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500;
+    }
+
+      select {
+    @apply w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-gray-700 
+           focus:outline-none focus:ring-2 focus:ring-pink-500 cursor-pointer;
+  }
+
+  option {
+    @apply text-gray-700 text-[12px]; /* Optional: style dropdown items */
+  }
+
+  textarea {
+    @apply w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-gray-700 
+           focus:outline-none focus:ring-2 focus:ring-pink-500;
+  }
+}
+
 
 body {
     background-color: #29283f;
 }
-
 
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Chrome, Safari */

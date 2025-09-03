@@ -102,7 +102,7 @@ const SideNavbar = () => {
       <ul>
         {menu.map((item) => (
           <div
-            className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink"
+            className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink cursor-pointer"
             key={item.title}
           >
             <div>{item.icon}</div>

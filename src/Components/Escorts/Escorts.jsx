@@ -58,7 +58,7 @@ const Escorts = () => {
     <div className="p-1 bg-black py-10">
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
         {escorts.map((item) => (
-          <Link to="/:id">
+          <Link to="/escorts/:id">
             <div
               key={item.id}
               className="relative overflow-hidden h-[300px] border-2 border-white"

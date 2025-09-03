@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./imageslider.css"
+import "./imageslider.css";
 
 import {
   CheckBadgeIcon,
-    MapPinIcon,
+  MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/solid";
 
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
-
 
 const data = [
   {
@@ -88,7 +87,7 @@ const ImageSlider = () => {
     slidesToScroll: 1,
     autoplay: true,
     speed: 1000,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 3000,
     cssEase: "linear",
     mobileFirst: true,
     responsive: [
@@ -118,45 +117,46 @@ const ImageSlider = () => {
       <Slider key={slidesToShow} {...settings}>
         {data.map((item, index) => (
           <div key={index} className="px-2 w-full max-w-sm mx-auto">
-            <Link to = "/:id" >
-            <div className="bg-customGray rounded-xl w-full">
-              <img
-                className="w-full h-60 object-cover object-top"
-                src={item.image}
-                alt={item.name}
-              />
-              <div className="text-white p-4 rounded-lg shadow-md w-full">
-                {/* Name */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                  <p className="font-semibold text-lg">{item.name}</p>
-                  <CheckBadgeIcon className="text-green-500 h-5" />
+            <Link to="/escorts/:id">
+              <div className="w-full border-2 border-white overflow-hidden relative">
+                <img
+                  className="w-full h-96 object-cover object-top"
+                  src={item.image}
+                  alt={item.name}
+                />
+
+                {/* Transparent content area */}
+                <div className="absolute bottom-0 left-0 right-0 bg-pink-950/70 text-white p-4">
+                  {/* Name */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-lg">{item.name}</p>
+                      <CheckBadgeIcon className="text-green-500 h-5" />
+                    </div>
+                    <HeartIcon className="h-5 text-red-500 justify-end" />
                   </div>
-                <HeartIcon className="h-5 text-red-500 justify-end" />
+
+                  {/* Phone */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <PhoneIcon className="h-5 text-customPink" />
+                    <a
+                      href={`tel:${item.phone}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {item.phone}
+                    </a>
+                  </div>
+
+                  {/* Location */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <MapPinIcon className="h-5 text-customPink" />
+                    <p className="text-sm">{item.location}</p>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm leading-tight">{item.description}</p>
                 </div>
-
-
-                {/* Phone */}
-                <div className="flex items-center gap-2 mb-2">
-                  <PhoneIcon className="h-5 text-customPink" />
-                  <a
-                    href={`tel:${item.phone}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {item.phone}
-                  </a>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPinIcon className="h-5 text-customPink" />
-                  <p className="text-sm">{item.location}</p>
-                </div>
-
-                {/* Description */}
-                <p className="text-sm leading-tight">{item.description}</p>
               </div>
-            </div>
             </Link>
           </div>
         ))}
