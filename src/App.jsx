@@ -13,6 +13,7 @@ import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import AdminPending from "./Admin/Pages/AdminPending";
 import AdminSettings from "./Admin/Pages/AdminSettings";
 import EscortRegister from "./Pages/Register/EscortRegister";
+import AdditionalDetails from "./Pages/Register/AdditionalDetails";
 
 const App = () => {
   const location = useLocation();
@@ -46,6 +47,8 @@ const App = () => {
           <Route path="/register-escort" element={<EscortRegister />} />
           <Route path="/register-card" element={<RegisterCard />} />
           <Route path="/escorts/:id" element={<EscortDetailsPage />} />
+
+          <Route path="/escort-details" element = {<AdditionalDetails />} />
 
 
           <Route path="/admin" element={<AdminHome />} />

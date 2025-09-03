@@ -1,9 +1,16 @@
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import React from "react";
 
-const VerifyEmail = () => {
+const VerifyEmail = ({ onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md mx-4">
+      <div className="relative bg-pink-100 rounded-2xl shadow-2xl p-8 w-full max-w-md mx-4">
+        {/* Close Icon */}
+        <XMarkIcon
+        onClick={onClose}
+          className="absolute top-4 right-4 h-6 w-6 text-gray-600 cursor-pointer hover:text-gray-800"
+        />
+
         <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
           Verify Your Email
         </h2>
@@ -14,10 +21,10 @@ const VerifyEmail = () => {
         <input
           type="text"
           placeholder="Verification Code"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-customPink mb-4"
         />
 
-        <button className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        <button className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-pink-700 transition">
           Confirm
         </button>
 

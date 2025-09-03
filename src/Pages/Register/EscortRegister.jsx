@@ -12,6 +12,7 @@ import VerifyEmail from "./VerifyEmail";
   const maxDate = `${year}-${month}-${day}`;
 
 const EscortRegister = () => {
+  const [showVerify, setShowVerify] = useState(false);
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
@@ -25,9 +26,14 @@ const EscortRegister = () => {
       ? cities[country][state]
       : [];
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowVerify(true);
+  }
+
   return (
     <div className="p-2">
-      <VerifyEmail />
+      {showVerify && <VerifyEmail onClose={() => setShowVerify(!showVerify)} />}
       <div className="flex flex-col">
         <div className="flex gap-2">
           <div className="h-1 w-full rounded-full bg-yellow-400"></div>
@@ -47,7 +53,7 @@ const EscortRegister = () => {
         <div>
           <form
             className="bg-pink-100 mt-4 rounded-sm p-4 flex flex-col gap-2"
-            action=""
+            onSubmit={handleSubmit}
           >
             <div className="flex items-center justify-center gap-2">
               <StarIcon className="h-5 text-yellow-400" />
