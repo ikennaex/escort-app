@@ -8,6 +8,7 @@ import {
   LogOut,
   Menu,
   X,
+  CreditCard 
 } from "lucide-react"; // icons
 
 const AdminSidebar = () => {
@@ -41,7 +42,7 @@ const AdminSidebar = () => {
         {/* Nav Links */}
         <nav className="flex-1 px-4 py-6 space-y-4">
           <Link
-            to="/admin/dashboard"
+            to="/admin"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition mt-10 md:mt-0"
           >
             <LayoutDashboard size={20} />
@@ -65,12 +66,22 @@ const AdminSidebar = () => {
           </Link>
 
           <Link
+            to="/admin/payments"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+          >
+            <CreditCard  size={20} />
+            <span className=" md:inline">Payments</span>
+          </Link>
+
+          <Link
             to="/admin/settings"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
           >
             <Settings size={20} />
             <span className=" md:inline">Settings</span>
           </Link>
+
+          
         </nav>
 
         {/* Logout */}

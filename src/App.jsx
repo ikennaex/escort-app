@@ -14,6 +14,9 @@ import AdminPending from "./Admin/Pages/AdminPending";
 import AdminSettings from "./Admin/Pages/AdminSettings";
 import EscortRegister from "./Pages/Register/EscortRegister";
 import AdditionalDetails from "./Pages/Register/AdditionalDetails";
+import AdminUsers from "./Admin/Pages/AdminUsers";
+import AdminPayments from "./Admin/Pages/AdminPayments";
+import AdminPremiumUsers from "./Admin/Pages/AdminPremiumUsers";
 
 const App = () => {
   const location = useLocation();
@@ -51,8 +54,10 @@ const App = () => {
           <Route path="/escort-details" element = {<AdditionalDetails />} />
 
 
-          <Route path="/admin" element={<AdminHome />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/premium" element={<AdminPremiumUsers />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/payments" element={<AdminPayments />} />
           <Route path="/admin/pending" element={<AdminPending />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
         </Routes>

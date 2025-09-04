@@ -29,7 +29,7 @@ const AdminDashboard = () => {
             <p className="text-lg font-semibold">All Users</p>
             <p className="text-3xl font-bold mb-4">9,887</p>
             <Link
-              to="/admin/total"
+              to="/admin/users"
               className="inline-block bg-white text-customPink font-semibold px-4 py-2 rounded-md shadow transition"
             >
               See all
