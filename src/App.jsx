@@ -17,6 +17,9 @@ import AdditionalDetails from "./Pages/Register/AdditionalDetails";
 import AdminUsers from "./Admin/Pages/AdminUsers";
 import AdminPayments from "./Admin/Pages/AdminPayments";
 import AdminPremiumUsers from "./Admin/Pages/AdminPremiumUsers";
+import Services from "./Pages/Register/Services";
+import Rates from "./Pages/Register/Rates";
+import Gallery from "./Pages/Register/Gallery";
 
 const App = () => {
   const location = useLocation();
@@ -51,7 +54,11 @@ const App = () => {
           <Route path="/register-card" element={<RegisterCard />} />
           <Route path="/escorts/:id" element={<EscortDetailsPage />} />
 
+          {/* Onboarding Routes */}
           <Route path="/escort-details" element = {<AdditionalDetails />} />
+          <Route path="/escort-services" element = {<Services />} />
+          <Route path="/escort-rates" element = {<Rates />} />
+          <Route path="/escort-gallery" element = {<Gallery />} />
 
 
           <Route path="/admin" element={<AdminDashboard />} />

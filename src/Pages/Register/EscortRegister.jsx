@@ -1,6 +1,6 @@
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
-import cities from "../../cities.json";
+import cities from "../../data/cities.json";
 import React, { useState } from "react";
 import VerifyEmail from "./VerifyEmail";
 
