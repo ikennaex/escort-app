@@ -1,7 +1,14 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import { useNavigate } from "react-router";
 
 const VerifyEmail = ({ onClose }) => {
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate("/escort-details");
+  };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
       <div className="relative bg-pink-100 rounded-2xl shadow-2xl p-8 w-full max-w-md mx-4">
@@ -24,7 +31,7 @@ const VerifyEmail = ({ onClose }) => {
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-customPink mb-4"
         />
 
-        <button className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-pink-700 transition">
+        <button onClick={handleSubmit} className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-pink-700 transition">
           Confirm
         </button>
 
