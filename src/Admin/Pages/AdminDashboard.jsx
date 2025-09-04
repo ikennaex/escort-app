@@ -22,7 +22,7 @@ const AdminDashboard = () => {
       <AdminSidebar />
 
       <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+        <h1 className="text-2xl font-bold mb-6 md:mt-0 mt-12">Dashboard</h1>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <div className="bg-customPink rounded-lg px-3 py-6 md:p-6 shadow-md">
@@ -92,6 +92,7 @@ const AdminDashboard = () => {
               </tbody>
             </table>
           </div>
+          <Link className="bg-customPink px-4 py-2 font-bold mt-6 rounded-md" to='/admin/users'>See all</Link>
         </div>
       </div>
     </div>
