@@ -13,6 +13,7 @@ import { BsCake, BsGenderAmbiguous, BsRulers } from "react-icons/bs";
 import React from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
+import ProfileTabs from "./ProfileTabs";
 
 const EscortDetailsPage = () => {
   return (
@@ -118,60 +119,7 @@ const EscortDetailsPage = () => {
         </div>
       </div>
 
-      <div className="pb-5  rounded-lg">
-        <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1 overflow-x-auto">
-          <ul className="flex gap-6 whitespace-nowrap px-4 text-gray-700">
-            <div className="flex  gap-1 items-center">
-              <InformationCircleIcon className="h-4" />
-              <li>About</li>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <PhotoIcon className="h-4" />
-              <li>Gallery</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <NewspaperIcon className="h-4" />
-              <li>Timeline</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <NewspaperIcon className="h-4" />
-              <li>Gift Shop</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <NewspaperIcon className="h-4" />
-              <li>Timeline</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <NewspaperIcon className="h-4" />
-              <li>Gift Shop</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <NewspaperIcon className="h-4" />
-              <li>Gift Shop</li>·<p>5</p>
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <StarIcon className="h-4" />
-              <li>Reviews</li>·<p>5</p>
-            </div>
-          </ul>
-        </nav>
-
-        <div className="bg-[#fff8f9] my-4 mx-3 p-4">
-            <p className="font-semibold">About</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              unde consequatur perspiciatis corrupti at incidunt quod architecto
-              pariatur illo aliquid.
-            </p>
-        </div>
-      </div>
+      <ProfileTabs />
     </div>
   );
 };
