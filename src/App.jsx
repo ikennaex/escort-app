@@ -20,6 +20,8 @@ import AdminPremiumUsers from "./Admin/Pages/AdminPremiumUsers";
 import Services from "./Pages/Register/Services";
 import Rates from "./Pages/Register/Rates";
 import Gallery from "./Pages/Register/Gallery";
+import AdminPendingApprovalDetails from "./Admin/Pages/AdminPendingApprovalDetails";
+import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
 
 const App = () => {
   const location = useLocation();
@@ -67,6 +69,8 @@ const App = () => {
           <Route path="/admin/payments" element={<AdminPayments />} />
           <Route path="/admin/pending" element={<AdminPending />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/pending/:id" element={<AdminPendingApprovalDetails />} />
+          <Route path="/admin/user/:id" element={<AdminUserDetails />} />
         </Routes>
       </div>
     </div>
