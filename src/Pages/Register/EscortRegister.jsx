@@ -1,10 +1,11 @@
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
 import cities from "../../data/cities.json";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios"
 import VerifyEmail from "./VerifyEmail";
 import {baseUrl} from "../../baseUrl"
+import { UserContext } from "../../Contexts/UserContext";
 
   // Calculate the latest allowed birthdate (today - 18 years)
   const today = new Date();
@@ -14,6 +15,7 @@ import {baseUrl} from "../../baseUrl"
   const maxDate = `${year}-${month}-${day}`;
 
 const EscortRegister = () => {
+  const {api} = useContext(UserContext)
   const [showVerify, setShowVerify] = useState(false);
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -52,7 +54,7 @@ const EscortRegister = () => {
 
     try {
       setLoading(true)
-      const response = await axios.post(`${baseUrl}auth/escortsignup`, formData)
+      const response = await api.post(`${baseUrl}auth/escortsignup`, formData)
       setShowVerify(true);
       console.log(response)
       alert(response.data.message)
