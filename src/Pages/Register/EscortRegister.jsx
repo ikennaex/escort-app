@@ -2,7 +2,9 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
 import cities from "../../data/cities.json";
 import React, { useState } from "react";
+import axios from "axios"
 import VerifyEmail from "./VerifyEmail";
+import {baseUrl} from "../../baseUrl"
 
   // Calculate the latest allowed birthdate (today - 18 years)
   const today = new Date();
@@ -13,27 +15,58 @@ import VerifyEmail from "./VerifyEmail";
 
 const EscortRegister = () => {
   const [showVerify, setShowVerify] = useState(false);
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    displayName: "",
+    country: "",
+    state: "",
+    city: "",
+    dob: "",
+    gender: "",
+    phoneNumber: "",
+    heading: "",
+  });
 
   const countries = Country.getAllCountries();
-  const states = country ? State.getStatesOfCountry(country) : [];
-  const countryCode = country ? countries.find((c) => c.isoCode === country)?.phonecode : "";
+  const states = formData.country ? State.getStatesOfCountry(formData.country) : [];
+  const countryCode = formData.country ? countries.find((c) => c.isoCode === formData.country)?.phonecode : "";
 
   const lgas =
-    country && state && cities[country] && cities[country][state]
-      ? cities[country][state]
+    formData.country && formData.state && cities[formData.country] && cities[formData.country][formData.state]
+      ? cities[formData.country][formData.state]
       : [];
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowVerify(true);
+
+    try {
+      setLoading(true)
+      const response = await axios.post(`${baseUrl}auth/escortsignup`, formData)
+      setShowVerify(true);
+      console.log(response)
+      alert(response.data.message)
+    } catch (err) {
+      console.log(err)
+      alert(err.response.data.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <div className="p-2">
-      {showVerify && <VerifyEmail onClose={() => setShowVerify(!showVerify)} />}
+      {showVerify && <VerifyEmail email = {formData.email} onClose={() => setShowVerify(!showVerify)} />}
       <div className="flex flex-col">
         <div className="flex gap-2">
           <div className="h-1 w-full rounded-full bg-yellow-400"></div>
@@ -70,6 +103,7 @@ const EscortRegister = () => {
                 type="text"
                 id="username"
                 name="username"
+                onChange={handleChange}
                 required
               />
               <p className="text-[12px] leading-tight text-gray-400">
@@ -87,6 +121,7 @@ const EscortRegister = () => {
                 type="email"
                 id="email"
                 name="email"
+                onChange={handleChange}
                 required
               />
             </div>
@@ -99,18 +134,20 @@ const EscortRegister = () => {
                 type="password"
                 id="password"
                 name="password"
+                onChange={handleChange}
                 required
               />
             </div>
             <div className="flex flex-col">
-              <label className="font-bold" htmlFor="display-name">
+              <label className="font-bold" htmlFor="displayName">
                 Display Name
               </label>
               <input
                 placeholder="Enter display name"
                 type="text"
-                id="display-name"
-                name="display-name"
+                id="displayName"
+                name="displayName"
+                onChange={handleChange}
                 required
               />
               <p className="text-[12px] leading-tight text-gray-400">
@@ -129,7 +166,7 @@ const EscortRegister = () => {
                 Country
               </label>
               <select
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={handleChange}
                 id="country"
                 name="country"
                 required
@@ -155,7 +192,7 @@ const EscortRegister = () => {
                 State
               </label>
               <select
-                onChange={(e) => setState(e.target.value)}
+                onChange={handleChange}
                 id="state"
                 name="state"
                 required
@@ -173,7 +210,7 @@ const EscortRegister = () => {
                 City
               </label>
               <select
-                onChange={(e) => setCity(e.target.value)}
+                onChange={handleChange}
                 id="city"
                 name="city"
                 required
@@ -191,7 +228,7 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="dob">
                 Date of Birth
               </label>
-              <input type="date" max={maxDate} id="dob" name="dob" required />
+              <input onChange={handleChange} type="date" max={maxDate} id="dob" name="dob" required />
               <p className="text-[12px] leading-tight text-gray-400">
                 Date of birth cannot be changed after registration.
               </p>
@@ -201,11 +238,10 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="gender">
                 Gender
               </label>
-              <select id="gender" name="gender" required>
+              <select onChange={handleChange} id="gender" name="gender" required>
                 <option value="">Select your gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
               <p className="text-[12px] leading-tight text-gray-400">
                 Gender cannot be changed after registration.
@@ -213,7 +249,7 @@ const EscortRegister = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="font-bold" htmlFor="phone">
+              <label className="font-bold" htmlFor="phoneNumber">
                 Phone Number
               </label>
 
@@ -222,8 +258,9 @@ const EscortRegister = () => {
               <input
                 placeholder="Enter phone number"
                 type="tel"
-                id="phone"
-                name="phone"
+                id="phoneNumber"
+                name="phoneNumber"
+                onChange={handleChange}
                 required
               />
               </div>
@@ -246,14 +283,17 @@ const EscortRegister = () => {
                 id="heading"
                 name="heading"
                 rows={7}
+                onChange={handleChange}
                 required
               />
             </div>
             <button
-              className="bg-customPink text-white py-2 px-4 rounded"
+            disabled = {loading}
+              className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/80"
               type="submit"
             >
-              Verify Details
+              {loading? "loading" : "Verify Details"}
+              
             </button>
           </form>
         </div>

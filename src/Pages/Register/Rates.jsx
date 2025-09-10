@@ -1,16 +1,44 @@
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../Contexts/UserContext";
 
 const Rates = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const {api} = useContext(UserContext)
+  const [formData, setFormData] = useState({
+    shortimeIncall: "",
+    overnightIncall: "",
+    weekendIncall: "",
+    shortimeOutcall: "",
+    overnightOutcall: "",
+    weekendOutcall: "",
+  });
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Handle form submission
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Handle form submission
+    try {
+      setLoading(true);
+      const response = await api.put("escortrates", formData);
+      console.log(response);
       navigate("/escort-gallery");
-    };
+      alert(response.data.message);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+      alert(err.response.data.message);
+    }
+  };
 
   return (
     <div className="p-2">
@@ -28,7 +56,10 @@ const Rates = () => {
           <p className="font-bold text-white text-center mt-4"> Step 4/6</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-pink-100 mt-4 rounded-sm p-4 flex flex-col gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-pink-100 mt-4 rounded-sm p-4 flex flex-col gap-2"
+        >
           <div className="flex items-center justify-center gap-2">
             <PlusCircleIcon className="h-4 text-yellow-400" />
             <h1 className="font-bold text-center text-xl text-purple-600">
@@ -41,8 +72,13 @@ const Rates = () => {
               Incall Rate
             </p>
 
-            <label htmlFor="shorttime">Short time</label>
-            <select id="shorttime" name="shorttime" required>
+            <label htmlFor="shortimeIncall">Short time</label>
+            <select
+              onChange={handleChange}
+              id="shortimeIncall"
+              name="shortimeIncall"
+              required
+            >
               <option value="">Select your short time rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -57,8 +93,13 @@ const Rates = () => {
               <option value="120000">120,000</option>
             </select>
 
-            <label htmlFor="overnight">Overnight</label>
-            <select id="overnight" name="overnight" required>
+            <label htmlFor="overnightIncall">Overnight</label>
+            <select
+              onChange={handleChange}
+              id="overnightIncall"
+              name="overnightIncall"
+              required
+            >
               <option value="">Select your overnight rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -73,8 +114,13 @@ const Rates = () => {
               <option value="120000">120,000</option>
             </select>
 
-            <label htmlFor="weekend">Weekend</label>
-            <select id="weekend" name="weekend" required>
+            <label htmlFor="weekendIncall">Weekend</label>
+            <select
+              onChange={handleChange}
+              id="weekendIncall"
+              name="weekendIncall"
+              required
+            >
               <option value="">Select your weekend rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -95,8 +141,13 @@ const Rates = () => {
               Outcall Rate
             </p>
 
-            <label htmlFor="shorttime">Short time</label>
-            <select id="shorttime" name="shorttime" required>
+            <label htmlFor="shortimeOutcall">Short time</label>
+            <select
+              onChange={handleChange}
+              id="shortimeOutcall"
+              name="shortimeOutcall"
+              required
+            >
               <option value="">Select your short time rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -111,8 +162,13 @@ const Rates = () => {
               <option value="120000">120,000</option>
             </select>
 
-            <label htmlFor="overnight">Overnight</label>
-            <select id="overnight" name="overnight" required>
+            <label htmlFor="overnightOutcall">Overnight</label>
+            <select
+              onChange={handleChange}
+              id="overnightOutcall"
+              name="overnightOutcall"
+              required
+            >
               <option value="">Select your overnight rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -127,8 +183,13 @@ const Rates = () => {
               <option value="120000">120,000</option>
             </select>
 
-            <label htmlFor="weekend">Weekend</label>
-            <select id="weekend" name="weekend" required>
+            <label htmlFor="weekendOutcall">Weekend</label>
+            <select
+              onChange={handleChange}
+              id="weekendOutcall"
+              name="weekendOutcall"
+              required
+            >
               <option value="">Select your weekend rate</option>
               <option value="10000">10,000</option>
               <option value="20000">20,000</option>
@@ -145,10 +206,11 @@ const Rates = () => {
           </div>
 
           <button
+            disabled={loading}
             className="bg-customPink text-white py-2 my-2 px-4 rounded"
             type="submit"
           >
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>

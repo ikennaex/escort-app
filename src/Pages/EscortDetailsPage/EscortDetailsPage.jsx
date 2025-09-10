@@ -119,7 +119,7 @@ const EscortDetailsPage = () => {
         </div>
       </div>
 
-      <ProfileTabs />
+      <ProfileTabs />a
     </div>
   );
 };

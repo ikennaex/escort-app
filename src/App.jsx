@@ -22,6 +22,8 @@ import Rates from "./Pages/Register/Rates";
 import Gallery from "./Pages/Register/Gallery";
 import AdminPendingApprovalDetails from "./Admin/Pages/AdminPendingApprovalDetails";
 import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
+import { UserContextProvider } from "./Contexts/UserContext";
+import ProtectedRoutes from "./Contexts/ProtectedRoutes";
 
 const App = () => {
   const location = useLocation();
@@ -30,6 +32,7 @@ const App = () => {
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
+    <UserContextProvider>
     <div className="flex">
       {/* Side Navbar (only show if NOT admin) */}
       {!isAdminRoute && (
@@ -57,10 +60,12 @@ const App = () => {
           <Route path="/escorts/:id" element={<EscortDetailsPage />} />
 
           {/* Onboarding Routes */}
+          <Route element = {<ProtectedRoutes />}>
           <Route path="/escort-details" element = {<AdditionalDetails />} />
           <Route path="/escort-services" element = {<Services />} />
           <Route path="/escort-rates" element = {<Rates />} />
           <Route path="/escort-gallery" element = {<Gallery />} />
+          </Route>
 
 
           <Route path="/admin" element={<AdminDashboard />} />
@@ -74,6 +79,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
+    </UserContextProvider>
   );
 };
 

@@ -1,14 +1,51 @@
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../Contexts/UserContext";
 
 const AdditionalDetails = () => {
-    const navigate = useNavigate();
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const navigate = useNavigate();
+  const {api} = useContext(UserContext)
+  const [formData, setFormData] = useState({
+    education: "",
+    about: "",
+    occupation: "",
+    ethnicity: "",
+    bustSize: "",
+    height: "",
+    weight: "",
+    bodyBuild: "",
+    looks: "",
+    smoker: "",
+    sexualOrientation: "",
+    incallAvailable: "",
+    outcallAvailable: "",
+  });
 
-        navigate('/escort-services');
+  console.log(formData)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // api from usecontext
+      const response = await api.put("/escortdetails", formData)
+      console.log(response)
+      alert(response.data.message)
+      navigate("/escort-services");
+    } catch (err) {
+      console.log(err)
+      alert(err.response.data.mesaage)
     }
+
+  };
+
   return (
     <div className="p-2">
       <div className="flex flex-col">
@@ -25,7 +62,10 @@ const AdditionalDetails = () => {
           <p className="font-bold text-white text-center mt-4"> Step 2/6</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-pink-100 mt-4 rounded-sm p-4 flex flex-col gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-pink-100 mt-4 rounded-sm p-4 flex flex-col gap-2"
+        >
           <div className="flex items-center justify-center gap-2">
             <PlusCircleIcon className="h-4 text-yellow-400" />
             <h1 className="font-bold text-center text-xl text-purple-600">
@@ -37,145 +77,198 @@ const AdditionalDetails = () => {
             <label className="font-bold" htmlFor="education">
               Education
             </label>
-            <select name="education" id="education" required>
+            <select onChange={handleChange} name="education" id="education" required>
               <option value="">Select your education level</option>
-              <option value="primaryschool">Primary School</option>
-              <option value="highschool">High School</option>
-              <option value="bachelor">Bachelor's Degree</option>
-              <option value="master">Master's Degree</option>
-              <option value="phd">PhD</option>
+              <option value="Primary School">Primary School</option>
+              <option value="High School">High School</option>
+              <option value="Bachelor's Degree">Bachelor's Degree</option>
+              <option value="Master's Degree">Master's Degree</option>
+              <option value="PhD">PhD</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="about">About</label>
-            <textarea name="about" id="about" rows="4" placeholder="Tell us about yourself" required></textarea>
+            <label className="font-bold" htmlFor="about">
+              About
+            </label>
+            <textarea
+            onChange={handleChange}
+              name="about"
+              id="about"
+              rows="4"
+              placeholder="Tell us about yourself"
+              required
+            ></textarea>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="occupation">Occupation</label>
-            <input type="text" name="occupation" id="occupation" placeholder="Your occupation" required />
+            <label className="font-bold" htmlFor="occupation">
+              Occupation
+            </label>
+            <input
+            onChange={handleChange}
+              type="text"
+              name="occupation"
+              id="occupation"
+              placeholder="Your occupation"
+              required
+            />
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="ethnicity">Ethnicity</label>
-            <select name="ethnicity" id="ethnicity" required>
+            <label className="font-bold" htmlFor="ethnicity">
+              Ethnicity
+            </label>
+            <select onChange={handleChange} name="ethnicity" id="ethnicity" required>
               <option value="">Select your ethnicity</option>
-              <option value="asian">Asian</option>
-              <option value="black">Black</option>
-              <option value="hispanic">Hispanic</option>
-              <option value="white">White</option>
-              <option value="other">Other</option>
+              <option value="Asian">Asian</option>
+              <option value="Black">Black</option>
+              <option value="Hispanic">Hispanic</option>
+              <option value="White">White</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="bustsize">Bust Size</label>
-            <select name="bustsize" id="bustsize" required>
+            <label className="font-bold" htmlFor="bustSize">
+              Bust Size
+            </label>
+            <select onChange={handleChange} name="bustSize" id="bustSize" required>
               <option value="">Select your bust size</option>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-              <option value="extra-large">Extra Large</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Extra Large">Extra Large</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="height">Height</label>
-            <select name="height" id="height" required>
+            <label className="font-bold" htmlFor="height">
+              Height
+            </label>
+            <select onChange={handleChange} name="height" id="height" required>
               <option value="">Select your height</option>
-              <option value="short">Short</option>
-              <option value="average">Average</option>
-              <option value="tall">Tall</option>
+              <option value="Short">Short</option>
+              <option value="Average">Average</option>
+              <option value="Tall">Tall</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="weight">Weight</label>
-            <select name="weight" id="weight" required>
+            <label className="font-bold" htmlFor="weight">
+              Weight
+            </label>
+            <select onChange={handleChange} name="weight" id="weight" required>
               <option value="">Select your weight</option>
-              <option value="underweight">Underweight</option>
-              <option value="normal">Normal</option>
-              <option value="overweight">Overweight</option>
+              <option value="Underweight">Underweight</option>
+              <option value="Normal">Normal</option>
+              <option value="Overweight">Overweight</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="build">Body Build</label>
-            <select name="build" id="build" required>
+            <label className="font-bold" htmlFor="bodyBuild">
+              Body Build
+            </label>
+            <select onChange={handleChange} name="bodyBuild" id="bodyBuild" required>
               <option value="">Select your body build</option>
-              <option value="slim">Slim</option>
-              <option value="average">Average</option>
-              <option value="athletic">Athletic</option>
-              <option value="curvy">Curvy</option>
+              <option value="Slim">Slim</option>
+              <option value="Average">Average</option>
+              <option value="Athletic">Athletic</option>
+              <option value="Curvy">Curvy</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="looks">Looks</label>
-            <select name="looks" id="looks" required>
+            <label className="font-bold" htmlFor="looks">
+              Looks
+            </label>
+            <select onChange={handleChange} name="looks" id="looks" required>
               <option value="">Select your looks</option>
-              <option value="attractive">Attractive</option>
-              <option value="average">Average</option>
-              <option value="below-average">Below Average</option>
+              <option value="Attractive">Attractive</option>
+              <option value="Average">Average</option>
+              <option value="Below average">Below Average</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="smoker">Smoker</label>
-            <select name="smoker" id="smoker" required>
+            <label className="font-bold" htmlFor="smoker">
+              Smoker
+            </label>
+            <select onChange={handleChange} name="smoker" id="smoker" required>
               <option value="">Select your smoking status</option>
-              <option value="smoker">Smoker</option>
-              <option value="non-smoker">Non-Smoker</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
             </select>
-          </div>
+          </div> 
 
           <div>
-            <label className="font-bold" htmlFor="sexualorientation">Sexual Orientation</label>
-            <select name="sexual" id="sexual" required>
+            <label className="font-bold" htmlFor="sexualOrientation">
+              Sexual Orientation
+            </label>
+            <select onChange={handleChange} name="sexualOrientation" id="sexualOrientation" required>
               <option value="">Select your sexual orientation</option>
-              <option value="heterosexual">Heterosexual</option>
-              <option value="homosexual">Homosexual</option>
-              <option value="bisexual">Bisexual</option>
-              <option value="other">Other</option>
+              <option value="Heterosexual">Heterosexual</option>
+              <option value="Homosexual">Homosexual</option>
+              <option value="Bisexual">Bisexual</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="incall-availability">Availability for Incall</label>
+            <label className="font-bold" htmlFor="incallAvailable">
+              Availability for Incall
+            </label>
             <div>
-                <select name="incall-availability" id="incall-availability" required>
-                    <option value="">Select your availability</option>
-                    <option value="available">Available</option>
-                    <option value="not-available">Not Available</option>
-                </select>
+              <select onChange={handleChange}
+                name="incallAvailable"
+                id="incallAvailable"
+                required
+              >
+                <option value="">Select your availability</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="outcall-availability">Availability for Outcall</label>
+            <label className="font-bold" htmlFor="outcallAvailable">
+              Availability for Outcall
+            </label>
             <div>
-                <select name="outcall-availability" id="outcall-availability" required>
-                    <option value="">Select your availability</option>
-                    <option value="available">Available</option>
-                    <option value="not-available">Not Available</option>
-                </select>
+              <select onChange={handleChange}
+                name="outcallAvailable"
+                id="outcallAvailable"
+                required
+              >
+                <option value="">Select your availability</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="language-spoken">Language Spoken</label>
+            <label className="font-bold" htmlFor="language-spoken">
+              Language Spoken
+            </label>
             <div>
-                <select name="language-spoken" id="language-spoken" required>
-                    <option value="">Select your language</option>
-                    <option value="english">English</option>
-                    <option value="spanish">Spanish</option>
-                    <option value="french">French</option>
-                </select>
+              <select onChange={handleChange} name="language-spoken" id="language-spoken" required>
+                <option value="">Select your language</option>
+                <option value="English">English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+              </select>
             </div>
           </div>
 
-          <button className="bg-customPink text-white py-2 my-2 px-4 rounded" type="submit">Submit</button>
+          <button
+            className="bg-customPink text-white py-2 my-2 px-4 rounded"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>

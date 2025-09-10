@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import services from "../../data/services.json";
 import { PlusCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../Contexts/UserContext";
 
 const Services = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [selectedServices, setSelectedServices] = useState([]);
+  const {api} = useContext(UserContext)
+
+  console.log(selectedServices)
 
   const handleToggle = (service) => {
     if (selectedServices.includes(service)) {
@@ -15,11 +19,26 @@ const Services = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    
+    if (selectedServices.length < 5) {
+      alert("Please select at least 5 services before continuing.");
+      return;
+    }
 
-    navigate("/escort-rates");
+    try {
+      const response = await api.put("escortservices", {services: selectedServices})
+      alert(response.data.message)
+      console.log(response)
+      navigate("/escort-rates");
+    } catch (err) {
+      console.log(err)
+      alert(err.response.data.message)
+    }
+    
+    // Continue with form submission
+    console.log("Selected services:", selectedServices);
   };
 
   return (
@@ -45,7 +64,7 @@ const Services = () => {
           <div className="flex items-center justify-center gap-2">
             <StarIcon className="h-4 text-yellow-400" />
             <h1 className="font-bold text-center text-xl text-purple-600">
-              Services Offered
+              Services Offered - Select at LEAST 5
             </h1>
           </div>
 
@@ -69,7 +88,8 @@ const Services = () => {
 
           <button
             onClick={handleSubmit}
-            className="mt-4 bg-customPink text-white py-2 px-4 rounded"
+            disabled = {selectedServices.length < 5}
+            className="mt-4 bg-customPink text-white py-2 px-4 rounded disabled:cursor-not-allowed disabled:bg-customPink/80"
           >
             Submit
           </button>
