@@ -45,7 +45,7 @@ const Gallery = () => {
       {/* Upload Area */}
       <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-600 rounded-2xl cursor-pointer hover:bg-purple-50 transition">
         <Upload className="w-8 h-8 text-purple-600 mb-2" />
-        <span className="text-white font-medium">
+        <span className="text-gray-500 font-medium">
           Click or drag to upload
         </span>
         <input

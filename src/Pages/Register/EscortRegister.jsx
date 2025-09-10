@@ -2,10 +2,10 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
 import cities from "../../data/cities.json";
 import React, { useContext, useState } from "react";
-import axios from "axios"
 import VerifyEmail from "./VerifyEmail";
 import {baseUrl} from "../../baseUrl"
 import { UserContext } from "../../Contexts/UserContext";
+import Loader from "../../Components/Loaders/Loader";
 
   // Calculate the latest allowed birthdate (today - 18 years)
   const today = new Date();
@@ -291,10 +291,10 @@ const EscortRegister = () => {
             </div>
             <button
             disabled = {loading}
-              className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/80"
+              className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/50 mx-auto"
               type="submit"
             >
-              {loading? "loading" : "Verify Details"}
+              {loading? <Loader /> : "Verify Details"}
               
             </button>
           </form>

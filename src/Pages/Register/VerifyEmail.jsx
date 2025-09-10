@@ -4,6 +4,7 @@ import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router";
 import { baseUrl } from "../../baseUrl";
 import { UserContext } from "../../Contexts/UserContext";
+import Loader from "../../Components/Loaders/Loader";
 
 const OtpInput = ({ length = 4, onChangeOtp }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -34,6 +35,8 @@ const OtpInput = ({ length = 4, onChangeOtp }) => {
         <input
           key={index}
           type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           maxLength={1}
           value={digit}
           onChange={(e) => handleChange(e.target.value, index)}
@@ -48,8 +51,9 @@ const OtpInput = ({ length = 4, onChangeOtp }) => {
 
 const VerifyEmail = ({ onClose, email }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState("");
-  const { api, setUser } = useContext(UserContext)
+  const { api, setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +64,7 @@ const VerifyEmail = ({ onClose, email }) => {
     }
 
     try {
+      setLoading(true);
       const response = await api.post(`${baseUrl}auth/verifyotp`, {
         email,
         otp,
@@ -70,6 +75,8 @@ const VerifyEmail = ({ onClose, email }) => {
     } catch (err) {
       console.error(err);
       alert(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,18 +93,20 @@ const VerifyEmail = ({ onClose, email }) => {
           Verify Your Email
         </h2>
         <p className="text-gray-600 text-center mb-6">
-          Please enter the 4-digit code sent to <span className="font-semibold">{email}</span>
+          Please enter the 4-digit code sent to{" "}
+          <span className="font-semibold">{email}</span>
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           {/* OTP Input */}
           <OtpInput length={4} onChangeOtp={setOtp} />
 
           <button
+            disabled={loading}
             type="submit"
-            className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-pink-700 transition"
+            className="w-full bg-customPink text-white py-2 rounded-lg hover:bg-pink-700 transition mx-auto flex justify-center items-center"
           >
-            Confirm
+            {loading ? <Loader /> : "Submit"}
           </button>
         </form>
 

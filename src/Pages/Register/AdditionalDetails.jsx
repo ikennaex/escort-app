@@ -2,9 +2,11 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
+import Loader from "../../Components/Loaders/Loader";
 
 const AdditionalDetails = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const {api} = useContext(UserContext)
   const [formData, setFormData] = useState({
     education: "",
@@ -22,7 +24,6 @@ const AdditionalDetails = () => {
     outcallAvailable: "",
   });
 
-  console.log(formData)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -34,6 +35,7 @@ const AdditionalDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       // api from usecontext
       const response = await api.put("/escortdetails", formData)
       console.log(response)
@@ -42,6 +44,8 @@ const AdditionalDetails = () => {
     } catch (err) {
       console.log(err)
       alert(err.response.data.mesaage)
+    } finally {
+      setLoading(false)
     }
 
   };
@@ -264,10 +268,11 @@ const AdditionalDetails = () => {
           </div>
 
           <button
-            className="bg-customPink text-white py-2 my-2 px-4 rounded"
+          disabled = {loading}
+            className="bg-customPink text-white py-2 my-2 px-4 rounded mx-auto disabled:bg-customPink/50"
             type="submit"
           >
-            Submit
+            {loading? <Loader /> : "Submit"}
           </button>
         </form>
       </div>

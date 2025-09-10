@@ -2,6 +2,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
+import Loader from "../../Components/Loaders/Loader";
 
 const Rates = () => {
   const navigate = useNavigate();
@@ -34,9 +35,10 @@ const Rates = () => {
       navigate("/escort-gallery");
       alert(response.data.message);
     } catch (err) {
-      setLoading(false);
       console.log(err);
       alert(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -207,10 +209,10 @@ const Rates = () => {
 
           <button
             disabled={loading}
-            className="bg-customPink text-white py-2 my-2 px-4 rounded"
+            className="bg-customPink text-white py-2 my-2 px-4 rounded mx-auto disabled:bg-customPink/50"
             type="submit"
           >
-            {loading ? "Loading..." : "Submit"}
+            {loading? <Loader /> : "Submit"}
           </button>
         </form>
       </div>

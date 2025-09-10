@@ -3,9 +3,11 @@ import services from "../../data/services.json";
 import { PlusCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
+import Loader from "../../Components/Loaders/Loader";
 
 const Services = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] =  useState(false)
   const [selectedServices, setSelectedServices] = useState([]);
   const {api} = useContext(UserContext)
 
@@ -28,6 +30,7 @@ const Services = () => {
     }
 
     try {
+      setLoading(true)
       const response = await api.put("escortservices", {services: selectedServices})
       alert(response.data.message)
       console.log(response)
@@ -35,6 +38,8 @@ const Services = () => {
     } catch (err) {
       console.log(err)
       alert(err.response.data.message)
+    } finally {
+      setLoading(false)
     }
     
     // Continue with form submission
@@ -89,9 +94,9 @@ const Services = () => {
           <button
             onClick={handleSubmit}
             disabled = {selectedServices.length < 5}
-            className="mt-4 bg-customPink text-white py-2 px-4 rounded disabled:cursor-not-allowed disabled:bg-customPink/80"
+            className="mt-4 bg-customPink text-white py-2 px-4 rounded disabled:cursor-not-allowed disabled:bg-customPink/50 mx-auto"
           >
-            Submit
+            {loading? <Loader /> : "Submit"}
           </button>
         </form>
       </div>
