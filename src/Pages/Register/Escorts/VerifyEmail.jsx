@@ -2,9 +2,9 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router";
-import { baseUrl } from "../../baseUrl";
-import { UserContext } from "../../Contexts/UserContext";
-import Loader from "../../Components/Loaders/Loader";
+import { baseUrl } from "../../../baseUrl";
+import { UserContext } from "../../../Contexts/UserContext";
+import Loader from "../../../Components/Loaders/Loader";
 
 const OtpInput = ({ length = 4, onChangeOtp }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));

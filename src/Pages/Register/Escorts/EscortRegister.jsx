@@ -1,11 +1,11 @@
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Country, State, City } from "country-state-city";
-import cities from "../../data/cities.json";
+import cities from "../../../data/cities.json";
 import React, { useContext, useState } from "react";
 import VerifyEmail from "./VerifyEmail";
-import {baseUrl} from "../../baseUrl"
-import { UserContext } from "../../Contexts/UserContext";
-import Loader from "../../Components/Loaders/Loader";
+import {baseUrl} from "../../../baseUrl"
+import { UserContext } from "../../../Contexts/UserContext";
+import Loader from "../../../Components/Loaders/Loader";
 
   // Calculate the latest allowed birthdate (today - 18 years)
   const today = new Date();

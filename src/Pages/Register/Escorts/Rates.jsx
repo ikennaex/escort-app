@@ -1,8 +1,8 @@
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { UserContext } from "../../Contexts/UserContext";
-import Loader from "../../Components/Loaders/Loader";
+import { UserContext } from "../../../Contexts/UserContext";
+import Loader from "../../../Components/Loaders/Loader";
 
 const Rates = () => {
   const navigate = useNavigate();

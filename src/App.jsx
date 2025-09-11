@@ -12,18 +12,19 @@ import SideNavbar from "./Components/SideNavbar/SideNavbar";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import AdminPending from "./Admin/Pages/AdminPending";
 import AdminSettings from "./Admin/Pages/AdminSettings";
-import EscortRegister from "./Pages/Register/EscortRegister";
-import AdditionalDetails from "./Pages/Register/AdditionalDetails";
+import EscortRegister from "./Pages/Register/Escorts/EscortRegister";
+import AdditionalDetails from "./Pages/Register/Escorts/AdditionalDetails";
 import AdminUsers from "./Admin/Pages/AdminUsers";
 import AdminPayments from "./Admin/Pages/AdminPayments";
 import AdminPremiumUsers from "./Admin/Pages/AdminPremiumUsers";
-import Services from "./Pages/Register/Services";
-import Rates from "./Pages/Register/Rates";
-import Gallery from "./Pages/Register/Gallery";
+import Services from "./Pages/Register/Escorts/Services";
+import Rates from "./Pages/Register/Escorts/Rates";
+import Gallery from "./Pages/Register/Escorts/Gallery";
 import AdminPendingApprovalDetails from "./Admin/Pages/AdminPendingApprovalDetails";
 import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
 import { UserContextProvider } from "./Contexts/UserContext";
 import ProtectedRoutes from "./Contexts/ProtectedRoutes";
+import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
 
 const App = () => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="/escort-services" element = {<Services />} />
           <Route path="/escort-rates" element = {<Rates />} />
           <Route path="/escort-gallery" element = {<Gallery />} />
+          <Route path="/escort-verification" element = {<VerificationImage />} />
           </Route>
 
 

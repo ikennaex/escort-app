@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import services from "../../data/services.json";
+import services from "../../../data/services.json";
 import { PlusCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
-import { UserContext } from "../../Contexts/UserContext";
-import Loader from "../../Components/Loaders/Loader";
+import { UserContext } from "../../../Contexts/UserContext";
+import Loader from "../../../Components/Loaders/Loader";
 
 const Services = () => {
   const navigate = useNavigate();
