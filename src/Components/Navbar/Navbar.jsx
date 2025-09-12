@@ -47,7 +47,7 @@ const Navbar = () => {
         {user ? (
           <p className="flex items-center gap-2 text-md font-semibold text-white">
             <UserCircleIcon className="w-6 h-6 text-customPink" />
-            {"Hi " + user.username}
+            {"Hi " + user?.username}
           </p>
         ) : (
           <div className="flex gap-3">
