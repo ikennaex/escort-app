@@ -1,11 +1,17 @@
-import React from "react";
-import { Home, User, Image, Settings, LogOut } from "lucide-react";
+import React, { useState } from "react";
+import { Home, User, Image, Settings, LogOut, Menu, X } from "lucide-react";
 
 const EscortDashboard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex h-screen bg-gray-900 text-white">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-950 flex flex-col">
+      {/* Sidebar (Desktop + Tablet) */}
+      <aside
+        className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-gray-950 flex flex-col transform transition-transform duration-300 ${
+          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
         <div className="p-6 text-center border-b border-gray-800">
           <h1 className="text-2xl font-bold text-customPink">OscroVilla</h1>
           <p className="text-gray-400 text-sm">Escort Dashboard</p>
@@ -48,11 +54,28 @@ const EscortDashboard = () => {
         </div>
       </aside>
 
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col w-full">
         {/* Header */}
         <header className="h-16 flex items-center justify-between px-6 bg-gray-950 border-b border-gray-800">
-          <h2 className="text-lg font-semibold">Welcome Back</h2>
+          <div className="flex items-center gap-4">
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden p-2 rounded-lg bg-gray-800"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+
+          </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-customPink flex items-center justify-center font-bold">
               E
@@ -61,7 +84,7 @@ const EscortDashboard = () => {
         </header>
 
         {/* Dashboard Widgets */}
-        <section className="flex-1 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="flex-1 p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-gray-800 p-6 rounded-2xl shadow hover:shadow-xl transition">
             <h3 className="text-yellow-400 font-semibold">Profile Status</h3>
             <p className="text-gray-300 mt-2">

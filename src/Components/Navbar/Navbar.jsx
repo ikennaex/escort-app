@@ -47,10 +47,12 @@ const Navbar = () => {
 
         {/* Buttons */}
         {user ? (
+          <Link to={`/escortdashboard/${user.id}`} >
           <p className="flex items-center gap-2 text-md font-semibold text-white">
             <UserCircleIcon className="w-6 h-6 text-customPink" />
-            {"Hi " + user?.username}
+            {"Hi " + user?.username || "there"}
           </p>
+          </Link>
         ) : (
           <div className="flex gap-3">
             <Link to={"/register-card"}>
