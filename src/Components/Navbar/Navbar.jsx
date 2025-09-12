@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Bars3Icon,
   BellIcon,
@@ -7,9 +7,12 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router";
 import MobileNav from "../MobileNav/MobileNav";
+import { UserContext } from "../../Contexts/UserContext";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -41,18 +44,25 @@ const Navbar = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-3">
-          <Link to={"/register-card"}>
-            <button className="border border-customPink text-sm text-white px-3 py-1 rounded-xl">
-              Sign Up
-            </button>
-          </Link>
-          <Link to={"/login"}>
-            <button className="bg-customPink text-sm text-white px-3 py-1 rounded-xl">
-              Login
-            </button>
-          </Link>
-        </div>
+        {user ? (
+          <p className="flex items-center gap-2 text-md font-semibold text-white">
+            <UserCircleIcon className="w-6 h-6 text-customPink" />
+            {"Hi " + user.username}
+          </p>
+        ) : (
+          <div className="flex gap-3">
+            <Link to={"/register-card"}>
+              <button className="border border-customPink text-sm text-white px-3 py-1 rounded-xl">
+                Sign Up
+              </button>
+            </Link>
+            <Link to={"/login"}>
+              <button className="bg-customPink text-sm text-white px-3 py-1 rounded-xl">
+                Login
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

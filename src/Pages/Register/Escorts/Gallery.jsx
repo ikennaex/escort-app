@@ -10,8 +10,6 @@ const Gallery = () => {
   const [loading, setLoading] = useState(false);
   const { api } = useContext(UserContext);
 
-  console.log(gallery)
-
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     const previews = files.map((file) => ({

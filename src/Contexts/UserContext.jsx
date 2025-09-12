@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
+import { useNavigate } from "react-router";
 
 export const UserContext = createContext();
 
@@ -55,11 +56,13 @@ api.interceptors.response.use(
 
   // login
   const login = async (identifier, password) => {
+      const navigate = useNavigate()
     try {
       const res = await api.post("auth/signin", { identifier, password });
       setAccessToken(res.data.accessToken);
       setUser(res.data.user);
       setLoading(false)
+      navigate("/")
       return { success: true };
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);

@@ -25,6 +25,7 @@ import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
 import { UserContextProvider } from "./Contexts/UserContext";
 import ProtectedRoutes from "./Contexts/ProtectedRoutes";
 import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
+import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
 
 const App = () => {
   const location = useLocation();
@@ -69,6 +70,8 @@ const App = () => {
           <Route path="/escort-verification" element = {<VerificationImage />} />
           </Route>
 
+          {/* escort dashboard  */}
+          <Route path="/escortdashboard/:id" element = {<EscortDashboard />} />
 
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/premium" element={<AdminPremiumUsers />} />

@@ -1,18 +1,56 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { verificationimg } from "../../../../imports";
+import { baseUrl } from "../../../baseUrl";
+import { UserContext } from "../../../Contexts/UserContext";
+import Loader from "../../../Components/Loaders/Loader";
+import { useNavigate } from "react-router";
 
 const VerificationImage = () => {
   const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+  const { api } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile); // save the actual file for upload
+      setPreview(URL.createObjectURL(selectedFile)); // show preview
     }
   };
 
   const handleDelete = () => {
     setPreview(null);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!file) {
+      alert("Please select an image first");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("verificationImg", file);
+
+    try {
+      setLoading(true);
+      const response = await api.put(`${baseUrl}escortverification`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+      alert(response.data.message);
+      navigate("/escort/dashboard")
+    } catch (err) {
+      console.log(err);
+      alert(err.response.data.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -77,6 +115,7 @@ const VerificationImage = () => {
             Choose File
           </label>
           <input
+            name="verificationImg"
             id="fileInput"
             type="file"
             accept="image/*,video/*"
@@ -84,6 +123,14 @@ const VerificationImage = () => {
             onChange={handleFileChange}
           />
         </div>
+
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="mt-6 cursor-pointer bg-customPink text-white px-6 py-2 rounded-xl font-semibold hover:bg-pink-500 transition"
+        >
+          {loading ? <Loader /> : "Submit"}
+        </button>
       </div>
     </div>
   );
