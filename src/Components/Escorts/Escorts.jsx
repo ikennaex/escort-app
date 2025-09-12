@@ -92,7 +92,7 @@ const Escorts = () => {
             >
               {/* Background Image */}
               <img
-                src={item.image}
+                src={item.gallery[0]}
                 alt={item.name}
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />

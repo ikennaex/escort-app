@@ -9,6 +9,7 @@ import { Link } from "react-router";
 import MobileNav from "../MobileNav/MobileNav";
 import { UserContext } from "../../Contexts/UserContext";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { logo } from "../../../imports";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,8 @@ const Navbar = () => {
           onClick={handleToggle}
         />
         <Link to={"/"}>
-          <h1 className="text-xl text-white font-bold">OS Villa</h1>
+        <img className="h-12" src= {logo} alt="oscrovilla logo" />
+          {/* <h1 className="text-xl text-white font-bold">OS Villa</h1> */}
         </Link>
       </div>
 

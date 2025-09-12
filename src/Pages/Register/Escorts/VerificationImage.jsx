@@ -4,11 +4,12 @@ import { baseUrl } from "../../../baseUrl";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 import { useNavigate } from "react-router";
+import { User } from "lucide-react";
 
 const VerificationImage = () => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
-  const { api } = useContext(UserContext);
+  const { api, user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
@@ -44,7 +45,7 @@ const VerificationImage = () => {
       });
       console.log(response);
       alert(response.data.message);
-      navigate("/escort/dashboard")
+      navigate(`/escortdashboard/${user.id}`)
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
