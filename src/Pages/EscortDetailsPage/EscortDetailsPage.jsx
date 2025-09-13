@@ -8,34 +8,62 @@ import {
   PhotoIcon,
   ShareIcon,
 } from "@heroicons/react/24/solid";
+import { differenceInYears } from "date-fns";
 import { FaWhatsapp } from "react-icons/fa";
 import { BsCake, BsGenderAmbiguous, BsRulers } from "react-icons/bs";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router";
 import ProfileTabs from "./ProfileTabs";
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
+import { useParams } from "react-router";
+
+const calculateAge = (dob) => {
+  if (!dob) return null;
+  return differenceInYears(new Date(), new Date(dob));
+};
 
 const EscortDetailsPage = () => {
+  const { id } = useParams();
+  const [escort, setEscort] = useState({});
+  const [error, setError] = useState("");
+
+  const fetchEscort = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}escorts/${id}`);
+      setEscort(response.data);
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchEscort();
+  }, []);
+
+  console.log(escort);
+
   return (
     <div className="bg-pink-100">
       <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
         <img
           className="lg:h-full lg:w-40 w-full h-96 object-cover object-top"
-          src="https://img.freepik.com/premium-photo/studio-photoshoot-modeling_1048944-3927801.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80"
+          src= {escort.gallery[0]}
           alt=""
         />
 
         <div className="px-3 py-3">
           <div>
             <div className="flex gap-2 items-center">
-              <p className="font-bold text-2xl">Sandra</p>
-              <p className="font-bold text-2xl">· 23</p>
+              <p className="font-bold text-2xl">{escort.displayName}</p>
+              <p className="font-bold text-2xl">· {calculateAge(escort.dob)}</p>
               <CheckBadgeIcon className="text-green-500 h-5" />
             </div>
 
             <div className="flex items-center gap-3">
               <FaWhatsapp className="text-green-500 " />
-              <p>+234 806 445 1234</p>
+              <p>{escort.phoneNumber}</p>
             </div>
           </div>
 
@@ -81,9 +109,7 @@ const EscortDetailsPage = () => {
 
           <div className="text-center">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              unde consequatur perspiciatis corrupti at incidunt quod architecto
-              pariatur illo aliquid.
+              {escort.heading}
             </p>
           </div>
 
@@ -105,21 +131,20 @@ const EscortDetailsPage = () => {
           <div className="flex mx-auto justify-between w-3/4 items-center">
             <div className="text-center">
               <BsGenderAmbiguous className="text-3xl text-pink-500" />
-              <p className="font-semibold">Female</p>
+              <p className="font-semibold">{escort?.gender}</p>
             </div>
             <div className="text-center">
               <BsCake className="text-pink-500 text-3xl" />
-              <p className="font-semibold">34</p>
+              <p className="font-semibold">{calculateAge(escort?.dob)}</p>
             </div>
             <div className="text-center">
               <BsRulers className="text-2xl text-pink-500" />
-              <p className="font-semibold">5"5</p>
+              <p className="font-semibold">{escort?.height}</p>
             </div>
           </div>
         </div>
       </div>
-
-      <ProfileTabs />a
+      <ProfileTabs escort = {escort} />
     </div>
   );
 };

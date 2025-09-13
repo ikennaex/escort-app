@@ -85,9 +85,9 @@ const Escorts = () => {
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
         {error && <div className="text-red-700">{error}</div>}
         {escorts.map((item) => (
-          <Link to="/escorts/:id">
+          <Link to={`/escorts/${item._id}`}>
             <div
-              key={item.id}
+              key={item._id}
               className="relative overflow-hidden h-[300px] border-2 border-white"
             >
               {/* Background Image */}

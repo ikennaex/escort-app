@@ -6,9 +6,9 @@ import {
   StarIcon,
 } from "@heroicons/react/24/outline";
 
-const ProfileTabs = () => {
+const ProfileTabs = ({escort}) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
-
+  console.log(escort)
   return (
     <div className="pb-5 rounded-lg">
       {/* NAV */}
@@ -96,9 +96,7 @@ const ProfileTabs = () => {
           <>
             <p className="font-semibold">About</p>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              unde consequatur perspiciatis corrupti at incidunt quod architecto
-              pariatur illo aliquid.
+              {escort.about}
             </p>
           </>
         )}
@@ -107,31 +105,13 @@ const ProfileTabs = () => {
           <>
             <p className="font-semibold">Gallery</p>
             <div className="grid grid-cols-3 gap-2 mt-2">
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Gallery 1"
-                className="rounded-lg"
-              />
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Gallery 2"
-                className="rounded-lg"
-              />
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Gallery 3"
-                className="rounded-lg"
-              />
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Gallery 4"
-                className="rounded-lg"
-              />
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Gallery 5"
-                className="rounded-lg"
-              />
+              {escort.gallery.map((img) => (
+                <img
+                  src= {img}
+                  alt="Gallery"
+                  className="rounded-lg"
+                />
+              ))}
             </div>
           </>
         )}
