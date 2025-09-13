@@ -49,7 +49,7 @@ const EscortDetailsPage = () => {
       <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
         <img
           className="lg:h-full lg:w-40 w-full h-96 object-cover object-top"
-          src= {escort.gallery[0]}
+          src= {escort.gallery?.[0]}
           alt=""
         />
 
