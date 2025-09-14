@@ -111,7 +111,7 @@ api.interceptors.response.use(
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, api, loading, setUser, login, logout, fetchProfile }}>
+    <UserContext.Provider value={{ user, api, loading, setUser, login, logout, fetchProfile, setAccessToken }}>
       {children}
     </UserContext.Provider>
   );

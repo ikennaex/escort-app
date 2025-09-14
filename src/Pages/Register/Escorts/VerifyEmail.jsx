@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { baseUrl } from "../../../baseUrl";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const OtpInput = ({ length = 4, onChangeOtp }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -54,6 +55,7 @@ const VerifyEmail = ({ onClose, email }) => {
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const { api, setUser } = useContext(UserContext);
+  const { markStepCompleted } = useContext(FormContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +73,7 @@ const VerifyEmail = ({ onClose, email }) => {
       });
       console.log(response.data);
       setUser(response.data.user);
+      markStepCompleted(1);
       navigate("/escort-details");
     } catch (err) {
       console.error(err);
@@ -97,7 +100,7 @@ const VerifyEmail = ({ onClose, email }) => {
           <span className="font-semibold">{email}</span>
         </p>
 
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           {/* OTP Input */}
           <OtpInput length={4} onChangeOtp={setOtp} />
 

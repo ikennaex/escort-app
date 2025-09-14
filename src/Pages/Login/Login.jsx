@@ -4,8 +4,8 @@ import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const { api, user, setUser, setAccessToken } = useContext(UserContext);
   const [formData, setFormData] = useState({
     identifier: "",
@@ -20,24 +20,22 @@ const Login = () => {
     }));
   };
 
-  console.log(formData);
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await api.post("auth/signin", formData);
-      console.log(response);
       setUser(response.data.user)
-      setAccessToken(response.data.accessToken)
+      setAccessToken(response.data.accessToken);
       alert(response.data.message);
       setFormData({ identifier: "", password: "" });
-      navigate("/")
+      navigate("/");
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -95,12 +93,12 @@ const Login = () => {
               </div>
 
               <button
-              disabled = {loading}
+                disabled={loading}
                 type="submit"
                 className="w-full py-2 bg-customPink text-white font-semibold rounded-lg hover:border-customPink transition-colors disabled:bg-customPink/20 mx-auto flex items-center justify-center"
                 htmlFor="password"
               >
-                {loading? <Loader /> : "Login"}
+                {loading ? <Loader /> : "Login"}
               </button>
 
               <p>

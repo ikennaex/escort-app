@@ -21,7 +21,6 @@ const Escorts = () => {
   const loadEscorts = async () => {
     try {
       const response = await fetchEscorts(page, 10);
-      console.log(response);
       setEscorts(response.escortDoc);
       setTotalPages(response.totalPages);
       setLoading(false)
@@ -31,8 +30,6 @@ const Escorts = () => {
       console.log(err);
     }
   };
-
-  console.log(error);
 
   useEffect(() => {
     loadEscorts();

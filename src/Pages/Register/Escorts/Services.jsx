@@ -1,17 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import services from "../../../data/services.json";
 import { PlusCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const Services = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] =  useState(false)
+  const [loading, setLoading] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
-  const {api} = useContext(UserContext)
+  const { api } = useContext(UserContext);
+  const { markStepCompleted, completedSteps } = useContext(FormContext);
 
-  console.log(selectedServices)
+  useEffect(() => {
+    if (!completedSteps.includes(2)) {
+      navigate("/escort-details");
+    }
+  }, [completedSteps, navigate]);
 
   const handleToggle = (service) => {
     if (selectedServices.includes(service)) {
@@ -23,25 +29,27 @@ const Services = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (selectedServices.length < 5) {
       alert("Please select at least 5 services before continuing.");
       return;
     }
 
     try {
-      setLoading(true)
-      const response = await api.put("escortservices", {services: selectedServices})
-      alert(response.data.message)
-      console.log(response)
+      setLoading(true);
+      const response = await api.put("escortservices", {
+        services: selectedServices,
+      });
+      alert(response.data.message);
+      markStepCompleted(2);
       navigate("/escort-rates");
     } catch (err) {
-      console.log(err)
-      alert(err.response.data.message)
+      console.log(err);
+      alert(err.response.data.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-    
+
     // Continue with form submission
     console.log("Selected services:", selectedServices);
   };
@@ -74,9 +82,9 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            {services.map((service) => (
+            {services.map((service, index) => (
               <label
-                key={service.id}
+                key={index}
                 className="flex items-center gap-4 bg-gray-100 p-2 rounded cursor-pointer"
               >
                 <input
@@ -93,10 +101,10 @@ const Services = () => {
 
           <button
             onClick={handleSubmit}
-            disabled = {selectedServices.length < 5}
+            disabled={selectedServices.length < 5}
             className="mt-4 bg-customPink text-white py-2 px-4 rounded disabled:cursor-not-allowed disabled:bg-customPink/50 mx-auto"
           >
-            {loading? <Loader /> : "Submit"}
+            {loading ? <Loader /> : "Submit"}
           </button>
         </form>
       </div>

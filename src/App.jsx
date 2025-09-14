@@ -22,10 +22,10 @@ import Rates from "./Pages/Register/Escorts/Rates";
 import Gallery from "./Pages/Register/Escorts/Gallery";
 import AdminPendingApprovalDetails from "./Admin/Pages/AdminPendingApprovalDetails";
 import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
-import { UserContextProvider } from "./Contexts/UserContext";
 import ProtectedRoutes from "./Contexts/ProtectedRoutes";
 import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
 import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
+import { FormProvider } from "./Contexts/FormContext";
 
 const App = () => {
   const location = useLocation();
@@ -34,57 +34,68 @@ const App = () => {
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
-    <UserContextProvider>
-    <div className="flex">
-      {/* Side Navbar (only show if NOT admin) */}
-      {!isAdminRoute && (
-        <div className="hidden lg:block lg:w-32 w-14 h-screen fixed top-0 left-0">
-          <SideNavbar />
+      <FormProvider>
+        {" "}
+        {/* provides form state  */}
+        <div className="flex">
+          {/* Side Navbar (only show if NOT admin) */}
+          {!isAdminRoute && (
+            <div className="hidden lg:block lg:w-32 w-14 h-screen fixed top-0 left-0">
+              <SideNavbar />
+            </div>
+          )}
+
+          {/* Main Content */}
+          <div
+            className={`flex-1 ${
+              !isAdminRoute ? "lg:ml-32" : ""
+            } overflow-x-hidden`}
+          >
+            {/* Only show Navbar if not admin */}
+            {!isAdminRoute && <Navbar />}
+
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/register-client" element={<ClientRegister />} />
+              <Route path="/register-escort" element={<EscortRegister />} />
+              <Route path="/register-card" element={<RegisterCard />} />
+              <Route path="/escorts/:id" element={<EscortDetailsPage />} />
+
+              <Route element={<ProtectedRoutes />}>
+                {/* escort dashboard  */}
+                <Route
+                  path="/escortdashboard/:id"
+                  element={<EscortDashboard />}
+                />
+              </Route>
+
+              {/* Onboarding Routes */}a
+              <Route path="/escort-details" element={<AdditionalDetails />} />
+              <Route path="/escort-services" element={<Services />} />
+              <Route path="/escort-rates" element={<Rates />} />
+              <Route path="/escort-gallery" element={<Gallery />} />
+              <Route
+                path="/escort-verification"
+                element={<VerificationImage />}
+              />
+
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/premium" element={<AdminPremiumUsers />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/payments" element={<AdminPayments />} />
+              <Route path="/admin/pending" element={<AdminPending />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              <Route
+                path="/admin/pending/:id"
+                element={<AdminPendingApprovalDetails />}
+              />
+              <Route path="/admin/user/:id" element={<AdminUserDetails />} />
+            </Routes>
+          </div>
         </div>
-      )}
-
-      {/* Main Content */}
-      <div
-        className={`flex-1 ${
-          !isAdminRoute ? "lg:ml-32" : ""
-        } overflow-x-hidden`}
-      >
-        {/* Only show Navbar if not admin */}
-        {!isAdminRoute && <Navbar />}
-
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register-client" element={<ClientRegister />} />
-          <Route path="/register-escort" element={<EscortRegister />} />
-          <Route path="/register-card" element={<RegisterCard />} />
-          <Route path="/escorts/:id" element={<EscortDetailsPage />} />
-
-          {/* Onboarding Routes */}
-          <Route element = {<ProtectedRoutes />}>
-          <Route path="/escort-details" element = {<AdditionalDetails />} />
-          <Route path="/escort-services" element = {<Services />} />
-          <Route path="/escort-rates" element = {<Rates />} />
-          <Route path="/escort-gallery" element = {<Gallery />} />
-          <Route path="/escort-verification" element = {<VerificationImage />} />
-          </Route>
-
-          {/* escort dashboard  */}
-          <Route path="/escortdashboard/:id" element = {<EscortDashboard />} />
-
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/premium" element={<AdminPremiumUsers />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/payments" element={<AdminPayments />} />
-          <Route path="/admin/pending" element={<AdminPending />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/pending/:id" element={<AdminPendingApprovalDetails />} />
-          <Route path="/admin/user/:id" element={<AdminUserDetails />} />
-        </Routes>
-      </div>
-    </div>
-    </UserContextProvider>
+      </FormProvider>
   );
 };
 

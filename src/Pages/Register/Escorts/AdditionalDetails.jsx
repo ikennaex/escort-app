@@ -1,13 +1,14 @@
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const AdditionalDetails = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false)
-  const {api} = useContext(UserContext)
+  const [loading, setLoading] = useState(false);
+  const { api } = useContext(UserContext);
   const [formData, setFormData] = useState({
     education: "",
     about: "",
@@ -23,6 +24,14 @@ const AdditionalDetails = () => {
     incallAvailable: "",
     outcallAvailable: "",
   });
+  const { completedSteps, markStepCompleted } = useContext(FormContext);
+
+  // this returns users to step one if not completed
+  useEffect(() => {
+    if (!completedSteps.includes(1)) {
+      navigate("/register-escort");
+    }
+  }, [completedSteps, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,19 +44,19 @@ const AdditionalDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
+      setLoading(true);
       // api from usecontext
-      const response = await api.put("/escortdetails", formData)
-      console.log(response)
-      alert(response.data.message)
+      const response = await api.put("/escortdetails", formData);
+      console.log(response);
+      alert(response.data.message);
+      markStepCompleted(2);
       navigate("/escort-services");
     } catch (err) {
-      console.log(err)
-      alert(err.response.data.mesaage)
+      console.log(err);
+      alert(err.response.data.mesaage);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-
   };
 
   return (
@@ -81,7 +90,12 @@ const AdditionalDetails = () => {
             <label className="font-bold" htmlFor="education">
               Education
             </label>
-            <select onChange={handleChange} name="education" id="education" required>
+            <select
+              onChange={handleChange}
+              name="education"
+              id="education"
+              required
+            >
               <option value="">Select your education level</option>
               <option value="Primary School">Primary School</option>
               <option value="High School">High School</option>
@@ -96,7 +110,7 @@ const AdditionalDetails = () => {
               About
             </label>
             <textarea
-            onChange={handleChange}
+              onChange={handleChange}
               name="about"
               id="about"
               rows="4"
@@ -110,7 +124,7 @@ const AdditionalDetails = () => {
               Occupation
             </label>
             <input
-            onChange={handleChange}
+              onChange={handleChange}
               type="text"
               name="occupation"
               id="occupation"
@@ -123,7 +137,12 @@ const AdditionalDetails = () => {
             <label className="font-bold" htmlFor="ethnicity">
               Ethnicity
             </label>
-            <select onChange={handleChange} name="ethnicity" id="ethnicity" required>
+            <select
+              onChange={handleChange}
+              name="ethnicity"
+              id="ethnicity"
+              required
+            >
               <option value="">Select your ethnicity</option>
               <option value="Asian">Asian</option>
               <option value="Black">Black</option>
@@ -137,7 +156,12 @@ const AdditionalDetails = () => {
             <label className="font-bold" htmlFor="bustSize">
               Bust Size
             </label>
-            <select onChange={handleChange} name="bustSize" id="bustSize" required>
+            <select
+              onChange={handleChange}
+              name="bustSize"
+              id="bustSize"
+              required
+            >
               <option value="">Select your bust size</option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
@@ -174,7 +198,12 @@ const AdditionalDetails = () => {
             <label className="font-bold" htmlFor="bodyBuild">
               Body Build
             </label>
-            <select onChange={handleChange} name="bodyBuild" id="bodyBuild" required>
+            <select
+              onChange={handleChange}
+              name="bodyBuild"
+              id="bodyBuild"
+              required
+            >
               <option value="">Select your body build</option>
               <option value="Slim">Slim</option>
               <option value="Average">Average</option>
@@ -204,13 +233,18 @@ const AdditionalDetails = () => {
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
-          </div> 
+          </div>
 
           <div>
             <label className="font-bold" htmlFor="sexualOrientation">
               Sexual Orientation
             </label>
-            <select onChange={handleChange} name="sexualOrientation" id="sexualOrientation" required>
+            <select
+              onChange={handleChange}
+              name="sexualOrientation"
+              id="sexualOrientation"
+              required
+            >
               <option value="">Select your sexual orientation</option>
               <option value="Heterosexual">Heterosexual</option>
               <option value="Homosexual">Homosexual</option>
@@ -224,7 +258,8 @@ const AdditionalDetails = () => {
               Availability for Incall
             </label>
             <div>
-              <select onChange={handleChange}
+              <select
+                onChange={handleChange}
                 name="incallAvailable"
                 id="incallAvailable"
                 required
@@ -241,7 +276,8 @@ const AdditionalDetails = () => {
               Availability for Outcall
             </label>
             <div>
-              <select onChange={handleChange}
+              <select
+                onChange={handleChange}
                 name="outcallAvailable"
                 id="outcallAvailable"
                 required
@@ -258,7 +294,12 @@ const AdditionalDetails = () => {
               Language Spoken
             </label>
             <div>
-              <select onChange={handleChange} name="language-spoken" id="language-spoken" required>
+              <select
+                onChange={handleChange}
+                name="language-spoken"
+                id="language-spoken"
+                required
+              >
                 <option value="">Select your language</option>
                 <option value="English">English</option>
                 <option value="Spanish">Spanish</option>
@@ -268,11 +309,11 @@ const AdditionalDetails = () => {
           </div>
 
           <button
-          disabled = {loading}
+            disabled={loading}
             className="bg-customPink text-white py-2 my-2 px-4 rounded mx-auto disabled:bg-customPink/50"
             type="submit"
           >
-            {loading? <Loader /> : "Submit"}
+            {loading ? <Loader /> : "Submit"}
           </button>
         </form>
       </div>

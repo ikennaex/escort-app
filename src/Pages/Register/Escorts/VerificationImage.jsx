@@ -1,17 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { verificationimg } from "../../../../imports";
 import { baseUrl } from "../../../baseUrl";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 import { useNavigate } from "react-router";
 import { User } from "lucide-react";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const VerificationImage = () => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const { api, user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { markStepCompleted, completedSteps } = useContext(FormContext);
+
+  useEffect(() => {
+    if (!completedSteps.includes(4)) {
+      navigate("/escort-gallery");
+    }
+  }, [completedSteps, navigate]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -45,7 +53,8 @@ const VerificationImage = () => {
       });
       console.log(response);
       alert(response.data.message);
-      navigate(`/escortdashboard/${user.id}`)
+      markStepCompleted(5);
+      navigate(`/escortdashboard/${user.id}`);
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);

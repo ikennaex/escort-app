@@ -1,14 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Upload, ImagePlus, Trash2 } from "lucide-react";
 import Loader from "../../../Components/Loaders/Loader";
 import { UserContext } from "../../../Contexts/UserContext";
 import { useNavigate } from "react-router";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const Gallery = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(false);
   const { api } = useContext(UserContext);
+  const { markStepCompleted, completedSteps } = useContext(FormContext);
+
+  useEffect(() => {
+    if (!completedSteps.includes(3)) {
+      navigate("/escort-rates");
+    }
+  }, [completedSteps, navigate]);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -30,9 +38,9 @@ const Gallery = () => {
       setLoading(true);
 
       const formData = new FormData();
-      // send gallery as an array 
+      // send gallery as an array
       gallery.forEach((item) => {
-        formData.append("gallery", item.file); 
+        formData.append("gallery", item.file);
       });
 
       const response = await api.put("escortgallery", formData, {
@@ -42,7 +50,8 @@ const Gallery = () => {
       });
       console.log(response.data.message);
       alert(response.data.message);
-      navigate("/escort-verification")
+      markStepCompleted(4);
+      navigate("/escort-verification");
     } catch (err) {
       console.log(err);
       alert(err.response.data.message);

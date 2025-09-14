@@ -3,21 +3,21 @@ import { Country, State, City } from "country-state-city";
 import cities from "../../../data/cities.json";
 import React, { useContext, useState } from "react";
 import VerifyEmail from "./VerifyEmail";
-import {baseUrl} from "../../../baseUrl"
+import { baseUrl } from "../../../baseUrl";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 
-  // Calculate the latest allowed birthdate (today - 18 years)
-  const today = new Date();
-  const year = today.getFullYear() - 18;
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  const maxDate = `${year}-${month}-${day}`;
+// Calculate the latest allowed birthdate (today - 18 years)
+const today = new Date();
+const year = today.getFullYear() - 18;
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+const maxDate = `${year}-${month}-${day}`;
 
 const EscortRegister = () => {
-  const {api} = useContext(UserContext)
+  const { api } = useContext(UserContext);
   const [showVerify, setShowVerify] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -28,16 +28,24 @@ const EscortRegister = () => {
     city: "",
     dob: "",
     gender: "",
+    countryCode: "",
     phoneNumber: "",
     heading: "",
   });
 
   const countries = Country.getAllCountries();
-  const states = formData.country ? State.getStatesOfCountry(formData.country) : [];
-  const countryCode = formData.country ? countries.find((c) => c.isoCode === formData.country)?.phonecode : "";
+  const states = formData.country
+    ? State.getStatesOfCountry(formData.country)
+    : [];
+  const countryCode = formData.country
+    ? countries.find((c) => c.isoCode === formData.country)?.phonecode
+    : "";
 
   const lgas =
-    formData.country && formData.state && cities[formData.country] && cities[formData.country][formData.state]
+    formData.country &&
+    formData.state &&
+    cities[formData.country] &&
+    cities[formData.country][formData.state]
       ? cities[formData.country][formData.state]
       : [];
 
@@ -49,26 +57,39 @@ const EscortRegister = () => {
     }));
   };
 
+  const finalData = {
+    ...formData,
+    countryCode:
+      countries.find((c) => c.isoCode === formData.country)?.phonecode || "",
+  };
+
+  console.log(finalData)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true)
-      const response = await api.post(`${baseUrl}auth/escortsignup`, formData)
+      setLoading(true);
+      const response = await api.post(`${baseUrl}auth/escortsignup`, formData);
       setShowVerify(true);
-      console.log(response)
-      alert(response.data.message)
+      console.log(response);
+      alert(response.data.message);
     } catch (err) {
-      console.log(err)
-      alert(err.response.data.message)
+      console.log(err);
+      alert(err.response.data.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="p-2">
-      {showVerify && <VerifyEmail email = {formData.email} onClose={() => setShowVerify(!showVerify)} />}
+      {showVerify && (
+        <VerifyEmail
+          email={formData.email}
+          onClose={() => setShowVerify(!showVerify)}
+        />
+      )}
       <div className="flex flex-col">
         <div className="flex gap-2">
           <div className="h-1 w-full rounded-full bg-yellow-400"></div>
@@ -193,12 +214,7 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="description">
                 State
               </label>
-              <select
-                onChange={handleChange}
-                id="state"
-                name="state"
-                required
-              >
+              <select onChange={handleChange} id="state" name="state" required>
                 <option value="">Select your state</option>
                 {states.map((state) => (
                   <option key={state.isoCode} value={state.name}>
@@ -211,12 +227,7 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="description">
                 City
               </label>
-              <select
-                onChange={handleChange}
-                id="city"
-                name="city"
-                required
-              >
+              <select onChange={handleChange} id="city" name="city" required>
                 <option value="">Select your city</option>
                 {lgas.map((lga, index) => (
                   <option key={index} value={lga}>
@@ -230,7 +241,14 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="dob">
                 Date of Birth
               </label>
-              <input onChange={handleChange} type="date" max={maxDate} id="dob" name="dob" required />
+              <input
+                onChange={handleChange}
+                type="date"
+                max={maxDate}
+                id="dob"
+                name="dob"
+                required
+              />
               <p className="text-[12px] leading-tight text-gray-400">
                 Date of birth cannot be changed after registration.
               </p>
@@ -240,7 +258,12 @@ const EscortRegister = () => {
               <label className="font-bold" htmlFor="gender">
                 Gender
               </label>
-              <select onChange={handleChange} id="gender" name="gender" required>
+              <select
+                onChange={handleChange}
+                id="gender"
+                name="gender"
+                required
+              >
                 <option value="">Select your gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -256,15 +279,21 @@ const EscortRegister = () => {
               </label>
 
               <div className="flex items-center justify-center">
-                <div className="px-1 font-bold">{countryCode ? `+${countryCode}` : "+ "}</div>
-              <input
-                placeholder="Enter phone number"
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                onChange={handleChange}
-                required
-              />
+                <div
+                  onChange={handleChange}
+                  value={countryCode}
+                  className="px-1 font-bold"
+                >
+                  {countryCode ? `+${countryCode}` : "+ "}
+                </div>
+                <input
+                  placeholder="Enter phone number"
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <p className="text-[12px] leading-tight text-gray-400">
                 Your mobile number is determined by your country selection. To
@@ -290,12 +319,11 @@ const EscortRegister = () => {
               />
             </div>
             <button
-            disabled = {loading}
+              disabled={loading}
               className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/50 mx-auto"
               type="submit"
             >
-              {loading? <Loader /> : "Verify Details"}
-              
+              {loading ? <Loader /> : "Verify Details"}
             </button>
           </form>
         </div>

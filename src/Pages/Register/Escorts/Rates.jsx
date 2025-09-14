@@ -1,13 +1,14 @@
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
+import { FormContext } from "../../../Contexts/FormContext";
 
 const Rates = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const {api} = useContext(UserContext)
+  const { api } = useContext(UserContext);
   const [formData, setFormData] = useState({
     shortimeIncall: "",
     overnightIncall: "",
@@ -16,6 +17,13 @@ const Rates = () => {
     overnightOutcall: "",
     weekendOutcall: "",
   });
+  const { markStepCompleted, completedSteps } = useContext(FormContext);
+
+  useEffect(() => {
+    if (!completedSteps.includes(2)) {
+      navigate("/escort-services");
+    }
+  }, [completedSteps, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +39,7 @@ const Rates = () => {
     try {
       setLoading(true);
       const response = await api.put("escortrates", formData);
-      console.log(response);
+      markStepCompleted(3);
       navigate("/escort-gallery");
       alert(response.data.message);
     } catch (err) {
@@ -212,7 +220,7 @@ const Rates = () => {
             className="bg-customPink text-white py-2 my-2 px-4 rounded mx-auto disabled:bg-customPink/50"
             type="submit"
           >
-            {loading? <Loader /> : "Submit"}
+            {loading ? <Loader /> : "Submit"}
           </button>
         </form>
       </div>
