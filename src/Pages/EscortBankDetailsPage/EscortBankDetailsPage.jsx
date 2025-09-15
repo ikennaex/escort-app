@@ -13,7 +13,6 @@ const EscortBankDetailsPage = () => {
         </h2>
 
         <form className="flex flex-col gap-4">
-          {/* Account Number */}
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Account Number
@@ -25,7 +24,6 @@ const EscortBankDetailsPage = () => {
             />
           </div>
 
-          {/* Bank Name */}
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Bank Name
@@ -37,7 +35,17 @@ const EscortBankDetailsPage = () => {
             />
           </div>
 
-          {/* Submit Button */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Name on Account
+            </label>
+            <input
+              type="text"
+              placeholder="Enter account name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+            />
+          </div>
+
           <button
             type="submit"
             className="w-full bg-pink-500 text-white font-semibold py-2 rounded-lg hover:bg-pink-600 transition"
