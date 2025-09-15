@@ -63,14 +63,13 @@ const EscortRegister = () => {
       countries.find((c) => c.isoCode === formData.country)?.phonecode || "",
   };
 
-  console.log(finalData)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
-      const response = await api.post(`${baseUrl}auth/escortsignup`, formData);
+      // sending final data because it appends countryCode
+      const response = await api.post(`${baseUrl}auth/escortsignup`, finalData);
       setShowVerify(true);
       console.log(response);
       alert(response.data.message);

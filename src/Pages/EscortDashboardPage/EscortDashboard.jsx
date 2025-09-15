@@ -85,21 +85,11 @@ const EscortDashboard = () => {
 
         {/* Dashboard Widgets */}
         <section className="flex-1 p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-gray-800 p-6 rounded-2xl shadow hover:shadow-xl transition">
+          <div className="bg-gray-800 h-fit p-6 rounded-2xl shadow hover:shadow-xl transition">
             <h3 className="text-yellow-400 font-semibold">Profile Status</h3>
             <p className="text-gray-300 mt-2">
               Your profile is <span className="text-green-400">Verified</span>
             </p>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-2xl shadow hover:shadow-xl transition">
-            <h3 className="text-yellow-400 font-semibold">Gallery</h3>
-            <p className="text-gray-300 mt-2">12 Images uploaded</p>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-2xl shadow hover:shadow-xl transition">
-            <h3 className="text-yellow-400 font-semibold">Earnings</h3>
-            <p className="text-gray-300 mt-2">₦250,000 this month</p>
           </div>
         </section>
       </main>
