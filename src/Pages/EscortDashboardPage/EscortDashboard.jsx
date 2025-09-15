@@ -1,98 +1,324 @@
 import React, { useState } from "react";
-import { Home, User, Image, Settings, LogOut, Menu, X } from "lucide-react";
+import { Phone, Mail, Eye, Share, Menu, Newspaper, Play, BookImage, SquarePlay, User,
+  Pencil,
+  Calendar,
+  Hand,
+  Heart,
+  Share2,
+  Wallet,
+  Gift,
+  Rocket,
+  Map,
+  Ban,
+  Landmark,
+  ShoppingCart,
+  Bed,
+  CalendarDays,
+  FileWarning,
+  Gamepad,
+  Lock,
+  Power,
+  Trash2,
+  Activity,  } from 'lucide-react';
+import { Link } from "react-router";
+import { useContext } from "react";
+import {UserContext} from '../../Contexts/UserContext'
 
 const EscortDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("Menu"); // default tab
+  const {user} = useContext(UserContext)
+  console.log(user)
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
-      {/* Sidebar (Desktop + Tablet) */}
-      <aside
-        className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-gray-950 flex flex-col transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
-      >
-        <div className="p-6 text-center border-b border-gray-800">
-          <h1 className="text-2xl font-bold text-customPink">OscroVilla</h1>
-          <p className="text-gray-400 text-sm">Escort Dashboard</p>
-        </div>
-        <nav className="flex-1 px-4 py-6 space-y-2">
-          <a
-            href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            <Home size={18} />
-            Dashboard
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            <User size={18} />
-            Profile
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            <Image size={18} />
-            Gallery
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            <Settings size={18} />
-            Settings
-          </a>
-        </nav>
-        <div className="p-4 border-t border-gray-800">
-          <button className="flex items-center gap-3 w-full px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition">
-            <LogOut size={18} />
-            Logout
-          </button>
-        </div>
-      </aside>
+    <div className="lg:flex h-screen bg-pink-200 text-white gap-5 justify-center">
 
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 md:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      <div className="lg:w-[38%] w-[98%] mt-4 justify-center">
+        <div className="rounded-xl bg-pink-100 p-4 flex flex-col gap-4 text-black">
+          <div className="flex justify-between items-start">
+            <div className="flex items-center gap-3">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH6gP2cXHCBfE3Q4snVK7RZuquprmqEBFHkg&s"
+                alt="profile"
+                className="w-14 h-14 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-bold text-lg">mercey</p>
+                <p className="">@{user.username}</p>
+              </div>
+            </div>
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col w-full">
-        {/* Header */}
-        <header className="h-16 flex items-center justify-between px-6 bg-gray-950 border-b border-gray-800">
-          <div className="flex items-center gap-4">
-            {/* Mobile Menu Toggle */}
-            <button
-              className="md:hidden p-2 rounded-lg bg-gray-800"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-customPink flex items-center justify-center font-bold">
-              E
+            <div className="flex items-center gap-3">
+              <div className="flex items-center ">
+                <Eye className="w-4 h-4 mr-1" /> 0
+              </div>
+              <button className="flex items-center gap-1 bg-orange-100 text-orange-600 text-sm px-3 py-1 rounded-full">
+                <Share className="w-4 h-4" /> Share
+              </button>
             </div>
           </div>
-        </header>
 
-        {/* Dashboard Widgets */}
-        <section className="flex-1 p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-gray-800 h-fit p-6 rounded-2xl shadow hover:shadow-xl transition">
-            <h3 className="text-yellow-400 font-semibold">Profile Status</h3>
-            <p className="text-gray-300 mt-2">
-              Your profile is <span className="text-green-400">Verified</span>
-            </p>
+          <div className="flex flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 ">
+              <Phone className="w-4 h-4 text-pink-500" />
+              {user.phoneNumber}
+            </div>
+            <div className="flex items-center gap-2 ">
+              <Mail className="w-4 h-4 text-pink-500" />
+              {user.email}
+            </div>
           </div>
-        </section>
-      </main>
+
+          <div className="flex justify-between text-sm">
+            <div className="flex items-center gap-2">
+              <span className="">Status</span>
+              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs">
+                Live
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="">Registration</span>
+              <span className="bg-orange-400 text-white px-3 py-1 rounded-full text-xs">
+                Pending
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 rounded-xl bg-pink-100 p-4 flex flex-col gap-6 text-black">
+
+          {/* BOOST Section */}
+          <div className="flex justify-between items-center border-b pb-2">
+            <p className="font-bold">BOOST</p>
+            <p className="text-sm text-gray-500">0 Days left</p>
+          </div>
+
+          {/* AVAILABLE TODAY Section */}
+          <div className="flex justify-between items-center border-b pb-2">
+            <p className="font-bold">AVAILABLE TODAY</p>
+            <p className="text-sm text-gray-500">0 Days left</p>
+          </div>
+
+          {/* Action Cards */}
+          <div className="flex gap-4">
+            {/* Boost My Profile */}
+            <div className="flex-1 rounded-xl bg-pink-500 text-white p-4 flex flex-col justify-between">
+              <div>
+                <p className="font-bold">Boost My Profile</p>
+                <p className="text-sm text-pink-100">More chances to match with extra features.</p>
+              </div>
+              <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
+                BOOST NOW - 100
+              </button>
+            </div>
+
+            {/* Make Available Today */}
+            <div className="flex-1 rounded-xl bg-green-500 text-white p-4 flex flex-col justify-between">
+              <div>
+                <p className="font-bold">Make Available Today</p>
+                <p className="text-sm text-green-100">More chances to match with extra features.</p>
+              </div>
+              <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
+                AVAILABLE NOW - 100
+              </button>
+            </div>
+          </div>
+
+          {/* Footer Section */}
+          <div className="flex justify-between items-center text-sm">
+            <p className="text-pink-500">Last login at <span className="font-bold">10:50 AM · Mon</span></p>
+            <p className="text-gray-600">Registered on <span className="font-bold">Sep 15, 2025</span></p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="lg:w-[58%] w-[98%] mt-4 rounded-xl bg-pink-100">
+
+        <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1 overflow-x-auto">
+          <ul className="flex gap-6 whitespace-nowrap px-4 text-gray-700">
+            <div
+              onClick={() => setActiveTab("Menu")}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <Menu className="h-4" />
+              <li
+                className={
+                  activeTab === "Menu" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Menu
+              </li>
+            </div>
+  
+            <div
+              onClick={() => setActiveTab("Timeline")}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <Newspaper className="h-4" />
+              <li
+                className={
+                  activeTab === "Timeline" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Timeline
+              </li>
+              ·<p>0</p>
+            </div>
+  
+            <div
+              onClick={() => setActiveTab("Story")}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <Play className="h-4" />
+              <li
+                className={
+                  activeTab === "Story" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Story
+              </li>
+              ·<p>0</p>
+            </div>
+  
+            <div
+              onClick={() => setActiveTab("Gallery")}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <BookImage className="h-4" />
+              <li
+                className={
+                  activeTab === "Gallery" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Gallery
+              </li>
+              ·<p>0</p>
+            </div>
+  
+            <div
+              onClick={() => setActiveTab("Videos")}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <SquarePlay className="h-4" />
+              <li
+                className={
+                  activeTab === "Videos" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Videos
+              </li>
+              ·<p>0</p>
+            </div>
+          </ul>
+        </nav>
+  
+        {/* CONTENT */}
+        <div className="bg-[#fff8f9] my-4 mx-3 p-4 text-black">
+          {activeTab === "Menu" && (
+            <>
+              <p className="font-semibold mb-4">Menu</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {/* Item */}
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/${user._id}`}>
+                  <User className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Profile</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/edit/${user._id}`}>
+                  <Pencil className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Edit Profile</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/booking/${user._id}`}>
+                  <Calendar className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Bookings</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/requests/${user._id}`}>
+                  <Hand className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Requests</p></Link>
+                </div>
+
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/wallet/${user._id}`}>
+                  <Wallet className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Wallet</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/gifts/${user._id}`}>
+                  <Gift className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Gifts</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/boost-profile/${user._id}`}>
+                  <Rocket className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Boost Profile</p></Link>
+                </div>
+
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/blacklist/${user._id}`}>
+                  <Ban className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Blacklisted Client</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/bank/${user._id}`}>
+                  <Landmark className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Bank Details</p></Link>
+                </div>
+
+
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/events/${user._id}`}>
+                  <CalendarDays className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Events</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/reports/${user._id}`}>
+                  <FileWarning className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Pending Reports</p></Link>
+                </div>
+
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/change-password/${user._id}`}>
+                  <Lock className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Change Password</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Link to={`/escorts/status/${user._id}`}>
+                  <Activity className="h-8 w-8 text-green-500" />
+                  <p className="mt-2 text-sm">Status</p></Link>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Power className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Logout</p>
+                </div>
+
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                  <Trash2 className="h-8 w-8 text-red-500" />
+                  <p className="mt-2 text-sm">Delete Profile</p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+      
     </div>
   );
 };

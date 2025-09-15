@@ -27,6 +27,7 @@ import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
 import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
 import { FormProvider } from "./Contexts/FormContext";
 import ScrollToTop from "./Components/ScrollToTop";
+import EscortBankDetailsPage from "./Pages/EscortBankDetailsPage/EscortBankDetailsPage";
 
 const App = () => {
   const location = useLocation();
@@ -78,6 +79,7 @@ const App = () => {
               <Route path="/escort-services" element={<Services />} />
               <Route path="/escort-rates" element={<Rates />} />
               <Route path="/escort-gallery" element={<Gallery />} />
+              <Route path="/escorts/bank/:id" element={<EscortBankDetailsPage />} />
               <Route
                 path="/escort-verification"
                 element={<VerificationImage />}
