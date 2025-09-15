@@ -47,7 +47,7 @@ const Navbar = () => {
 
         {/* Buttons */}
         {user ? (
-          <Link to={`/escortdashboard/${user.id}`} >
+          <Link to={`/escortdashboard/${user._id}`} >
           <p className="flex items-center gap-2 text-md font-semibold text-white">
             <UserCircleIcon className="w-6 h-6 text-customPink" />
             {"Hi " + user?.username || "there"}

@@ -33,7 +33,7 @@ const EscortDashboard = () => {
   return (
     <div className="lg:flex h-screen bg-pink-200 text-white gap-5 justify-center">
 
-      <div className="lg:w-[38%] w-[98%] mt-4 justify-center">
+      <div className="lg:w-[38%] lg:mt-4 justify-center">
         <div className="rounded-xl bg-pink-100 p-4 flex flex-col gap-4 text-black">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-3">
@@ -43,7 +43,7 @@ const EscortDashboard = () => {
                 className="w-14 h-14 rounded-full object-cover"
               />
               <div>
-                <p className="font-bold text-lg">mercey</p>
+                <p className="font-bold text-lg">{user.displayName}</p>
                 <p className="">@{user.username}</p>
               </div>
             </div>
@@ -134,9 +134,9 @@ const EscortDashboard = () => {
 
       </div>
 
-      <div className="lg:w-[58%] w-[98%] mt-4 rounded-xl bg-pink-100">
+      <div className="lg:w-[58%] mt-4 rounded-xl bg-pink-100">
 
-        <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1 overflow-x-auto">
+        <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1">
           <ul className="flex gap-6 whitespace-nowrap px-4 text-gray-700">
             <div
               onClick={() => setActiveTab("Menu")}
