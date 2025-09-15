@@ -11,17 +11,15 @@ import { CheckIcon } from "lucide-react";
 
 const ProfileTabs = ({ escort }) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
-  console.log(escort);
-  console.log(escort.gallery);
-  console.log(escort.services);
+
   return (
-    <div className="pb-5 rounded-lg">
+    <div className="pb-5 rounded-lg lg:flex lg:gap-6">
       {/* NAV */}
-      <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1 overflow-x-auto">
-        <ul className="flex gap-6 whitespace-nowrap px-4 text-gray-700">
+      <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-2 lg:w-64 shrink-0">
+        <ul className="flex lg:flex-col gap-6 whitespace-nowrap px-2 text-gray-700">
           <div
             onClick={() => setActiveTab("About")}
-            className="flex gap-1 items-center cursor-pointer"
+            className="flex gap-2 items-center cursor-pointer"
           >
             <InformationCircleIcon className="h-4" />
             <li
@@ -33,7 +31,7 @@ const ProfileTabs = ({ escort }) => {
 
           <div
             onClick={() => setActiveTab("Gallery")}
-            className="flex gap-1 items-center cursor-pointer"
+            className="flex gap-2 items-center cursor-pointer"
           >
             <PhotoIcon className="h-4" />
             <li
@@ -43,12 +41,12 @@ const ProfileTabs = ({ escort }) => {
             >
               Gallery
             </li>
-            ·<p>5</p>
+            <p className="text-sm text-gray-500">· 5</p>
           </div>
 
           <div
             onClick={() => setActiveTab("Timeline")}
-            className="flex gap-1 items-center cursor-pointer"
+            className="flex gap-2 items-center cursor-pointer"
           >
             <NewspaperIcon className="h-4" />
             <li
@@ -58,12 +56,12 @@ const ProfileTabs = ({ escort }) => {
             >
               Timeline
             </li>
-            ·<p>5</p>
+            <p className="text-sm text-gray-500">· 5</p>
           </div>
 
           <div
             onClick={() => setActiveTab("Gift Shop")}
-            className="flex gap-1 items-center cursor-pointer"
+            className="flex gap-2 items-center cursor-pointer"
           >
             <NewspaperIcon className="h-4" />
             <li
@@ -73,12 +71,12 @@ const ProfileTabs = ({ escort }) => {
             >
               Gift Shop
             </li>
-            ·<p>5</p>
+            <p className="text-sm text-gray-500">· 5</p>
           </div>
 
           <div
             onClick={() => setActiveTab("Reviews")}
-            className="flex gap-1 items-center cursor-pointer"
+            className="flex gap-2 items-center cursor-pointer"
           >
             <StarIcon className="h-4" />
             <li
@@ -88,19 +86,20 @@ const ProfileTabs = ({ escort }) => {
             >
               Reviews
             </li>
-            ·<p>5</p>
+            <p className="text-sm text-gray-500">· 5</p>
           </div>
         </ul>
       </nav>
 
       {/* CONTENT */}
-      <div className="bg-[#fff8f9] my-4 mx-3 p-4">
+      <div className="bg-[#fff8f9] my-4 mx-3 p-6 flex-1 rounded-lg">
         {activeTab === "About" && (
           <>
-            <p className="font-semibold">About</p>
-            <p>{escort.about}</p>
+            <p className="font-semibold text-lg">About</p>
+            <p className="mt-2 text-gray-700">{escort.about}</p>
 
-            <div className="grid grid-cols-2 gap-4 my-7">
+            {/* GRID DETAILS */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-7">
               <div>
                 <p className="font-semibold text-customPink">Gender</p>
                 <p className="font-semibold">{escort.gender}</p>
@@ -145,20 +144,20 @@ const ProfileTabs = ({ escort }) => {
               </div>
             </div>
 
+            {/* RATES TABLE */}
             <div className="my-7">
-              <h1 className="text-2xl font-semibold">Rates</h1>
-
+              <h1 className="text-2xl font-semibold mb-3">Rates</h1>
               <div className="overflow-x-auto">
-                <table className="min-w-full bg-[#fff8f9] rounded-lg shadow">
+                <table className="min-w-full bg-white rounded-lg shadow">
                   <thead>
-                    <tr className="text-left text-gray-700">
+                    <tr className="text-left text-gray-700 border-b">
                       <th className="px-4 py-3">Service</th>
                       <th className="px-4 py-3">Incall</th>
                       <th className="px-4 py-3">Outcall</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-t">
+                    <tr className="border-b">
                       <td className="px-4 py-3 font-bold text-customPink uppercase">
                         Short Time
                       </td>
@@ -169,7 +168,7 @@ const ProfileTabs = ({ escort }) => {
                         ₦{escort.shortimeOutcall}
                       </td>
                     </tr>
-                    <tr className="border-t">
+                    <tr className="border-b">
                       <td className="px-4 py-3 font-bold text-customPink uppercase">
                         Over Night
                       </td>
@@ -180,7 +179,7 @@ const ProfileTabs = ({ escort }) => {
                         ₦{escort.overnightOutcall}
                       </td>
                     </tr>
-                    <tr className="border-t">
+                    <tr>
                       <td className="px-4 py-3 font-bold text-customPink uppercase">
                         Weekend
                       </td>
@@ -196,34 +195,32 @@ const ProfileTabs = ({ escort }) => {
               </div>
             </div>
 
+            {/* SERVICES */}
             <div>
-              <h1 className="text-2xl font-semibold">Services</h1>
-
-              <div className="mt-3">
-                <ul className="space-y-2 flex flex-wrap">
-                  {escort.services.map((service, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckIcon className="h-5 w-5 text-customPink" />
-                      <span>{service}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <h1 className="text-2xl font-semibold mb-3">Services</h1>
+              <ul className="flex flex-wrap gap-4">
+                {escort.services.map((service, index) => (
+                  <li key={index} className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm">
+                    <CheckIcon className="h-5 w-5 text-customPink" />
+                    <span className="italic">{service}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </>
         )}
 
         {activeTab === "Gallery" && (
           <>
-            <p className="font-semibold">Gallery</p>
+            <p className="font-semibold text-lg mb-2">Gallery</p>
             <Gallery withDownloadButton withZoomButton withFullscreenButton>
-              <div className="grid grid-cols-3 gap-2 mt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                 {escort.gallery.map((img, index) => (
                   <Item
                     key={index}
-                    original={img} // full-size image
-                    thumbnail={img} // preview
-                    width="1024" // you can set real image dimensions if available
+                    original={img}
+                    thumbnail={img}
+                    width="1024"
                     height="768"
                     caption={`Photo ${index + 1} of ${escort.displayName}`}
                   >
@@ -249,22 +246,28 @@ const ProfileTabs = ({ escort }) => {
 
         {activeTab === "Timeline" && (
           <>
-            <p className="font-semibold">Timeline</p>
-            <p>All timeline posts and activities will be shown here.</p>
+            <p className="font-semibold text-lg">Timeline</p>
+            <p className="mt-2 text-gray-700">
+              All timeline posts and activities will be shown here.
+            </p>
           </>
         )}
 
         {activeTab === "Gift Shop" && (
           <>
-            <p className="font-semibold">Gift Shop</p>
-            <p>List of available gifts and products here.</p>
+            <p className="font-semibold text-lg">Gift Shop</p>
+            <p className="mt-2 text-gray-700">
+              List of available gifts and products here.
+            </p>
           </>
         )}
 
         {activeTab === "Reviews" && (
           <>
-            <p className="font-semibold">Reviews</p>
-            <p>Customer reviews and ratings will appear here.</p>
+            <p className="font-semibold text-lg">Reviews</p>
+            <p className="mt-2 text-gray-700">
+              Customer reviews and ratings will appear here.
+            </p>
           </>
         )}
       </div>
