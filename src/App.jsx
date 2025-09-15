@@ -28,6 +28,7 @@ import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
 import { FormProvider } from "./Contexts/FormContext";
 import ScrollToTop from "./Components/ScrollToTop";
 import EscortBankDetailsPage from "./Pages/EscortBankDetailsPage/EscortBankDetailsPage";
+import EscortEditPage from "./Pages/EscortEditPage/EscortEditPage";
 
 const App = () => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const App = () => {
               <Route path="/register-escort" element={<EscortRegister />} />
               <Route path="/register-card" element={<RegisterCard />} />
               <Route path="/escorts/:id" element={<EscortDetailsPage />} />
+              <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
 
               <Route element={<ProtectedRoutes />}>
                 {/* escort dashboard  */}
