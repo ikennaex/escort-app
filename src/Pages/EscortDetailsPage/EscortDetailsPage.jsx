@@ -17,6 +17,7 @@ import ProfileTabs from "./ProfileTabs";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { useParams } from "react-router";
+import Loader from "../../Components/Loaders/Loader";
 
 const calculateAge = (dob) => {
   if (!dob) return null;
@@ -27,12 +28,15 @@ const EscortDetailsPage = () => {
   const { id } = useParams();
   const [escort, setEscort] = useState({});
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchEscort = async () => {
     try {
       const response = await axios.get(`${baseUrl}escorts/${id}`);
       setEscort(response.data);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       setError(err.response.data.message);
     }
@@ -42,10 +46,14 @@ const EscortDetailsPage = () => {
     fetchEscort();
   }, []);
 
-  console.log(escort);
-
   return (
-    <div className="bg-pink-100">
+    <>
+      {loading ? (
+        <div className="flex items-center justify-center min-h-screen">
+          <Loader />
+        </div> )
+      : (
+    <div className="bg-pink-100 fade-in">
       <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
         <img
           className="lg:h-full lg:w-40 w-full h-96 object-cover object-top"
@@ -144,6 +152,8 @@ const EscortDetailsPage = () => {
       </div>
       <ProfileTabs escort={escort} />
     </div>
+    )}
+    </>
   );
 };
 
