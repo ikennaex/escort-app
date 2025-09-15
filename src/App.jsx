@@ -26,6 +26,7 @@ import ProtectedRoutes from "./Contexts/ProtectedRoutes";
 import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
 import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
 import { FormProvider } from "./Contexts/FormContext";
+import ScrollToTop from "./Components/ScrollToTop";
 
 const App = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const App = () => {
 
   return (
       <FormProvider>
+        <ScrollToTop />
         {" "}
         {/* provides form state  */}
         <div className="flex">
