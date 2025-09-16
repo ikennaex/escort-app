@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { BedSingleIcon } from "lucide-react";
 import React from "react";
+import { Link } from "react-router";
 
 const menu = [
   {
@@ -101,6 +102,7 @@ const SideNavbar = () => {
       {/* <h2 className="hidden lg:block text-white text-lg font-bold p-4">Menu</h2> */}
       <ul>
         {menu.map((item) => (
+          <Link to={item.path}>
           <div
             className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink cursor-pointer"
             key={item.title}
@@ -108,6 +110,7 @@ const SideNavbar = () => {
             <div>{item.icon}</div>
             <li className="hidden lg:block">{item.title}</li>
           </div>
+          </Link>
         ))}
       </ul>
     </div>
