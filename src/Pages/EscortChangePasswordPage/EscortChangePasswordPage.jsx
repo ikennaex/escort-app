@@ -3,42 +3,43 @@ import { UserContext } from "../../Contexts/UserContext";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
+import EscortVerifyPasswordChange from "./EscortVerifyPasswordChange";
 
-const EscortBankDetailsPage = () => {
-  const { user } = useContext(UserContext);
+const EscortChangePasswordPage = () => {
+  const { user, api } = useContext(UserContext);
   const navigate = useNavigate();
-  const { api } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [bankDetails, setBankDetails] = useState({
-    bankName: "",
-    accountName: "",
-    accountNumber: "",
+  const [showVerify, setShowVerify] = useState(false);
+
+  const [formData, setFormData] = useState({
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBankDetails((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-  console.log(bankDetails);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // check if passwords match
+    if (formData.newPassword !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     try {
       setLoading(true);
-      const response = await api.patch(
-        `${baseUrl}escorts/bankdetails`,
-        bankDetails
-      );
-      console.log(response);
-      alert(response.data.message);
-      console.log(bankDetails);
-      navigate(`/escortdashboard/${user._id}`);
+      setShowVerify(true);
+    //   navigate(`/escortdashboard/${user._id}`);
     } catch (err) {
       console.log(err);
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -46,20 +47,27 @@ const EscortBankDetailsPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-pink-50">
+      {showVerify && (
+        <EscortVerifyPasswordChange
+          password={formData.confirmPassword}
+          onClose={() => setShowVerify(!showVerify)}
+        />
+      )}
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6">
         <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">
-          Bank Details
+          Change Password
         </h2>
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
-              Account Number
+              Enter New Password
             </label>
             <input
-              type="number"
-              name="accountNumber"
-              placeholder="Enter account number"
+              type="password"
+              name="newPassword"
+              placeholder="Enter new password"
+              value={formData.newPassword}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -68,26 +76,13 @@ const EscortBankDetailsPage = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
-              Bank Name
+              Confirm New Password
             </label>
             <input
-              type="text"
-              name='bankName'
-              placeholder="Enter bank name"
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
-              Name on Account
-            </label>
-            <input
-              type="text"
-              name='accountName'
-              placeholder="Enter account name"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm new password"
+              value={formData.confirmPassword}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -95,11 +90,11 @@ const EscortBankDetailsPage = () => {
           </div>
 
           <button
-          disabled ={loading}
+            disabled={loading}
             type="submit"
             className="w-full bg-pink-500 text-white font-semibold py-2 rounded-lg hover:bg-pink-600 transition disabled:bg-customPink/20 mx-auto flex justify-center items-center"
           >
-            {loading? <Loader/> : "Save Bank Details" }
+            {loading ? <Loader /> : "Save Password"}
           </button>
         </form>
       </div>
@@ -107,4 +102,4 @@ const EscortBankDetailsPage = () => {
   );
 };
 
-export default EscortBankDetailsPage;
+export default EscortChangePasswordPage;

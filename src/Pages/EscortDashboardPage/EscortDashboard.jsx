@@ -36,27 +36,30 @@ import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
+import Loader from "../../Components/Loaders/Loader";
 
 const EscortDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Menu"); // default tab
   const { user } = useContext(UserContext);
-  const [bankDetails, setBankDetails] = useState()
+  const [bankDetails, setBankDetails] = useState();
+  const [loading, setLoading] = useState(false);
   const { api } = useContext(UserContext);
   console.log(user);
 
   const getBankDetails = async () => {
     try {
-      const response = await api.get(
-        `${baseUrl}escorts/bankdetails`);
-      
+      setLoading(true);
+      const response = await api.get(`${baseUrl}escorts/bankdetails`);
+
       setBankDetails(response.data);
-      console.log(response.data);
-      navigate(`/escortdashboard/${user._id}`);
+      console.log(response);
     } catch (err) {
       console.log(err);
-    } 
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -65,6 +68,7 @@ const EscortDashboard = () => {
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
+      {/* {!user && <Loader />} */}
       <div className="lg:w-[38%] lg:mt-4 justify-center">
         <div className="rounded-xl bg-pink-100 p-4 flex flex-col gap-4 text-black">
           <div className="flex justify-between items-start">
@@ -102,20 +106,51 @@ const EscortDashboard = () => {
           </div>
 
           <div className="flex justify-between text-sm">
-            <div className="flex items-center gap-2">
-              <span className="">Status</span>
-              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs">
-                Live
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="">Registration</span>
-              <span className="bg-orange-400 text-white px-3 py-1 rounded-full text-xs">
-                Pending
-              </span>
+            <div className="flex flex-col gap-2">
+              {/* Top row */}
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-gray-700">Status</span>
+                {user.isActive ? (
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs">
+                    Active
+                  </span>
+                ) : (
+                  <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs">
+                    Inactive
+                  </span>
+                )}
+              </div>
+
+              {/* Explanations */}
+              <div className="ml-7 text-xs text-gray-500 space-y-1">
+                <p>Active – anyone can see your profile</p>
+                <p>Inactive – no one can see your profile</p>
+              </div>
             </div>
           </div>
         </div>
+
+        {/**bank details */}
+        {bankDetails ? (
+          <div className="rounded-xl bg-pink-100 p-4 mt-4 flex flex-col gap-4 text-black">
+            <p className="font-bold">Account Details</p>
+            <div className="flex flex-col gap-2 text-sm">
+              <div className="flex items-center gap-2">
+                {bankDetails.accountNumber}
+              </div>
+              <div className="flex items-center gap-2">
+                {bankDetails.bankName}
+              </div>
+              <div className="flex items-center gap-2">
+                {bankDetails.accountName}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-xl bg-pink-100 p-4 mt-4 flex flex-col gap-4 text-black">
+            <Loader />
+          </div>
+        )}
 
         <div className="mt-5 rounded-xl bg-pink-100 p-4 flex flex-col gap-6 text-black">
           {/* BOOST Section */}
@@ -316,7 +351,7 @@ const EscortDashboard = () => {
                 <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/bank/${user._id}`}>
                     <Landmark className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Bank Details</p>
+                    <p className="mt-2 text-sm">Edit Bank Details</p>
                   </Link>
                 </div>
 

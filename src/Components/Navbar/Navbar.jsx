@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="flex gap-3">
           <MagnifyingGlassIcon className="text-white h-7 bg-customPink p-1 rounded-full" />
           <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
-          <BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
+          <Link to='/notifications' ><BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" /></Link>
         </div>
 
         {/* Buttons */}

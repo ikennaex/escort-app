@@ -29,6 +29,20 @@ import { FormProvider } from "./Contexts/FormContext";
 import ScrollToTop from "./Components/ScrollToTop";
 import EscortBankDetailsPage from "./Pages/EscortBankDetailsPage/EscortBankDetailsPage";
 import EscortEditPage from "./Pages/EscortEditPage/EscortEditPage";
+import EscortChangePasswordPage from "./Pages/EscortChangePasswordPage/EscortChangePasswordPage";
+import EscortFeed from "./Pages/EscortFeed/EscortFeed";
+import EscortAdverts from "./Pages/EscortAdverts/EscortAdverts";
+import EscortEvents from "./Pages/EscortEvents/EscortEvents";
+import NaughtyVideos from "./Pages/NaughtyVideos/NaughtyVideos";
+import EscortRooms from "./Pages/EscortRooms/EscortRooms";
+import EscortReviews from "./Pages/EscortReviews/EscortReviews";
+import EscortBlacklisted from "./Pages/EscortBlacklisted/EscortBlacklisted";
+import EscortBlog from "./Pages/EscortBlog/EscortBlog";
+import EscortTestimonials from "./Pages/EscortTestimonials/EscortTestimonials";
+import EscortFAQS from "./Pages/EscortFAQS/EscortFAQS";
+import EscortContactAdmin from "./Pages/EscortContactAdmin/EscortContactAdmin";
+import EscortSetting from "./Pages/EscortSettings/EscortSetting";
+import EscortNotifications from "./Pages/EscortNotifications/EscortNotifications";
 
 const App = () => {
   const location = useLocation();
@@ -65,8 +79,20 @@ const App = () => {
               <Route path="/register-client" element={<ClientRegister />} />
               <Route path="/register-escort" element={<EscortRegister />} />
               <Route path="/register-card" element={<RegisterCard />} />
-              <Route path="/escorts/:id" element={<EscortDetailsPage />} />
-              <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
+              <Route path="/feed" element={<EscortFeed />} />
+              <Route path="/adverts" element={<EscortAdverts />} />
+              <Route path="/events" element={<EscortEvents />} />
+              <Route path="/naughtyvideos" element={<NaughtyVideos />} />
+              <Route path="/rooms" element={<EscortRooms />} />
+              <Route path="/reviews" element={<EscortReviews />} />
+              <Route path="/blacklisted" element={<EscortBlacklisted />} />
+              <Route path="/blogs" element={<EscortBlog />} />
+              <Route path="/testimonials" element={<EscortTestimonials />} />
+              <Route path="/faqs" element={<EscortFAQS />} />
+              <Route path="/contact-admin" element={<EscortContactAdmin />} />
+              <Route path="/settings" element={<EscortSetting />} />
+              <Route path="/notifications" element={<EscortNotifications />} />
+              
 
               <Route element={<ProtectedRoutes />}>
                 {/* escort dashboard  */}
@@ -82,6 +108,9 @@ const App = () => {
               <Route path="/escort-rates" element={<Rates />} />
               <Route path="/escort-gallery" element={<Gallery />} />
               <Route path="/escorts/bank/:id" element={<EscortBankDetailsPage />} />
+              <Route path="/escorts/change-password/:id" element={<EscortChangePasswordPage />} />
+              <Route path="/escorts/:id" element={<EscortDetailsPage />} />
+              <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
               <Route
                 path="/escort-verification"
                 element={<VerificationImage />}
