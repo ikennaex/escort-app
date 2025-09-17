@@ -13,13 +13,13 @@ const ProfileTabs = ({ escort }) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
 
   return (
-    <div className="pb-5 rounded-lg lg:flex lg:gap-6">
+    <div className="pb-5 rounded-lg lg:flex lg:gap-2">
       {/* NAV */}
       <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-2 lg:w-64 shrink-0">
-        <ul className="flex lg:flex-col gap-6 whitespace-nowrap px-2 text-gray-700">
+        <ul className="flex overflow-x-auto lg:flex-col gap-6 px-2 text-gray-700 scrollbar-hide">
           <div
             onClick={() => setActiveTab("About")}
-            className="flex gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer"
           >
             <InformationCircleIcon className="h-4" />
             <li
@@ -31,7 +31,7 @@ const ProfileTabs = ({ escort }) => {
 
           <div
             onClick={() => setActiveTab("Gallery")}
-            className="flex gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer"
           >
             <PhotoIcon className="h-4" />
             <li
@@ -46,7 +46,7 @@ const ProfileTabs = ({ escort }) => {
 
           <div
             onClick={() => setActiveTab("Timeline")}
-            className="flex gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer"
           >
             <NewspaperIcon className="h-4" />
             <li
@@ -56,12 +56,11 @@ const ProfileTabs = ({ escort }) => {
             >
               Timeline
             </li>
-            <p className="text-sm text-gray-500">· 5</p>
           </div>
 
           <div
             onClick={() => setActiveTab("Gift Shop")}
-            className="flex gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer"
           >
             <NewspaperIcon className="h-4" />
             <li
@@ -71,12 +70,11 @@ const ProfileTabs = ({ escort }) => {
             >
               Gift Shop
             </li>
-            <p className="text-sm text-gray-500">· 5</p>
           </div>
 
           <div
             onClick={() => setActiveTab("Reviews")}
-            className="flex gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer"
           >
             <StarIcon className="h-4" />
             <li
@@ -86,7 +84,6 @@ const ProfileTabs = ({ escort }) => {
             >
               Reviews
             </li>
-            <p className="text-sm text-gray-500">· 5</p>
           </div>
         </ul>
       </nav>
@@ -96,51 +93,51 @@ const ProfileTabs = ({ escort }) => {
         {activeTab === "About" && (
           <>
             <p className="font-semibold text-lg">About</p>
-            <p className="mt-2 text-gray-700">{escort.about}</p>
+            <p className="mt-2 text-gray-700">{escort?.about}</p>
 
             {/* GRID DETAILS */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-7">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 my-7">
               <div>
                 <p className="font-semibold text-customPink">Gender</p>
-                <p className="font-semibold">{escort.gender}</p>
+                <p className="font-semibold">{escort?.gender}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Bust Size</p>
-                <p className="font-semibold">{escort.bustSize}</p>
+                <p className="font-semibold">{escort?.bustSize}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Ethnicity</p>
-                <p className="font-semibold">{escort.ethnicity}</p>
+                <p className="font-semibold">{escort?.ethnicity}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Smoker</p>
-                <p className="font-semibold">{escort.smoker}</p>
+                <p className="font-semibold">{escort?.smoker}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">
                   Sexual Orientation
                 </p>
-                <p className="font-semibold">{escort.sexualOrientation}</p>
+                <p className="font-semibold">{escort?.sexualOrientation}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Country</p>
-                <p className="font-semibold">{escort.country}</p>
+                <p className="font-semibold">{escort?.country}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">State</p>
-                <p className="font-semibold">{escort.state}</p>
+                <p className="font-semibold">{escort?.state}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">City</p>
-                <p className="font-semibold">{escort.city}</p>
+                <p className="font-semibold">{escort?.city}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Build</p>
-                <p className="font-semibold">{escort.bodyBuild}</p>
+                <p className="font-semibold">{escort?.bodyBuild}</p>
               </div>
               <div>
                 <p className="font-semibold text-customPink">Education</p>
-                <p className="font-semibold">{escort.education}</p>
+                <p className="font-semibold">{escort?.education}</p>
               </div>
             </div>
 
@@ -162,10 +159,10 @@ const ProfileTabs = ({ escort }) => {
                         Short Time
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.shortimeIncall}
+                        ₦{escort?.shortimeIncall}
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.shortimeOutcall}
+                        ₦{escort?.shortimeOutcall}
                       </td>
                     </tr>
                     <tr className="border-b">
@@ -173,10 +170,10 @@ const ProfileTabs = ({ escort }) => {
                         Over Night
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.overnightIncall}
+                        ₦{escort?.overnightIncall}
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.overnightOutcall}
+                        ₦{escort?.overnightOutcall}
                       </td>
                     </tr>
                     <tr>
@@ -184,10 +181,10 @@ const ProfileTabs = ({ escort }) => {
                         Weekend
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.weekendIncall}
+                        ₦{escort?.weekendIncall}
                       </td>
                       <td className="px-4 py-3 font-semibold">
-                        ₦{escort.weekendOutcall}
+                        ₦{escort?.weekendOutcall}
                       </td>
                     </tr>
                   </tbody>
@@ -199,8 +196,11 @@ const ProfileTabs = ({ escort }) => {
             <div>
               <h1 className="text-2xl font-semibold mb-3">Services</h1>
               <ul className="flex flex-wrap gap-4">
-                {escort.services.map((service, index) => (
-                  <li key={index} className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm">
+                {escort?.services.map((service, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm"
+                  >
                     <CheckIcon className="h-5 w-5 text-customPink" />
                     <span className="italic">{service}</span>
                   </li>
@@ -215,14 +215,14 @@ const ProfileTabs = ({ escort }) => {
             <p className="font-semibold text-lg mb-2">Gallery</p>
             <Gallery withDownloadButton withZoomButton withFullscreenButton>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
-                {escort.gallery.map((img, index) => (
+                {escort?.gallery.map((img, index) => (
                   <Item
                     key={index}
                     original={img}
                     thumbnail={img}
                     width="1024"
                     height="768"
-                    caption={`Photo ${index + 1} of ${escort.displayName}`}
+                    caption={`Photo ${index + 1} of ${escort?.displayName}`}
                   >
                     {({ ref, open }) => (
                       <div

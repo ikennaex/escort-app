@@ -54,26 +54,27 @@ const EscortDetailsPage = () => {
         </div>
       ) : (
         <div className="bg-pink-100 fade-in">
+          {error && <p className="text-center">{error}</p>}
           <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
             <img
               className="lg:h-96 lg:w-64 w-full h-96 object-cover object-top"
-              src={escort.gallery?.[0]}
+              src={escort?.gallery?.[0]}
               alt=""
             />
 
             <div className="px-3 py-3">
               <div>
                 <div className="flex gap-2 items-center">
-                  <p className="font-bold text-2xl">{escort.displayName}</p>
+                  <p className="font-bold text-2xl">{escort?.displayName}</p>
                   <p className="font-bold text-2xl">
-                    · {calculateAge(escort.dob)}
+                    · {calculateAge(escort?.dob)}
                   </p>
                   <CheckBadgeIcon className="text-green-500 h-5" />
                 </div>
 
                 <div className="flex items-center gap-3">
                   <FaWhatsapp className="text-green-500 " />
-                  <p>{escort.phoneNumber}</p>
+                  <p>{escort?.phoneNumber}</p>
                 </div>
               </div>
 
@@ -123,7 +124,7 @@ const EscortDetailsPage = () => {
                 </div>
 
                 <div className="text-center">
-                  <p className="italic">{escort.heading}</p>
+                  <p className="italic">{escort?.heading}</p>
                 </div>
               </div>
 
@@ -143,7 +144,7 @@ const EscortDetailsPage = () => {
                 </div>
               </div>
 
-              <div className="flex mx-auto justify-between w-3/4 items-center">
+              <div className="flex lg:gap-5 mx-auto justify-between w-3/4 items-center">
                 <div className="text-center">
                   <BsGenderAmbiguous className="text-3xl text-pink-500" />
                   <p className="font-semibold">{escort?.gender}</p>
@@ -160,7 +161,10 @@ const EscortDetailsPage = () => {
               </div>
             </div>
           </div>
+          {!error &&
+          
           <ProfileTabs escort={escort} />
+          }
         </div>
       )}
     </>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminSidebar from "../Components/AdminSidebar";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import Loader from "../../Components/Loaders/Loader";
@@ -18,6 +18,7 @@ const SectionCard = ({ title, children }) => (
 );
 
 const AdminPendingApprovalDetails = () => {
+  const navigate = useNavigate(e)
   const [escort, setEscort] = useState(null);
   const { id } = useParams();
 
@@ -34,9 +35,11 @@ const AdminPendingApprovalDetails = () => {
 
   const approveEscort = async (id) => {
     try {
-      await axios.post(`${baseUrl}admin/approveescort/${id}`);
-      alert("Escort approved successfully!");
+      const response = await axios.patch(`${baseUrl}admin/approveescort/${id}`);
+      alert(response.data.message)
+      navigate("/admin/pending")
     } catch (err) {
+      alert(err.response.data.message)
       console.error(err);
     }
   };
