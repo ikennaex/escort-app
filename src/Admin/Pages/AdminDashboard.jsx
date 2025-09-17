@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "../Components/AdminSidebar";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
 
 const AdminDashboard = () => {
   const users = [
@@ -8,6 +10,11 @@ const AdminDashboard = () => {
     { username: "asmith", name: "Alice Smith", role: "Premium", age: 24 },
     { username: "mjane", name: "Mary Jane", role: "User", age: 30 },
   ];
+
+  const [escorts, setEscorts] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [unverifiedEscorts, setUnverifiedEscorts] = useState([]);
+  const [premiumEscorts, setPremiumEscorts] = useState([]);
 
   const [search, setSearch] = useState("");
   const filteredUsers = users.filter(
@@ -17,6 +24,50 @@ const AdminDashboard = () => {
       user.role.toLowerCase().includes(search.toLowerCase())
   );
 
+  const getAllEscorts = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}admin/getallescorts`);
+      console.log(response);
+      setEscorts(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllClients = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}admin/getallclients`);
+      setClients(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const pendingVerification = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}admin/getunverifiedescorts`);
+      setUnverifiedEscorts(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getpremiumEscorts = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}admin/getpremiumescorts`);
+      setPremiumEscorts(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllEscorts();
+    getAllClients();
+    pendingVerification();
+    getpremiumEscorts();
+  }, []);
+
   return (
     <div className="flex text-white overflow-x-hidden mx-auto">
       <AdminSidebar />
@@ -24,31 +75,71 @@ const AdminDashboard = () => {
       <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
         <h1 className="text-2xl font-bold mb-6 md:mt-0 mt-12">Dashboard</h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div className="bg-customPink rounded-lg px-3 py-6 md:p-6 shadow-md">
-            <p className="text-lg font-semibold">All Users</p>
-            <p className="text-3xl font-bold mb-4">9,887</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {/* All Users */}
+          <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+            <p className="text-base md:text-lg font-medium">All Users</p>
+            <p className="text-3xl font-bold my-2">
+              {escorts.length + clients.length}
+            </p>
+          </div>
+
+          {/* All Escorts */}
+          <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+            <p className="text-base md:text-lg font-medium">All Escorts</p>
+            <p className="text-3xl font-bold my-2">{escorts?.length}</p>
             <Link
               to="/admin/users"
-              className="inline-block bg-white text-customPink font-semibold px-4 py-2 rounded-md shadow transition"
+              className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
             >
               See all
             </Link>
           </div>
 
-          <div className="bg-customPink rounded-lg px-3 py-6 md:p-6 shadow-md">
-            <p className="text-lg font-semibold">Premium Users</p>
-            <p className="text-3xl font-bold mb-4">239</p>
+          {/* All Clients */}
+          <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+            <p className="text-base md:text-lg font-medium">All Clients</p>
+            <p className="text-3xl font-bold my-2">{clients?.length}</p>
+            <Link
+              to="/admin/users"
+              className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
+            >
+              See all
+            </Link>
+          </div>
+
+          {/* Pending Verification */}
+          <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+            <p className="text-base md:text-lg font-medium">
+              Pending Verification
+            </p>
+            <p className="text-3xl font-bold my-2">
+              {unverifiedEscorts?.length}
+            </p>
+            <Link
+              to="/admin/pending"
+              className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
+            >
+              See all
+            </Link>
+          </div>
+
+          {/* Premium Escorts */}
+          <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+            <p className="text-base md:text-lg font-medium">Premium Escorts</p>
+            <p className="text-3xl font-bold my-2">
+              {premiumEscorts?.length || "0"}
+            </p>
             <Link
               to="/admin/premium"
-              className="inline-block bg-white text-customPink font-semibold px-4 py-2 rounded-md shadow hover:bg-gray-200 transition"
+              className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
             >
               See all
             </Link>
           </div>
         </div>
 
-        <div className="bg-customGray rounded-lg shadow-md p-6">
+        {/* <div className="bg-customGray rounded-lg shadow-md p-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
             <h2 className="text-xl font-semibold">Recently added users</h2>
             <input
@@ -92,8 +183,13 @@ const AdminDashboard = () => {
               </tbody>
             </table>
           </div>
-          <Link className="bg-customPink px-4 py-2 font-bold mt-6 rounded-md" to='/admin/users'>See all</Link>
-        </div>
+          <Link
+            className="bg-customPink px-4 py-2 font-bold mt-6 rounded-md"
+            to="/admin/users"
+          >
+            See all
+          </Link>
+        </div> */}
       </div>
     </div>
   );

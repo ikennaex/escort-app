@@ -1,44 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../Components/AdminSidebar";
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
+import { differenceInYears, format } from "date-fns";
 
 const AdminPending = () => {
-  const pendingUsers = [
-    { id: 1, username: "jdoe", name: "John Doe", age: 25 },
-    { id: 2, username: "asmith", name: "Alice Smith", age: 30 },
-    { id: 3, username: "bjones", name: "Bob Jones", age: 22 },
-  ];
+  const [escorts, setEscorts] = useState([]);
+
+  const pendingVerification = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}admin/getunverifiedescorts`);
+      setEscorts(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const calculateAge = (dob) => {
+    if (!dob) return "N/A";
+    return differenceInYears(new Date(), new Date(dob));
+  };
+
+  useEffect(() => {
+    pendingVerification();
+  }, []);
 
   return (
-    <div className="flex text-white mx-auto">
+    <div className="flex text-white min-h-screen">
       <AdminSidebar />
-      <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
-        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-6">
-          Pending Approvals
+      <main className="flex-1 p-4 md:p-8 md:ml-64">
+        <h1 className="text-3xl font-bold mb-8">
+          Pending Approvals ({escorts.length}) 
         </h1>
 
-        <div className="space-y-4">
-          {pendingUsers.map((user) => (
-            <Link
-              key={user.id}
-              to={`/admin/pending/${user.id}`}
-              className="block bg-gray-800 hover:bg-gray-700 rounded-2xl p-4 shadow-md transition"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="font-semibold">{user.name}</p>
-                  <p className="text-sm text-gray-400">@{user.username}</p>
-                  <p className="text-sm">Age: {user.age}</p>
-                </div>
+        {escorts.length === 0 ? (
+          <p className="text-gray-400 text-center mt-12">
+            No pending escorts found.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {escorts.map((user) => (
+              <Link
+                key={user._id}
+                to={`/admin/pending/${user._id}`}
+                className="block border border-gray-700 bg-gray-900 hover:bg-gray-800 rounded-xl p-5 shadow-sm transition duration-200"
+              >
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                  <div className="space-y-1">
+                    <p className="text-lg font-semibold">{user.displayName}</p>
+                    <p className="text-sm text-gray-400">@{user.username}</p>
+                    <p className="text-sm text-gray-300">
+                      Age: {calculateAge(user.dob)}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-customPink">Account created on:{" "}</span>
+                      {format(new Date(user.createdAt), "PPP")}
+                    </p>
+                  </div>
 
-                <div className="mt-3 md:mt-0 text-blue-400 text-sm font-medium">
-                  Review →
+                  <div className="mt-3 md:mt-0 text-customPink text-sm font-medium flex items-center gap-1">
+                    <span>Review</span>
+                    <span className="text-lg">→</span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 };

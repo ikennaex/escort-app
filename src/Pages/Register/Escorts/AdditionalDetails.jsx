@@ -296,7 +296,7 @@ const AdditionalDetails = () => {
             <div>
               <select
                 onChange={handleChange}
-                name="language-spoken"
+                name="language"
                 id="language-spoken"
                 required
               >

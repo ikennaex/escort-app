@@ -10,6 +10,7 @@ import {
   X,
   CreditCard 
 } from "lucide-react"; // icons
+import { logo } from "../../../imports";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,10 @@ const AdminSidebar = () => {
   return (
     <>
       {/* Mobile Topbar with toggle button */}
-      <div className="md:hidden flex items-center justify-between bg-gray-900 text-white px-4 py-3 shadow-lg fixed top-0 left-0 right-0 z-50">
-        <div className="text-xl font-bold">Admin Panel</div>
+      <div className="md:hidden flex items-center justify-between bg-customGray text-white px-4 py-3 mb-10 shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div>
+          <img className="h-10" src= {logo} alt="" />
+        </div>
         <button onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -27,7 +30,7 @@ const AdminSidebar = () => {
       {/* Sidebar */}
       <div
         className={`
-          fixed top-0 left-0 h-screen bg-gray-900 text-white shadow-lg flex flex-col z-40
+          fixed top-0 left-0 h-screen bg-customGray text-white shadow-lg flex flex-col z-40
           transform transition-transform duration-300
           w-64
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
@@ -35,8 +38,9 @@ const AdminSidebar = () => {
         `}
       >
         {/* Sidebar header (hidden on mobile since topbar already has it) */}
-        <div className="hidden md:block p-6 text-2xl font-bold border-b border-gray-700">
-          Admin Panel
+        <div className="hidden md:block p-6 ">
+          <img className="h-12" src= {logo} alt="" />
+          <p className="text-xl font-bold">Admin Panel</p>
         </div>
 
         {/* Nav Links */}
@@ -58,11 +62,19 @@ const AdminSidebar = () => {
           </Link>
 
           <Link
+            to="/admin/escorts"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+          >
+            <Users size={20} />
+            <span className=" md:inline">Escorts</span>
+          </Link>
+
+          <Link
             to="/admin/users"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
           >
             <Users size={20} />
-            <span className=" md:inline">Users</span>
+            <span className=" md:inline">Client</span>
           </Link>
 
           <Link
