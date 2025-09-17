@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { baseUrl } from "../../baseUrl";
 import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
+import { ToastContainer, toast } from 'react-toastify';
 
 const OtpInput = ({ length = 4, onChangeOtp }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -61,7 +62,10 @@ const EscortVerifyPasswordChange = ({ onClose, password }) => {
     e.preventDefault();
 
     if (!otp || otp.length < 4) {
-      alert("Please enter your 4-digit code.");
+      toast.error("Please enter your 4-digit code.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       return;
     }
 
@@ -71,12 +75,18 @@ const EscortVerifyPasswordChange = ({ onClose, password }) => {
         password,
         otp,
       });
-      console.log(response.data);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       setUser(response.data.user);
       navigate("/escort-details");
     } catch (err) {
       console.error(err);
-      alert(err.response.data.message);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

@@ -6,6 +6,7 @@ import Loader from "../../../Components/Loaders/Loader";
 import { useNavigate } from "react-router";
 import { User } from "lucide-react";
 import { FormContext } from "../../../Contexts/FormContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 const VerificationImage = () => {
   const [preview, setPreview] = useState(null);
@@ -37,7 +38,10 @@ const VerificationImage = () => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please select an image first");
+      toast.success("Please select an image first", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       return;
     }
 
@@ -52,12 +56,18 @@ const VerificationImage = () => {
         },
       });
       console.log(response);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       markStepCompleted(5);
       navigate(`/escortdashboard/${user.id}`);
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

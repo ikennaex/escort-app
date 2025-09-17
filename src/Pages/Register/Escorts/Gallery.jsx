@@ -4,6 +4,7 @@ import Loader from "../../../Components/Loaders/Loader";
 import { UserContext } from "../../../Contexts/UserContext";
 import { useNavigate } from "react-router";
 import { FormContext } from "../../../Contexts/FormContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Gallery = () => {
   const navigate = useNavigate();
@@ -49,12 +50,18 @@ const Gallery = () => {
         },
       });
       console.log(response.data.message);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       markStepCompleted(4);
       navigate("/escort-verification");
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

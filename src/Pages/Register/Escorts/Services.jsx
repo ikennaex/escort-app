@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 import { FormContext } from "../../../Contexts/FormContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -31,7 +32,10 @@ const Services = () => {
     e.preventDefault();
 
     if (selectedServices.length < 5) {
-      alert("Please select at least 5 services before continuing.");
+      toast.success("Please select at least 5 services before continuing.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       return;
     }
 
@@ -40,12 +44,18 @@ const Services = () => {
       const response = await api.put("escortservices", {
         services: selectedServices,
       });
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       markStepCompleted(2);
       navigate("/escort-rates");
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

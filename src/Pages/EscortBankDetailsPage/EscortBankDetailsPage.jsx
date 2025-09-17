@@ -3,6 +3,7 @@ import { UserContext } from "../../Contexts/UserContext";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
+import { ToastContainer, toast } from 'react-toastify';
 
 const EscortBankDetailsPage = () => {
   const { user } = useContext(UserContext);
@@ -34,11 +35,18 @@ const EscortBankDetailsPage = () => {
         bankDetails
       );
       console.log(response);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       console.log(bankDetails);
       navigate(`/escortdashboard/${user._id}`);
     } catch (err) {
       console.log(err);
+      toast.error(err, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

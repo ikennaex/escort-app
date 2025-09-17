@@ -7,6 +7,7 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import Loader from "../../Components/Loaders/Loader";
 import { format } from "date-fns";
+import { ToastContainer, toast } from 'react-toastify';
 
 const SectionCard = ({ title, children }) => (
   <div className="bg-customGray rounded-xl p-5 mb-6 shadow-lg">
@@ -36,10 +37,16 @@ const AdminPendingApprovalDetails = () => {
   const approveEscort = async (id) => {
     try {
       const response = await axios.patch(`${baseUrl}admin/approveescort/${id}`);
-      alert(response.data.message)
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       navigate("/admin/pending")
     } catch (err) {
-      alert(err.response.data.message)
+      toast.success(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       console.error(err);
     }
   };
@@ -47,7 +54,10 @@ const AdminPendingApprovalDetails = () => {
   const rejectEscort = async (id) => {
     try {
       await axios.post(`${baseUrl}admin/rejectescort/${id}`);
-      alert("Escort rejected!");
+      toast.success('Escort rejected!', {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } catch (err) {
       console.error(err);
     }

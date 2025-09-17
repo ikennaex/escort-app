@@ -4,6 +4,7 @@ import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
 import EscortVerifyPasswordChange from "./EscortVerifyPasswordChange";
+import { ToastContainer, toast } from 'react-toastify';
 
 const EscortChangePasswordPage = () => {
   const { user, api } = useContext(UserContext);
@@ -29,7 +30,10 @@ const EscortChangePasswordPage = () => {
 
     // check if passwords match
     if (formData.newPassword !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       return;
     }
 
@@ -39,7 +43,10 @@ const EscortChangePasswordPage = () => {
     //   navigate(`/escortdashboard/${user._id}`);
     } catch (err) {
       console.log(err);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

@@ -6,6 +6,7 @@ import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
 import services from "../../data/services.json";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
 
 const EscortEditPage = () => {
   const navigate = useNavigate();
@@ -89,7 +90,10 @@ const EscortEditPage = () => {
     e.preventDefault();
 
     if (selectedServices.length < 5) {
-      alert("Please select at least 5 services before continuing.");
+      toast.error("Please select at least 5 services before continuing.", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       return;
     }
 
@@ -97,7 +101,10 @@ const EscortEditPage = () => {
       setLoading(true);
       const response = await api.patch(`${baseUrl}escorts/edit`, formData);
       console.log(response);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       navigate(`/escortdashboard/${user._id}`);
     } catch (err) {
       console.log(err);

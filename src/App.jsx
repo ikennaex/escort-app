@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import Homepage from "./Pages/Homepage/Homepage";
 import Navbar from "./Components/Navbar/Navbar";
 import Login from "./Pages/Login/Login";
@@ -128,6 +129,7 @@ const App = () => {
               />
               <Route path="/admin/user/:id" element={<AdminUserDetails />} />
             </Routes>
+            <ToastContainer />
           </div>
         </div>
       </FormProvider>

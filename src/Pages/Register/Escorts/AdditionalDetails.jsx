@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 import { FormContext } from "../../../Contexts/FormContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 const AdditionalDetails = () => {
   const navigate = useNavigate();
@@ -48,12 +49,18 @@ const AdditionalDetails = () => {
       // api from usecontext
       const response = await api.put("/escortdetails", formData);
       console.log(response);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       markStepCompleted(2);
       navigate("/escort-services");
     } catch (err) {
       console.log(err);
-      alert(err.response.data.mesaage);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

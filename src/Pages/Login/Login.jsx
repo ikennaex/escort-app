@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,12 +29,18 @@ const Login = () => {
       const response = await api.post("auth/signin", formData);
       setUser(response.data.user)
       setAccessToken(response.data.accessToken);
-      alert(response.data.message);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
       setFormData({ identifier: "", password: "" });
       navigate("/");
     } catch (err) {
       console.log(err);
-      alert(err.response.data.message);
+      toast.error(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }
