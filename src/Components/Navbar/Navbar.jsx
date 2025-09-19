@@ -10,18 +10,25 @@ import MobileNav from "../MobileNav/MobileNav";
 import { UserContext } from "../../Contexts/UserContext";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { logo } from "../../../imports";
+import FilterBox from "../FilterBox/FilterBox";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useContext(UserContext);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  const handlePopUp = () => {
+    setOpen(!open)
+  }
+
   return (
     <div className="bg-customGray flex-col sticky top-0 z-50 h-22 px-4 py-3 flex gap-3 justify-between">
-      {/* mobile menu to show on mobile view only */}
+      <FilterBox open = {open} handlePopUp = {handlePopUp}/>
+       {/* mobile menu to show on mobile view only */}
 
       <MobileNav isOpen={isOpen} handleToggle={handleToggle} />
       {/* Left side: Hamburger + Logo */}
@@ -40,7 +47,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center gap-6">
         {/* Icons */}
         <div className="flex gap-3">
-          <MagnifyingGlassIcon className="text-white h-7 bg-customPink p-1 rounded-full" />
+          <MagnifyingGlassIcon onClick={handlePopUp} className="text-white h-7 bg-customPink p-1 rounded-full cursor-pointer" />
           <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
           <Link to='/notifications' ><BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" /></Link>
         </div>
@@ -49,7 +56,10 @@ const Navbar = () => {
         {user ? (
           <Link to={`/escortdashboard/${user._id}`} >
           <p className="flex items-center gap-2 text-md font-semibold text-white">
-            <UserCircleIcon className="w-6 h-6 text-customPink" />
+            {user? <img className="h-6 w-6 rounded-full" src= {user.gallery?.[0]} alt="" />
+          :  
+          <UserCircleIcon className="w-6 h-6 text-customPink" />
+          }
             {"Hi " + user?.username || "there"}
           </p>
           </Link>

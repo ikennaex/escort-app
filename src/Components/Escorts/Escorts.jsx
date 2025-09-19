@@ -36,6 +36,7 @@ const Escorts = () => {
 
   return (
     <div className="p-1 bg-black py-10">
+      <p className="text-center text-white text-lg font-bold my-4">All Escorts</p>
       {loading && (
         <div className="flex items-center justify-center">
           <Loader />
