@@ -41,7 +41,7 @@ const ProfileTabs = ({ escort }) => {
             >
               Gallery
             </li>
-            <p className="text-sm text-gray-500">· 5</p>
+            <p className="text-sm text-gray-500">· {escort.gallery?.length}</p>
           </div>
 
           <div

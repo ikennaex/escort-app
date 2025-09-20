@@ -19,7 +19,7 @@ const SectionCard = ({ title, children }) => (
 );
 
 const AdminPendingApprovalDetails = () => {
-  const navigate = useNavigate(e)
+  const navigate = useNavigate()
   const [escort, setEscort] = useState(null);
   const { id } = useParams();
 
