@@ -12,55 +12,31 @@ import {
 
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
-
-const data = [
-  {
-    id: 1,
-    name: "Stella",
-    image:
-      "https://img.freepik.com/premium-photo/portrait-smiling-young-woman-red-dress-footpath_1048944-29109377.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
-    phone: "+234 705 333 3484",
-    location: "Ikeja, Lagos",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ullam expedita ducimus animi fugit facilis sit repellat hic nemo ipsa?",
-  },
-
-  {
-    id: 2,
-    name: "Mercy",
-    image:
-      "https://img.freepik.com/premium-photo/studio-photoshoot-modeling_1048944-3927801.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
-    phone: "+234 705 333 3484",
-    location: "Magodo, Lagos",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ullam expedita ducimus animi fugit facilis sit repellat hic nemo ipsa?",
-  },
-
-  {
-    id: 3,
-    name: "Jane",
-    image:
-      "https://img.freepik.com/free-photo/woman-wearing-red-body-suit-red-background_633478-239.jpg?ga=GA1.1.2145612538.1736353082&semt=ais_hybrid&w=740&q=80",
-    phone: "+234 705 333 3484",
-    location: "Yaba, Lagos",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ullam expedita ducimus animi fugit facilis sit repellat hic nemo ipsa?",
-  },
-
-  {
-    id: 4,
-    name: "Stella",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2apztSw2a9Nzw3jedprGNLItfXNrf2jI_cw&s",
-    phone: "+234 705 333 3484",
-    location: "Ikeja, Lagos",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ullam expedita ducimus animi fugit facilis sit repellat hic nemo ipsa?",
-  },
-];
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
+import Loader from "../Loaders/Loader";
 
 const ImageSlider = () => {
   const [slidesToShow, setSlidesToShow] = useState(1);
+  const [premiumEscorts, setPremiumEscorts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchPremiumEscorts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${baseUrl}escorts/premium`);
+      console.log(response)
+      setPremiumEscorts(response.data.escortDoc);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPremiumEscorts();
+  }, []);
 
   // Force correct slidesToShow on real devices
   useEffect(() => {
@@ -112,16 +88,19 @@ const ImageSlider = () => {
     ],
   };
 
+  console.log(premiumEscorts)
+
   return (
     <div className="w-full mx-auto p-1 ">
+      {loading && <div className="flex justify-center items-center"><Loader /></div>}
       <Slider key={slidesToShow} {...settings}>
-        {data.map((item, index) => (
+        {premiumEscorts?.map((item, index) => (
           <div key={index} className="px-2 w-full max-w-sm mx-auto">
-            <Link to="/escorts/:id">
+            <Link to={`/escorts/${item._id}`}>
               <div className="w-full border-2 border-white overflow-hidden relative">
                 <img
                   className="w-full h-96 object-cover object-top"
-                  src={item.image}
+                  src={item.gallery?.[0]}
                   alt={item.name}
                 />
 
@@ -130,7 +109,7 @@ const ImageSlider = () => {
                   {/* Name */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold text-lg">{item.name}</p>
+                      <p className="font-semibold text-lg">{item.displayName}</p>
                       <CheckBadgeIcon className="text-green-500 h-5" />
                     </div>
                     <HeartIcon className="h-5 text-red-500 justify-end" />
@@ -143,14 +122,14 @@ const ImageSlider = () => {
                       href={`tel:${item.phone}`}
                       className="text-blue-600 hover:underline"
                     >
-                      {item.phone}
+                      {item.phoneNumber}
                     </a>
                   </div>
 
                   {/* Location */}
                   <div className="flex items-center gap-2 mb-3">
                     <MapPinIcon className="h-5 text-customPink" />
-                    <p className="text-sm">{item.location}</p>
+                    <p className="text-sm">{item.city + ", " + item.state + ", " + item.country}</p>
                   </div>
 
                   {/* Description */}

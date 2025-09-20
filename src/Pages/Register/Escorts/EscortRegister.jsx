@@ -294,7 +294,7 @@ const EscortRegister = () => {
                 </div>
                 <input
                   placeholder="Enter phone number"
-                  type="tel"
+                  type="numberf"
                   id="phoneNumber"
                   name="phoneNumber"
                   onChange={handleChange}
