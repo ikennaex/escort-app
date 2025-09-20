@@ -66,7 +66,7 @@ const Navbar = () => {
         ) : (
           <div className="flex gap-3">
             <Link to={"/register-card"}>
-              <button className="border border-customPink text-sm text-white px-3 py-1 rounded-xl">
+              <button className="bg-transparent border border-customPink text-sm text-white px-3 py-1 rounded-xl">
                 Sign Up
               </button>
             </Link>

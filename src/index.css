@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,7 +38,8 @@ button {
 }
 
 body {
-  background-color: #29283f;
+  background-color: #212336;
+  font-family: "Inter", sans-serif;
 }
 
 .scrollbar-hidden::-webkit-scrollbar {

@@ -18,7 +18,7 @@ const Escorts = () => {
   // for pagination
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handlePopUp = () => {
     setOpen(!open);
@@ -42,19 +42,23 @@ const Escorts = () => {
   }, [page]);
 
   return (
-    <div className="p-2 bg-black py-10">
-      <FilterBox open = {open} handlePopUp = {handlePopUp}/>
+    <div className="p-2 bg-black pb-10">
+      <FilterBox open={open} handlePopUp={handlePopUp} />
       {loading && (
         <div className="flex items-center justify-center">
           <Loader />
         </div>
       )}
-      <div onClick={handlePopUp} className="flex">
-        <SlidersHorizontal className="text-yellow-400 ml-auto" />
-      </div>
+
+      <div className="flex items-center justify-between">
       <p className="text-center text-white text-lg font-bold my-4">
         All Escorts
       </p>
+      <div onClick={handlePopUp} className="flex">
+        <SlidersHorizontal className="text-yellow-400 ml-auto" />
+      </div>
+      </div>
+
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
         {error && (
           <div className="text-red-700 text-center flex items-center justify-center">
