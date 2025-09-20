@@ -18,6 +18,7 @@ import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { useParams } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
+import { LightbulbIcon } from "lucide-react";
 
 const calculateAge = (dob) => {
   if (!dob) return null;
@@ -72,19 +73,24 @@ const EscortDetailsPage = () => {
                   <CheckBadgeIcon className="text-green-500 h-5" />
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 justify-center ">
                   <a
-                    className="flex items-center mt-2"
+                    className="flex gap-1 items-center mt-2"
                     href={`https://wa.me/${escort?.countryCode}${escort?.phoneNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <FaWhatsapp className="text-green-500 " />
-                    <div className="flex">
+                    <div className="flex text-blue-700">
                       <p>+{escort?.countryCode}</p>
                       <p>{escort?.phoneNumber}</p>
                     </div>
                   </a>
+
+                  <div className="flex justify-center items-center">
+                    <LightbulbIcon className="h-2 text-customPink" />
+                  <p className="lg:text-sm text-[8px] text-gray-500 font-semibold">click phone number to chat directly on WhatsApp</p>
+                  </div>
                 </div>
               </div>
 
