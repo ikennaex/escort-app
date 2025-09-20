@@ -74,7 +74,11 @@ const EscortDashboard = () => {
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-3">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH6gP2cXHCBfE3Q4snVK7RZuquprmqEBFHkg&s"
+                src={
+                  user?.gallery?.[0]
+                    ? user.gallery[0]
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH6gP2cXHCBfE3Q4snVK7RZuquprmqEBFHkg&s"
+                }
                 alt="profile"
                 className="w-14 h-14 rounded-full object-cover"
               />
