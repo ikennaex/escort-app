@@ -73,8 +73,18 @@ const EscortDetailsPage = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <FaWhatsapp className="text-green-500 " />
-                  <p>{escort?.phoneNumber}</p>
+                  <a
+                    className="flex items-center mt-2"
+                    href={`https://wa.me/${escort?.countryCode}${escort?.phoneNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaWhatsapp className="text-green-500 " />
+                    <div className="flex">
+                      <p>+{escort?.countryCode}</p>
+                      <p>{escort?.phoneNumber}</p>
+                    </div>
+                  </a>
                 </div>
               </div>
 
@@ -129,42 +139,39 @@ const EscortDetailsPage = () => {
               </div>
 
               <div className="lg:flex lg:gap-14 lg:mt-10">
-              <div className="flex lg:gap-3 justify-between  mx-auto py-3">
-                <div className="text-white bg-blue-500 px-5 py-2 rounded-2xl">
-                  Follow
+                <div className="flex lg:gap-3 justify-between  mx-auto py-3">
+                  <div className="text-white bg-blue-500 px-5 py-2 rounded-2xl">
+                    Follow
+                  </div>
+                  <div className="text-white bg-orange-500 px-5 py-2 rounded-2xl">
+                    Fav
+                  </div>
+                  <div className="text-white bg-green-500 px-5 py-2 rounded-2xl">
+                    Chat
+                  </div>
+                  <div className="text-white bg-pink-500 px-5 py-2 rounded-2xl">
+                    Book
+                  </div>
                 </div>
-                <div className="text-white bg-orange-500 px-5 py-2 rounded-2xl">
-                  Fav
-                </div>
-                <div className="text-white bg-green-500 px-5 py-2 rounded-2xl">
-                  Chat
-                </div>
-                <div className="text-white bg-pink-500 px-5 py-2 rounded-2xl">
-                  Book
-                </div>
-              </div>
 
-              <div className="flex lg:gap-5 mx-auto justify-between w-3/4 items-center">
-                <div className="text-center">
-                  <BsGenderAmbiguous className="text-3xl text-pink-500" />
-                  <p className="font-semibold">{escort?.gender}</p>
+                <div className="flex lg:gap-5 mx-auto justify-between w-3/4 items-center">
+                  <div className="text-center">
+                    <BsGenderAmbiguous className="text-3xl text-pink-500" />
+                    <p className="font-semibold">{escort?.gender}</p>
+                  </div>
+                  <div className="text-center">
+                    <BsCake className="text-pink-500 text-3xl" />
+                    <p className="font-semibold">{calculateAge(escort?.dob)}</p>
+                  </div>
+                  <div className="text-center">
+                    <BsRulers className="text-2xl text-pink-500" />
+                    <p className="font-semibold">{escort?.height}</p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <BsCake className="text-pink-500 text-3xl" />
-                  <p className="font-semibold">{calculateAge(escort?.dob)}</p>
-                </div>
-                <div className="text-center">
-                  <BsRulers className="text-2xl text-pink-500" />
-                  <p className="font-semibold">{escort?.height}</p>
-                </div>
-              </div>
               </div>
             </div>
           </div>
-          {!error &&
-          
-          <ProfileTabs escort={escort} />
-          }
+          {!error && <ProfileTabs escort={escort} />}
         </div>
       )}
     </>
