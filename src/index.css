@@ -31,6 +31,10 @@
   }
 }
 
+button { 
+  @apply bg-customPink text-sm text-white px-3 py-1 rounded-xl
+}
+
 body {
   background-color: #29283f;
 }

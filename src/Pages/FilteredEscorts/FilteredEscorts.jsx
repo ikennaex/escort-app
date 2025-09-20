@@ -1,66 +1,68 @@
-import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
 import {
   CheckBadgeIcon,
   MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router";
-import { fetchEscorts } from "./fetchEscorts";
-import Loader from "../Loaders/Loader";
-import { SlidersHorizontal } from "lucide-react";
-import FilterBox from "../FilterBox/FilterBox";
+import Loader from "../../Components/Loaders/Loader";
 
-const Escorts = () => {
-  const [loading, setLoading] = useState(true);
+const FilteredEscorts = () => {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+
   const [escorts, setEscorts] = useState([]);
   const [error, setError] = useState("");
-  // for pagination
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [open, setOpen] = useState(false)
-
-  const handlePopUp = () => {
-    setOpen(!open);
-  };
-
-  const loadEscorts = async () => {
-    try {
-      const response = await fetchEscorts(page, 10);
-      setEscorts(response.escortDoc);
-      setTotalPages(response.totalPages);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      setError(err.message);
-      console.log(err);
-    }
-  };
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    loadEscorts();
-  }, [page]);
+    const fetchEscorts = async () => {
+      setLoading(true);
+      try {
+        // turn params back into object
+        const filters = Object.fromEntries(params.entries());
+
+        const response = await axios.get(`${baseUrl}escorts/search`, {
+          params: filters,
+        });
+
+        setEscorts(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+        setError(err.response.data.message);
+      }
+    };
+
+    fetchEscorts();
+  }, [search]);
 
   return (
-    <div className="p-2 bg-black py-10">
-      <FilterBox open = {open} handlePopUp = {handlePopUp}/>
+    <div className="p-2">
+      <h1 className="font-bold text-white text-xl">Search Results</h1>
       {loading && (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-screen">
           <Loader />
         </div>
       )}
-      <div onClick={handlePopUp} className="flex">
-        <SlidersHorizontal className="text-yellow-400 ml-auto" />
-      </div>
-      <p className="text-center text-white text-lg font-bold my-4">
-        All Escorts
-      </p>
-      <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
-        {error && (
-          <div className="text-red-700 text-center flex items-center justify-center">
-            {error}
-          </div>
-        )}
+
+      {escorts.length === 0 && (
+        <div className="text-red-700 text-center flex items-center justify-center">
+          No Escorts Found
+        </div>
+      )}
+
+      {error && (
+        <div className="text-red-700 text-center flex items-center justify-center">
+          {error}
+        </div>
+      )}
+
+      <div className="grid lg:grid-cols-4 grid-cols-2 gap-3 mt-2">
         {escorts.map((item) => (
           <Link to={`/escorts/${item._id}`}>
             <div
@@ -118,4 +120,4 @@ const Escorts = () => {
   );
 };
 
-export default Escorts;
+export default FilteredEscorts;

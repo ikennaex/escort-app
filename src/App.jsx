@@ -44,6 +44,7 @@ import EscortFAQS from "./Pages/EscortFAQS/EscortFAQS";
 import EscortContactAdmin from "./Pages/EscortContactAdmin/EscortContactAdmin";
 import EscortSetting from "./Pages/EscortSettings/EscortSetting";
 import EscortNotifications from "./Pages/EscortNotifications/EscortNotifications";
+import FilteredEscorts from "./Pages/FilteredEscorts/FilteredEscorts";
 
 const App = () => {
   const location = useLocation();
@@ -93,6 +94,7 @@ const App = () => {
               <Route path="/contact-admin" element={<EscortContactAdmin />} />
               <Route path="/settings" element={<EscortSetting />} />
               <Route path="/notifications" element={<EscortNotifications />} />
+              <Route path="/search" element={<FilteredEscorts />} />
               
 
               <Route element={<ProtectedRoutes />}>

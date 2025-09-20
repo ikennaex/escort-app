@@ -191,7 +191,7 @@ const EscortRegister = () => {
               </p>
             </div>
             <div className="flex flex-col">
-              <label className="font-bold" htmlFor="description">
+              <label className="font-bold" htmlFor="country">
                 Country
               </label>
               <select
