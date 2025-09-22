@@ -76,7 +76,11 @@ const EscortDetailsPage = () => {
                 <div className="flex items-center gap-3 justify-center ">
                   <a
                     className="flex gap-1 items-center mt-2"
-                    href={`https://wa.me/${escort?.countryCode}${escort?.phoneNumber}`}
+                    href={`https://wa.me/${escort?.countryCode}${
+                      escort?.phoneNumber
+                    }?text=${encodeURIComponent(
+                      `Greetings to you ${escort?.displayNameame}, I found your profound profile on www.oscrovilla.com and wish to find out if you are available for a meetup 💖`
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -89,7 +93,9 @@ const EscortDetailsPage = () => {
 
                   <div className="flex justify-center items-center">
                     <LightbulbIcon className="h-2 text-customPink" />
-                  <p className="lg:text-sm text-[8px] text-gray-500 font-semibold">click phone number to chat directly on WhatsApp</p>
+                    <p className="lg:text-sm text-[8px] text-gray-500 font-semibold">
+                      click phone number to chat directly on WhatsApp
+                    </p>
                   </div>
                 </div>
               </div>
