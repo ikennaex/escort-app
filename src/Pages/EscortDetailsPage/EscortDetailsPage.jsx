@@ -79,7 +79,7 @@ const EscortDetailsPage = () => {
                     href={`https://wa.me/${escort?.countryCode}${
                       escort?.phoneNumber
                     }?text=${encodeURIComponent(
-                      `Greetings to you ${escort?.displayNameame}, I found your profound profile on www.oscrovilla.com and wish to find out if you are available for a meetup 💖`
+                      `Greetings to you ${escort?.displayName}, I found your profound profile on www.oscrovilla.com and wish to find out if you are available for a meetup 💖`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
