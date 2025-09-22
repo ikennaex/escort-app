@@ -56,14 +56,14 @@ const EscortDetailsPage = () => {
       ) : (
         <div className="bg-pink-100 fade-in">
           {error && <p className="text-center">{error}</p>}
-          <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg">
+          <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg w-full">
             <img
               className="lg:h-96 lg:w-64 w-full h-96 object-cover object-top"
               src={escort?.gallery?.[0]}
               alt=""
             />
 
-            <div className="px-3 py-3">
+            <div className="px-3 py-3 w-full">
               <div>
                 <div className="flex gap-2 items-center">
                   <p className="font-bold text-2xl">{escort?.displayName}</p>
@@ -73,7 +73,7 @@ const EscortDetailsPage = () => {
                   <CheckBadgeIcon className="text-green-500 h-5" />
                 </div>
 
-                <div className="flex items-center gap-3 justify-center ">
+                <div className="flex items-center gap-3 justify-start ">
                   <a
                     className="flex gap-1 items-center mt-2"
                     href={`https://wa.me/${escort?.countryCode}${
@@ -92,8 +92,8 @@ const EscortDetailsPage = () => {
                   </a>
 
                   <div className="flex justify-center items-center">
-                    <LightbulbIcon className="h-2 text-customPink" />
-                    <p className="lg:text-sm text-[8px] text-gray-500 font-semibold">
+                    <LightbulbIcon className="h-3 lg:h-4 text-customPink" />
+                    <p className="lg:text-sm text-[12px] text-gray-500 font-semibold">
                       click phone number to chat directly on WhatsApp
                     </p>
                   </div>
@@ -129,8 +129,8 @@ const EscortDetailsPage = () => {
                 </div>
               </div>
 
-              <div className="lg:flex lg:gap-10">
-                <div className="flex text-center justify-between w-3/4 mx-auto py-3">
+              <div className="">
+                <div className="flex text-center justify-between w-3/4 lg:w-2/4 mx-auto py-3">
                   <div>
                     <p className="font-semibold">Posts</p>
                     <p>0</p>
@@ -150,8 +150,8 @@ const EscortDetailsPage = () => {
                 </div>
               </div>
 
-              <div className="lg:flex lg:gap-14 lg:mt-10">
-                <div className="flex lg:gap-3 justify-between  mx-auto py-3">
+              <div className="lg:mt-10 ">
+                <div className="flex lg:w-2/4 lg:gap-3 justify-between  mx-auto py-3">
                   <div className="text-white bg-blue-500 px-5 py-2 rounded-2xl">
                     Follow
                   </div>
@@ -166,7 +166,7 @@ const EscortDetailsPage = () => {
                   </div>
                 </div>
 
-                <div className="flex lg:gap-5 mx-auto justify-between w-3/4 items-center">
+                <div className="flex lg:w-2/4 lg:gap-5 mx-auto justify-between w-3/4 items-center">
                   <div className="text-center">
                     <BsGenderAmbiguous className="text-3xl text-pink-500" />
                     <p className="font-semibold">{escort?.gender}</p>
