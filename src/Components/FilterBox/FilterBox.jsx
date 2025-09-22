@@ -87,7 +87,7 @@ const FilterBox = ({ open, handlePopUp }) => {
             {/* Close Button */}
             <button
               onClick={handlePopUp}
-              className="absolute top-3 right-3 text-white hover:text-black"
+              className="absolute top-3 right-3 text-black hover:text-black"
             >
               <X size={24} />
             </button>
