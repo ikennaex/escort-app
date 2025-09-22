@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
 import { FormContext } from "../../../Contexts/FormContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 const Rates = () => {
   const navigate = useNavigate();
@@ -97,17 +97,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your short time rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (120000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="overnightIncall">Overnight</label>
@@ -118,17 +116,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your overnight rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (250000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="weekendIncall">Weekend</label>
@@ -139,17 +135,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your weekend rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (550000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -166,17 +160,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your short time rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (120000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="overnightOutcall">Overnight</label>
@@ -187,17 +179,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your overnight rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (250000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="weekendOutcall">Weekend</label>
@@ -208,17 +198,15 @@ const Rates = () => {
               required
             >
               <option value="">Select your weekend rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (550000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}s
             </select>
           </div>
 

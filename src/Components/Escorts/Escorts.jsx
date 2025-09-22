@@ -103,14 +103,14 @@ const Escorts = () => {
                 {/* Location */}
                 <div className="flex items-center gap-2 lg:mb-2">
                   <MapPinIcon className="h-4 text-white hidden md:block" />
-                  <p className="lg:text-sm text-[10px]">
+                  <p className="lg:text-sm text-[6px]">
                     {item.city + ", " + item.state + ", " + item.country}
                   </p>
                 </div>
 
                 {/* Description */}
                 <p className="lg:text-sm text-[10px] leading-relaxed">
-                  {item.about?.split(" ").slice(0, 10).join(" ")}
+                  {item.about?.split(" ").slice(0, 5).join(" ")}
                   {item.about?.split(" ").length > 20 ? "..." : ""}
                 </p>
               </div>

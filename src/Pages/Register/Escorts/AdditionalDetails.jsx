@@ -170,11 +170,14 @@ const AdditionalDetails = () => {
               required
             >
               <option value="">Select your bust size</option>
+              <option value="None">None</option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
               <option value="Large">Large</option>
               <option value="Extra Large">Extra Large</option>
+              <option value="Fat Ass">Fat Ass</option>
             </select>
+
           </div>
 
           <div>
@@ -183,9 +186,13 @@ const AdditionalDetails = () => {
             </label>
             <select onChange={handleChange} name="height" id="height" required>
               <option value="">Select your height</option>
+              <option value="Dwalf">Dwalf</option>
+              <option value="Very Short">Very Short</option>
               <option value="Short">Short</option>
               <option value="Average">Average</option>
+              <option value="Average">Average</option>
               <option value="Tall">Tall</option>
+              <option value="Very Tall">Very Tall</option>
             </select>
           </div>
 
@@ -195,9 +202,10 @@ const AdditionalDetails = () => {
             </label>
             <select onChange={handleChange} name="weight" id="weight" required>
               <option value="">Select your weight</option>
-              <option value="Underweight">Underweight</option>
-              <option value="Normal">Normal</option>
-              <option value="Overweight">Overweight</option>
+              <option value="Light">Light</option>
+              <option value="Average">Average</option>
+              <option value="BBW">BBW</option>
+              <option value="Heavyweight">Heavyweight</option>
             </select>
           </div>
 
@@ -213,9 +221,15 @@ const AdditionalDetails = () => {
             >
               <option value="">Select your body build</option>
               <option value="Slim">Slim</option>
-              <option value="Average">Average</option>
+              <option value="Fat">Fat</option>
               <option value="Athletic">Athletic</option>
               <option value="Curvy">Curvy</option>
+              <option value="Chubby">Chubby</option>
+              <option value="Elegant">Elegant</option>
+              <option value="Huge">Huge</option>
+              <option value="Regular">Regular</option>
+              <option value="Muscular">Muscular</option>
+              <option value="Fluffy">Fluffy</option>
             </select>
           </div>
 
@@ -225,9 +239,14 @@ const AdditionalDetails = () => {
             </label>
             <select onChange={handleChange} name="looks" id="looks" required>
               <option value="">Select your looks</option>
-              <option value="Attractive">Attractive</option>
-              <option value="Average">Average</option>
-              <option value="Below average">Below Average</option>
+              <option value="Office Type">Office Type</option>
+              <option value="Sexy">Sexy</option>
+              <option value="Pornstar">Pornstar</option>
+              <option value="Stripper">Stripper</option>
+              <option value="Pink Lips Boy">Pink Lips Boy</option>
+              <option value="Eye Candy">Eye Candy</option>
+              <option value="Sexy Teacher">Sexy Teacher</option>
+              <option value="Goddess">Goddess</option>
             </select>
           </div>
 
@@ -254,9 +273,8 @@ const AdditionalDetails = () => {
             >
               <option value="">Select your sexual orientation</option>
               <option value="Heterosexual">Heterosexual</option>
-              <option value="Homosexual">Homosexual</option>
               <option value="Bisexual">Bisexual</option>
-              <option value="Other">Other</option>
+              {/* <option value="Other">Other</option> */}
             </select>
           </div>
 
