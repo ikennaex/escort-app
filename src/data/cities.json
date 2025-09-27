@@ -207,6 +207,7 @@
     "Delta": [
       "Aniocha North",
       "Aniocha South",
+      "Asaba",
       "Bomadi",
       "Burutu",
       "Ethiope East",
@@ -248,6 +249,7 @@
     ],
     "Edo": [
       "Akoko-Edo",
+      "Benin City",
       "Egor",
       "Esan Central",
       "Esan North-East",
@@ -303,7 +305,7 @@
       "Udi",
       "Uzo Uwani"
     ],
-    "Abuja Federal Capital Territory": ["Abuja Municipal", "Bwari", "Gwagwalada", "Kuje", "Kwali", "Abaji"],
+    "Abuja (FCT)": ["Abuja Municipal", "Bwari", "Gwagwalada", "Kuje", "Kwali", "Abaji"],
     "Gombe": [
       "Akko",
       "Balanga",
@@ -547,13 +549,16 @@
     ],
     "Lagos": [
       "Agege",
+      "Apapa",
       "Ajeromi-Ifelodun",
       "Alimosho",
       "Amuwo-Odofin",
       "Apapa",
       "Badagry",
       "Epe",
-      "Eti-Osa",
+      "Festac",
+      "Ikoyi",
+      "Lekki-Ajah",
       "Ibeju-Lekki",
       "Ifako-Ijaiye",
       "Ikeja",
@@ -565,7 +570,9 @@
       "Ojo",
       "Oshodi-Isolo",
       "Shomolu",
-      "Surulere"
+      "Surulere",
+      "Victoria Island",
+      "Yaba"
     ],
     "Nasarawa": [
       "Akwanga",

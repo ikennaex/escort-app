@@ -78,11 +78,11 @@ const AdminSidebar = () => {
           </Link>
 
           <Link
-            to="/admin/payments"
+            to="/admin/subscriptions"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
           >
             <CreditCard  size={20} />
-            <span className=" md:inline">Payments</span>
+            <span className=" md:inline">Subscriptions</span>
           </Link>
 
           <Link

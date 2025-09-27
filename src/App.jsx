@@ -48,6 +48,8 @@ import FilteredEscorts from "./Pages/FilteredEscorts/FilteredEscorts";
 import EscortBoostProfile from "./Pages/EscortBoostProfile/EscortBoostProfile";
 import EscortBankPay from "./Pages/EscortPaymentMethods/EscortBankPay/EscortBankPay";
 import EscortCryptoPay from "./Pages/EscortPaymentMethods/EscortCryptoPay/EscortCryptoPay";
+import AdminEscorts from "./Admin/Pages/AdminEscorts";
+import AdminEscortDetails from "./Admin/Pages/AdminEscortDetails";
 
 const App = () => {
   const location = useLocation();
@@ -124,7 +126,9 @@ const App = () => {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/premium" element={<AdminPremiumUsers />} />
             <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/payments" element={<AdminPayments />} />
+            <Route path="/admin/subscriptions" element={<AdminPayments />} />
+            <Route path="/admin/escorts" element={<AdminEscorts />} />
+            <Route path="/admin/escort/:id" element={<AdminEscortDetails />} />
             <Route path="/admin/pending" element={<AdminPending />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route

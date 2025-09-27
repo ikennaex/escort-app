@@ -28,8 +28,6 @@ const FilterBox = ({ open, handlePopUp }) => {
     services: [],
   });
 
-  console.log(filters);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({
@@ -67,7 +65,6 @@ const FilterBox = ({ open, handlePopUp }) => {
     try {
       const queryString = new URLSearchParams(filters).toString();
       const response = await axios.get(`${baseUrl}escorts/search?${queryString}`)
-      console.log(response.data);
       setFilteredEscorts(response.data);
       handlePopUp()
       navigate(`/search?${queryString}`)
@@ -75,8 +72,6 @@ const FilterBox = ({ open, handlePopUp }) => {
       console.log(err);
     }
   };
-
-  console.log(filteredEscorts);
 
   return (
     <div>

@@ -30,6 +30,7 @@ import {
   Power,
   Trash2,
   Activity,
+  Star,
 } from "lucide-react";
 import { Link } from "react-router";
 import { useContext } from "react";
@@ -37,6 +38,8 @@ import { UserContext } from "../../Contexts/UserContext";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { format, formatDistanceToNow } from "date-fns";
 
 const EscortDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +49,7 @@ const EscortDashboard = () => {
   const [bankDetails, setBankDetails] = useState();
   const [loading, setLoading] = useState(false);
   const { api } = useContext(UserContext);
-  console.log(user);
+  const [subscriptionDetails, setSubscriptionDetails] = useState("");
 
   const getBankDetails = async () => {
     try {
@@ -54,7 +57,6 @@ const EscortDashboard = () => {
       const response = await api.get(`${baseUrl}escorts/bankdetails`);
 
       setBankDetails(response.data);
-      console.log(response);
     } catch (err) {
       console.log(err);
     } finally {
@@ -62,9 +64,26 @@ const EscortDashboard = () => {
     }
   };
 
+  const getSubcriptionDetails = async () => {
+    try {
+      const response = await api.get(
+        `${baseUrl}escorts/premium/subscriptiondetails`
+      );
+      setSubscriptionDetails(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getBankDetails();
+    getSubcriptionDetails();
   }, []);
+
+  console.log(subscriptionDetails);
+  console.log(user);
+  console.log(user.createdAt);
+  console.log("CreatedAt value:", user?.createdAt, typeof user?.createdAt);
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -84,7 +103,7 @@ const EscortDashboard = () => {
               />
               <div>
                 <p className="font-bold text-lg">{user.displayName}</p>
-                <p className="">@{user.username}</p>
+                <p className="text-sm">@{user.username}</p>
               </div>
             </div>
 
@@ -132,6 +151,13 @@ const EscortDashboard = () => {
               </div>
             </div>
           </div>
+
+          {subscriptionDetails?.status === "active" && (
+            <div className="flex gap-2 items-center">
+              <StarIcon className="text-yellow-400 h-5" />
+              <p className="font-bold text-customPink">Premium Escort</p>
+            </div>
+          )}
         </div>
 
         {/**bank details */}
@@ -159,15 +185,22 @@ const EscortDashboard = () => {
         <div className="mt-5 rounded-xl bg-pink-100 p-4 flex flex-col gap-6 text-black">
           {/* BOOST Section */}
           <div className="flex justify-between items-center border-b pb-2">
-            <p className="font-bold">BOOST</p>
-            <p className="text-sm text-gray-500">0 Days left</p>
+            <p className="font-bold">PREMIUM</p>
+            <p className="text-sm text-gray-500">
+              <span>Expires in </span>
+              {subscriptionDetails?.endDate
+                ? formatDistanceToNow(new Date(subscriptionDetails.endDate), {
+                    addSuffix: true,
+                  })
+                : "No end date"}
+            </p>
           </div>
 
           {/* AVAILABLE TODAY Section */}
-          <div className="flex justify-between items-center border-b pb-2">
+          {/* <div className="flex justify-between items-center border-b pb-2">
             <p className="font-bold">AVAILABLE TODAY</p>
             <p className="text-sm text-gray-500">0 Days left</p>
-          </div>
+          </div> */}
 
           {/* Action Cards */}
           <div className="flex gap-4">
@@ -180,12 +213,12 @@ const EscortDashboard = () => {
                 </p>
               </div>
               <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
-                BOOST NOW - 100
+                BOOST NOW
               </button>
             </div>
 
             {/* Make Available Today */}
-            <div className="flex-1 rounded-xl bg-green-500 text-white p-4 flex flex-col justify-between">
+            {/* <div className="flex-1 rounded-xl bg-green-500 text-white p-4 flex flex-col justify-between">
               <div>
                 <p className="font-bold">Make Available Today</p>
                 <p className="text-sm text-green-100">
@@ -195,7 +228,7 @@ const EscortDashboard = () => {
               <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
                 AVAILABLE NOW - 100
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Footer Section */}
@@ -203,8 +236,15 @@ const EscortDashboard = () => {
             <p className="text-pink-500">
               Last login at <span className="font-bold">10:50 AM · Mon</span>
             </p>
-            <p className="text-gray-600">
-              Registered on <span className="font-bold">Sep 15, 2025</span>
+            <p>
+              Registered on{" "}
+              <span className="font-bold">
+                <p>
+                  {user?.createdAt
+                    ? format(new Date(user.createdAt), "MMMM d, yyyy")
+                    : "—"}
+                </p>
+              </span>
             </p>
           </div>
         </div>

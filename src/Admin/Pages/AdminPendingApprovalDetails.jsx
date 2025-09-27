@@ -7,7 +7,7 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import Loader from "../../Components/Loaders/Loader";
 import { format } from "date-fns";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const SectionCard = ({ title, children }) => (
   <div className="bg-customGray rounded-xl p-5 mb-6 shadow-lg">

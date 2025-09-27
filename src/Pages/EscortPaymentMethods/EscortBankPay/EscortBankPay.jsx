@@ -3,10 +3,12 @@ import { useState } from "react";
 import { baseUrl } from "../../../baseUrl";
 import { useEffect } from "react";
 import axios from "axios";
+import Checkout from "../Checkout";
 
 const EscortBankPay = () => {
   const [amount, setAmount] = useState(null);
   const [rates, setRates] = useState({});
+  const [plan, setPlan] = useState()
 
   const fetchRates = async () => {
     try {
@@ -23,11 +25,14 @@ const EscortBankPay = () => {
 
   const handleSelect = (e) => {
     const selected = e.target.value;
+    setPlan(selected)
     setAmount(rates?.[selected] || null);
   };
 
+
 //   test secret key = sk_test_9485819bdca53240d664dad683b3cf3168bd7a40
 //   test public key = pk_test_25a2903589333e2054acc1c583fd46c29449d2b9
+
 
 
   return (
@@ -64,13 +69,15 @@ const EscortBankPay = () => {
           </p>
         </div>
 
-        <button
+        <Checkout amount = {amount} plan={plan}/>
+
+        {/* <button
         disabled = {!amount}
           type="submit"
           className="bg-blue-700 hover:bg-blue-800 text-white font-medium px-6 py-3 flex mx-auto mt-10 transition disabled:bg-blue-700/50"
         >
           Proceed to Payment
-        </button>
+        </button> */}
       </form>
     </div>
   );

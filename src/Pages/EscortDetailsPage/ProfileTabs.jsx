@@ -199,10 +199,10 @@ const ProfileTabs = ({ escort }) => {
                 {escort?.services.map((service, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-1 rounded-md shadow-sm"
+                    className="flex items-center gap-1"
                   >
                     <CheckIcon className="h-3 w-3 text-customPink" />
-                    <span className="italic lg:textsm text-[12px]">{service}</span>
+                    <span className="lg:text-sm ">{service}</span>
                   </li>
                 ))}
               </ul>

@@ -10,6 +10,7 @@ import { fetchEscorts } from "./fetchEscorts";
 import Loader from "../Loaders/Loader";
 import { SlidersHorizontal } from "lucide-react";
 import FilterBox from "../FilterBox/FilterBox";
+import { isFresh } from "./FreshBadge";
 
 const Escorts = () => {
   const [loading, setLoading] = useState(true);
@@ -51,12 +52,12 @@ const Escorts = () => {
       )}
 
       <div className="flex items-center justify-between">
-      <p className="text-center text-white text-lg font-bold my-4">
-        All Escorts
-      </p>
-      <div onClick={handlePopUp} className="flex">
-        <SlidersHorizontal className="text-yellow-400 ml-auto" />
-      </div>
+        <p className="text-center text-white text-lg font-bold my-4">
+          All Escorts
+        </p>
+        <div onClick={handlePopUp} className="flex">
+          <SlidersHorizontal className="text-yellow-400 ml-auto" />
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
@@ -103,7 +104,7 @@ const Escorts = () => {
                 {/* Location */}
                 <div className="flex items-center gap-2 lg:mb-2">
                   <MapPinIcon className="h-4 text-white hidden md:block" />
-                  <p className="lg:text-sm text-[6px]">
+                  <p className="lg:text-sm text-[10px]">
                     {item.city + ", " + item.state + ", " + item.country}
                   </p>
                 </div>
@@ -114,6 +115,11 @@ const Escorts = () => {
                   {item.about?.split(" ").length > 20 ? "..." : ""}
                 </p>
               </div>
+              {isFresh(item.createdAt) && (
+                <div className="absolute top-3 right-[-40px] w-40 bg-yellow-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
+                  Fresh
+                </div>
+              )}
             </div>
           </Link>
         ))}
