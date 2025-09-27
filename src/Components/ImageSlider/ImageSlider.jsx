@@ -101,12 +101,12 @@ const ImageSlider = () => {
       <Slider key={slidesToShow} {...settings}>
         {premiumEscorts?.map((item, index) => (
           <div key={index} className="px-2 w-full max-w-sm mx-auto">
-            <Link to={`/escorts/${item.user._id}`}>
+            <Link to={`/escorts/${item?.user._id}`}>
               <div className="w-full border-2 border-white overflow-hidden relative">
                 <img
                   className="w-full h-96 object-cover object-top"
-                  src={item.user.gallery?.[0]}
-                  alt={item.user.displayName}
+                  src={item?.user.gallery?.[0]}
+                  alt={item?.user.displayName}
                 />
 
                 {/* Transparent content area */}
@@ -115,7 +115,7 @@ const ImageSlider = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <p className="font-semibold text-lg">
-                        {item.user.displayName}
+                        {item?.user.displayName}
                       </p>
                       <CheckBadgeIcon className="text-green-500 h-5" />
                     </div>
@@ -126,10 +126,10 @@ const ImageSlider = () => {
                   <div className="flex items-center gap-2 mb-2">
                     <PhoneIcon className="h-5 text-customPink" />
                     <a
-                      href={`tel:${item.user.phone}`}
+                      href={`tel:${item?.user.phone}`}
                       className="text-blue-600 hover:underline"
                     >
-                      {item.user.phoneNumber}
+                      {item?.user.phoneNumber}
                     </a>
                   </div>
 
@@ -137,21 +137,21 @@ const ImageSlider = () => {
                   <div className="flex items-center gap-2 mb-3">
                     <MapPinIcon className="h-5 text-customPink" />
                     <p className="text-sm">
-                      {item.user.city +
+                      {item?.user.city +
                         ", " +
-                        item.user.state +
+                        item?.user.state +
                         ", " +
-                        item.user.country}
+                        item?.user.country}
                     </p>
                   </div>
 
                   {/* Description */}
                   <p className="text-sm leading-tight">
-                    {item.user.heading?.split(" ").slice(0, 5).join(" ")}
-                    {item.user.heading?.split(" ").length > 20 ? "..." : ""}
+                    {item?.user.heading?.split(" ").slice(0, 5).join(" ")}
+                    {item?.user.heading?.split(" ").length > 20 ? "..." : ""}
                   </p>
                 </div>
-                {isFresh(item.createdAt) && (
+                {isFresh(item?.createdAt) && (
                   <div className="absolute top-3 right-[-40px] w-40 bg-yellow-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
                     Fresh
                   </div>
