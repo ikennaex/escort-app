@@ -75,7 +75,7 @@ const EscortDetailsPage = () => {
         <div className="bg-pink-100 lg:p-4 p-2 fade-in">
           {error && <p className="text-center">{error}</p>}
 
-          <div className="lg:flex bg-[#fff8f9] rounded-lg w-full p-2 ">
+          <div className="lg:flex bg-[#fff8f9] rounded-lg w-full p-2 lg:pb-5">
 
             <div className="w-full lg:w-96 mx-auto lg:mx-0 mb-5">
               <Slider ref={sliderRef} {...settings}>
@@ -83,9 +83,9 @@ const EscortDetailsPage = () => {
                   escort.gallery.map((img, index) => (
                     <div key={index} className="lg:px-4">
    
-                      <div className="lg:w-[300px] h-[400px] flex items-center justify-center bg-white rounded-xl">
+                      <div className="lg:w-[300px] lg:h-[400px] h-[300px]  flex items-center justify-center bg-white rounded-xl">
                         <img
-                          className="max-w-full max-h-full object-contain"
+                          className="max-w-full max-h-full object-contain mb-10"
                           src={img}
                           alt={`gallery-${index}`}
                         />
