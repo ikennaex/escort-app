@@ -77,13 +77,13 @@ const EscortDetailsPage = () => {
 
           <div className="lg:flex bg-[#fff8f9] rounded-lg w-full p-2 ">
 
-            <div className="w-full lg:w-96 mx-auto lg:mx-0">
+            <div className="w-full lg:w-96 mx-auto lg:mx-0 mb-5">
               <Slider ref={sliderRef} {...settings}>
                 {Array.isArray(escort.gallery) && escort.gallery.length > 0 ? (
                   escort.gallery.map((img, index) => (
                     <div key={index} className="lg:px-4">
    
-                      <div className="w-[300px] h-[400px] flex items-center justify-center bg-white rounded-xl">
+                      <div className="lg:w-[300px] h-[400px] flex items-center justify-center bg-white rounded-xl">
                         <img
                           className="max-w-full max-h-full object-contain"
                           src={img}
