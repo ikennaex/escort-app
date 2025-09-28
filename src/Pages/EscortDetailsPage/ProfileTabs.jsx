@@ -8,9 +8,26 @@ import {
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import { CheckIcon } from "lucide-react";
+import { useEffect } from "react";
 
 const ProfileTabs = ({ escort }) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
+
+  // control img dimension
+  const [dimensions, setDimensions] = useState({});
+
+  useEffect(() => {
+    escort?.gallery?.forEach((img, i) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          [i]: { width: image.naturalWidth, height: image.naturalHeight },
+        }));
+      };
+    });
+  }, [escort?.gallery]);
 
   return (
     <div className="pb-5 rounded-lg lg:flex lg:gap-2">
@@ -197,10 +214,7 @@ const ProfileTabs = ({ escort }) => {
               <h1 className="text-2xl font-semibold mb-3">Services</h1>
               <ul className="flex flex-wrap gap-4">
                 {escort?.services.map((service, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center gap-1"
-                  >
+                  <li key={index} className="flex items-center gap-1">
                     <CheckIcon className="h-3 w-3 text-customPink" />
                     <span className="lg:text-sm ">{service}</span>
                   </li>
@@ -215,30 +229,33 @@ const ProfileTabs = ({ escort }) => {
             <p className="font-semibold text-lg mb-2">Gallery</p>
             <Gallery withDownloadButton withZoomButton withFullscreenButton>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
-                {escort?.gallery.map((img, index) => (
-                  <Item
-                    key={index}
-                    original={img}
-                    thumbnail={img}
-                    width="1024"
-                    height="768"
-                    caption={`Photo ${index + 1} of ${escort?.displayName}`}
-                  >
-                    {({ ref, open }) => (
-                      <div
-                        ref={ref}
-                        onClick={open}
-                        className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
-                      >
-                        <img
-                          src={img}
-                          alt="Gallery"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                  </Item>
-                ))}
+                {escort?.gallery.map((img, index) => {
+                  const dim = dimensions[index] || { width: 1024, height: 768 };
+                  return (
+                    <Item
+                      key={index}
+                      original={img}
+                      thumbnail={img}
+                      width={dim.width}
+                      height={dim.height}
+                      caption={`Photo ${index + 1} of ${escort?.displayName}`}
+                    >
+                      {({ ref, open }) => (
+                        <div
+                          ref={ref}
+                          onClick={open}
+                          className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                        >
+                          <img
+                            src={img}
+                            alt="Gallery"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </Item>
+                  );
+                })}
               </div>
             </Gallery>
           </>
