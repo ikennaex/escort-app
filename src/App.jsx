@@ -77,6 +77,7 @@ const App = () => {
           {/* Only show Navbar if not admin */}
           {!isAdminRoute && <Navbar />}
 
+          <div className="pt-32">
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
@@ -137,6 +138,7 @@ const App = () => {
             />
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
           </Routes>
+          </div>
           <ToastContainer />
         </div>
       </div>

@@ -5,7 +5,7 @@ import { baseUrl } from "../../baseUrl";
 import { useEffect } from "react";
 import { useState } from "react";
 import { format } from "date-fns";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "lucide-react";
 
 const AdminPayments = () => {
   const [subscriptionDetails, setSubscriptionDetails] = useState([]);
@@ -21,25 +21,6 @@ const AdminPayments = () => {
   useEffect(() => {
     getSubscriptions();
   }, []);
-
-  const users = [
-    { id: 1, username: "jdoe", name: "John Doe", role: "Admin", age: 28 },
-    {
-      id: 2,
-      username: "asmith",
-      name: "Alice Smith",
-      role: "Premium",
-      age: 34,
-    },
-    { id: 3, username: "bjones", name: "Bob Jones", role: "User", age: 22 },
-    {
-      id: 4,
-      username: "cjohnson",
-      name: "Carol Johnson",
-      role: "User",
-      age: 30,
-    },
-  ];
 
   const [search, setSearch] = useState("");
 
@@ -63,7 +44,7 @@ const AdminPayments = () => {
 
         <div className="">
           <button className="bg-customPink py-3 flex items-center gap-2">
-            <StarIcon className="h-4 text-yellow-400" />
+            <PlusIcon className="h-4 text-white" />
           Make User Premium
           </button>
         </div>
@@ -109,7 +90,7 @@ const AdminPayments = () => {
                   key={user.id}
                   className="border-t border-gray-700 hover:bg-gray-700 transition cursor-pointer"
                   onClick={() =>
-                    (window.location.href = `/admin/user/${user.id}`)
+                    (window.location.href = `/admin/escort/${user.user._id}`)
                   }
                 >
                   <td className="px-4 py-3">{user.user.displayName}</td>

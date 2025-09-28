@@ -102,7 +102,7 @@ const SideNavbar = () => {
   ];
 
   return (
-    <div className="bg-customGray overflow-y-auto py-6 scrollbar-hidden h-full w-full">
+    <div className="bg-customGray mt-32 overflow-y-auto py-6 scrollbar-hidden h-full w-full">
       {/* <h2 className="hidden lg:block text-white text-lg font-bold p-4">Menu</h2> */}
       <ul>
         {menu.map((item) => (

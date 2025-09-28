@@ -108,7 +108,7 @@ const MobileNav = ({ isOpen, handleToggle }) => {
       {/* Sidebar */}
       <div
         className={`
-          relative bg-gray-800 w-3/4 max-w-xs h-full p-6 flex flex-col transform 
+          relative bg-gray-800 w-2/4 max-w-xs h-full p-1 flex flex-col transform 
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
@@ -122,7 +122,7 @@ const MobileNav = ({ isOpen, handleToggle }) => {
         </button>
 
         {/* Menu Links */}
-        <nav className="mt-6 flex flex-col gap-5 overflow-y-auto">
+        <nav className="flex flex-col gap-5 overflow-y-auto">
           {menu.map((item) => (
             <Link
               key={item.title}

@@ -13,24 +13,17 @@ import {
   Pencil,
   Calendar,
   Hand,
-  Heart,
-  Share2,
   Wallet,
   Gift,
   Rocket,
-  Map,
   Ban,
   Landmark,
-  ShoppingCart,
-  Bed,
   CalendarDays,
   FileWarning,
-  Gamepad,
   Lock,
   Power,
   Trash2,
   Activity,
-  Star,
 } from "lucide-react";
 import { Link } from "react-router";
 import { useContext } from "react";
@@ -40,6 +33,7 @@ import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { format, formatDistanceToNow } from "date-fns";
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const EscortDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,11 +73,6 @@ const EscortDashboard = () => {
     getBankDetails();
     getSubcriptionDetails();
   }, []);
-
-  console.log(subscriptionDetails);
-  console.log(user);
-  console.log(user.createdAt);
-  console.log("CreatedAt value:", user?.createdAt, typeof user?.createdAt);
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -309,7 +298,7 @@ const EscortDashboard = () => {
               >
                 Gallery
               </li>
-              ·<p>0</p>
+              ·<p>{user?.gallery?.length}</p>
             </div>
 
             <div
@@ -364,19 +353,19 @@ const EscortDashboard = () => {
                   </Link>
                 </div>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/wallet/${user._id}`}>
                     <Wallet className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Wallet</p>
                   </Link>
-                </div>
+                </div> */}
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/gifts/${user._id}`}>
                     <Gift className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Gifts</p>
                   </Link>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/boost-profile/${user._id}`}>
@@ -438,6 +427,39 @@ const EscortDashboard = () => {
                 </div>
               </div>
             </>
+          )}
+        </div>
+
+        <div className="bg-[#fff8f9] my-4 mx-3 p-4 text-black">
+          {activeTab === "Gallery" && (
+            <Gallery withDownloadButton withZoomButton withFullscreenButton>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
+                {user?.gallery.map((img, index) => (
+                  <Item
+                    key={index}
+                    original={img}
+                    thumbnail={img}
+                    width="1024"
+                    height="768"
+                    caption={`Photo ${index + 1} of ${user?.displayName}`}
+                  >
+                    {({ ref, open }) => (
+                      <div
+                        ref={ref}
+                        onClick={open}
+                        className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                      >
+                        <img
+                          src={img}
+                          alt="Gallery"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </Item>
+                ))}
+              </div>
+            </Gallery>
           )}
         </div>
       </div>

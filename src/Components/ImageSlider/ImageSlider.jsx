@@ -89,8 +89,6 @@ const ImageSlider = () => {
     ],
   };
 
-  console.log(premiumEscorts);
-
   return (
     <div className="w-full mx-auto p-1 ">
       {loading && (

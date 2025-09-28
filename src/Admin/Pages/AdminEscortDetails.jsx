@@ -46,7 +46,7 @@ const AdminEscortDetails = () => {
     <div className="flex text-white mx-auto">
       <AdminSidebar />
       <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
-        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-6">
+        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-">
           Escort Details
         </h1>
 
@@ -56,9 +56,7 @@ const AdminEscortDetails = () => {
           </div>
         ) : (
           <div className="">
-            <h1 className="text-2xl font-bold mt-12 md:mt-0 mb-6">
-              Pending User Details{" "}
-              <p>
+              <p className="my-3">
                 <span className="font-semibold text-customPink">
                   Account created on:{" "}
                 </span>
@@ -66,7 +64,6 @@ const AdminEscortDetails = () => {
                   ? format(new Date(escort.createdAt), "PPP")
                   : "—"}
               </p>
-            </h1>
 
             {/* Basic Info */}
             <SectionCard title="Basic Info">

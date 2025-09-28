@@ -8,12 +8,13 @@ import Checkout from "../Checkout";
 const EscortBankPay = () => {
   const [amount, setAmount] = useState(null);
   const [rates, setRates] = useState({});
-  const [plan, setPlan] = useState()
+  const [plan, setPlan] = useState("")
 
   const fetchRates = async () => {
     try {
       const response = await axios.get(`${baseUrl}escorts/premium/rates`);
       setRates(response.data);
+      console.log(response)
     } catch (err) {
       console.log(err);
     }
@@ -28,12 +29,6 @@ const EscortBankPay = () => {
     setPlan(selected)
     setAmount(rates?.[selected] || null);
   };
-
-
-//   test secret key = sk_test_9485819bdca53240d664dad683b3cf3168bd7a40
-//   test public key = pk_test_25a2903589333e2054acc1c583fd46c29449d2b9
-
-
 
   return (
     <div className="h-screen bg-pink-100 p-2">

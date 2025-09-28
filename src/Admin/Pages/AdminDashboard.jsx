@@ -89,7 +89,7 @@ const AdminDashboard = () => {
             <p className="text-base md:text-lg font-medium">All Escorts</p>
             <p className="text-3xl font-bold my-2">{escorts?.length}</p>
             <Link
-              to="/admin/users"
+              to="/admin/escorts"
               className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
             >
               See all
@@ -126,12 +126,12 @@ const AdminDashboard = () => {
 
           {/* Premium Escorts */}
           <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
-            <p className="text-base md:text-lg font-medium">Premium Escorts</p>
+            <p className="text-base md:text-lg font-medium">Premium Subscriptions</p>
             <p className="text-3xl font-bold my-2">
               {premiumEscorts?.length || "0"}
             </p>
             <Link
-              to="/admin/premium"
+              to="/admin/subscriptions"
               className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
             >
               See all

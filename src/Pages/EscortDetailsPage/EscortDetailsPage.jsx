@@ -1,17 +1,13 @@
 import {
-  CakeIcon,
   CheckBadgeIcon,
   FlagIcon,
   GiftIcon,
-  InformationCircleIcon,
-  NewspaperIcon,
-  PhotoIcon,
   ShareIcon,
 } from "@heroicons/react/24/solid";
 import { differenceInYears } from "date-fns";
 import { FaWhatsapp } from "react-icons/fa";
 import { BsCake, BsGenderAmbiguous, BsRulers } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
 import ProfileTabs from "./ProfileTabs";
 import axios from "axios";
@@ -19,6 +15,12 @@ import { baseUrl } from "../../baseUrl";
 import { useParams } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
 import { LightbulbIcon } from "lucide-react";
+import Slider from "react-slick";
+
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../Components/ImageSlider/imageslider.css"
 
 const calculateAge = (dob) => {
   if (!dob) return null;
@@ -31,6 +33,8 @@ const EscortDetailsPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const sliderRef = useRef(null);
+
   const fetchEscort = async () => {
     try {
       const response = await axios.get(`${baseUrl}escorts/${id}`);
@@ -39,7 +43,7 @@ const EscortDetailsPage = () => {
     } catch (err) {
       setLoading(false);
       console.log(err);
-      setError(err.response.data.message);
+      setError(err.response?.data?.message);
     }
   };
 
@@ -47,23 +51,59 @@ const EscortDetailsPage = () => {
     fetchEscort();
   }, []);
 
+  const settings = {
+    dots: true,
+    infinite: false,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    speed: 500,
+    cssEase: "ease",
+    swipeToSlide: true,
+    variableWidth: false,
+    adaptiveHeight: true,
+  };
+
   return (
     <>
       {loading ? (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen ">
           <Loader />
         </div>
       ) : (
-        <div className="bg-pink-100 fade-in">
+        <div className="bg-pink-100 lg:p-4 p-2 fade-in">
           {error && <p className="text-center">{error}</p>}
-          <div className="lg:flex pb-5bg-[#fff8f9] mx-2 rounded-lg w-full">
-            <img
-              className="lg:h-96 lg:w-64 w-full h-96 object-cover object-top"
-              src={escort?.gallery?.[0]}
-              alt=""
-            />
 
-            <div className="px-3 py-3 w-full">
+          <div className="lg:flex bg-[#fff8f9] rounded-lg w-full p-2 ">
+
+            <div className="w-full lg:w-96 mx-auto lg:mx-0">
+              <Slider ref={sliderRef} {...settings}>
+                {Array.isArray(escort.gallery) && escort.gallery.length > 0 ? (
+                  escort.gallery.map((img, index) => (
+                    <div key={index} className="lg:px-4">
+   
+                      <div className="w-[300px] h-[400px] flex items-center justify-center bg-white rounded-xl">
+                        <img
+                          className="max-w-full max-h-full object-contain"
+                          src={img}
+                          alt={`gallery-${index}`}
+                        />
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-0 w-full">
+                    <div className="w-[400px] h-[400px] bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-500">No images</span>
+                    </div>
+                  </div>
+                )}
+              </Slider>
+            </div>
+
+            {/* RIGHT PANEL: details */}
+            <div className="px-3 py-3 w-full lg:w-1/2">
               <div>
                 <div className="flex gap-2 items-center">
                   <p className="font-bold text-2xl">{escort?.displayName}</p>

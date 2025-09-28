@@ -8,7 +8,7 @@ import {
   LogOut,
   Menu,
   X,
-  CreditCard 
+  CreditCard,
 } from "lucide-react"; // icons
 import { logo } from "../../../imports";
 
@@ -19,9 +19,10 @@ const AdminSidebar = () => {
     <>
       {/* Mobile Topbar with toggle button */}
       <div className="md:hidden flex items-center justify-between bg-customGray text-white px-4 py-3 mb-10 shadow-lg fixed top-0 left-0 right-0 z-50">
-        <div>
-          <img className="h-10" src= {logo} alt="" />
-        </div>
+        <Link to="/admin">
+          <img className="h-10" src={logo} alt="Logo" />
+        </Link>
+
         <button onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -39,7 +40,9 @@ const AdminSidebar = () => {
       >
         {/* Sidebar header (hidden on mobile since topbar already has it) */}
         <div className="hidden md:block p-6 ">
-          <img className="h-12" src= {logo} alt="" />
+          <Link to="/admin">
+            <img className="h-12" src={logo} alt="Logo" />
+          </Link>
           <p className="text-xl font-bold">Admin Panel</p>
         </div>
 
@@ -81,19 +84,9 @@ const AdminSidebar = () => {
             to="/admin/subscriptions"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
           >
-            <CreditCard  size={20} />
+            <CreditCard size={20} />
             <span className=" md:inline">Subscriptions</span>
           </Link>
-
-          <Link
-            to="/admin/settings"
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            <Settings size={20} />
-            <span className=" md:inline">Settings</span>
-          </Link>
-
-          
         </nav>
 
         {/* Logout */}
