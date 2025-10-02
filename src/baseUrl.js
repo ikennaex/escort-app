@@ -2,4 +2,8 @@ const isDev = false; // set to true for local development
 
 export const baseUrl = isDev
   ? "http://localhost:4000/"
-  : "https://escort-app-backend-wapy.onrender.com/";
+  : "https://escort-app-backend.vercel.app/";
+
+
+
+  // https://escort-app-backend-wapy.onrender.com/
