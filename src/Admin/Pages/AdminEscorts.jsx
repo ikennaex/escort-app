@@ -21,8 +21,6 @@ useEffect(() => {
     fetchEscort()
 }, [])
 
-console.log(escorts)
-
 const [search, setSearch] = useState("");
 const filteredUsers = escorts.filter(
     (user) =>

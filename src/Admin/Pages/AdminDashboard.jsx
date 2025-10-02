@@ -27,7 +27,6 @@ const AdminDashboard = () => {
   const getAllEscorts = async () => {
     try {
       const response = await axios.get(`${baseUrl}admin/getallescorts`);
-      console.log(response);
       setEscorts(response.data);
     } catch (err) {
       console.log(err);

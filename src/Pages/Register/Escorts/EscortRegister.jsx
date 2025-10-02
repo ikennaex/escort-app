@@ -6,7 +6,9 @@ import VerifyEmail from "./VerifyEmail";
 import { baseUrl } from "../../../baseUrl";
 import { UserContext } from "../../../Contexts/UserContext";
 import Loader from "../../../Components/Loaders/Loader";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
+import axios from "axios";
 
 // Calculate the latest allowed birthdate (today - 18 years)
 const today = new Date();
@@ -15,10 +17,40 @@ const month = String(today.getMonth() + 1).padStart(2, "0");
 const day = String(today.getDate()).padStart(2, "0");
 const maxDate = `${year}-${month}-${day}`;
 
+function useAvailability(field, value) {
+  const [status, setStatus] = useState(null); // "checking" | "available" | "taken"
+
+  useEffect(() => {
+    if (!value) {
+      setStatus(null);
+      return;
+    }
+
+    const delayDebounce = setTimeout(async () => {
+      try {
+        setStatus("checking");
+        const res = await axios.get(
+          `${baseUrl}user/escorts/check?field=${field}&value=${value}`
+        );
+        console.log(res);
+        setStatus(res.data.exists ? "taken" : "available");
+      } catch (err) {
+        console.error(err);
+        setStatus(null);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [field, value]);
+
+  return status;
+}
+
 const EscortRegister = () => {
   const { api } = useContext(UserContext);
   const [showVerify, setShowVerify] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -33,6 +65,24 @@ const EscortRegister = () => {
     phoneNumber: "",
     heading: "",
   });
+
+  const validateEmail = (email) => {
+    // email must contain @ and .
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
+  // Run validation whenever email changes
+  useEffect(() => {
+    if (formData.email && !validateEmail(formData.email)) {
+      setErrors("Invalid email format");
+    } else {
+      setErrors(""); // clear when valid
+    }
+  }, [formData.email]);
+
+  const usernameStatus = useAvailability("username", formData.username);
+  const emailStatus = useAvailability("email", formData.email);
+  const phoneStatus = useAvailability("phoneNumber", formData.phoneNumber);
 
   const countries = Country.getAllCountries();
   const states = formData.country
@@ -135,6 +185,15 @@ const EscortRegister = () => {
                 onChange={handleChange}
                 required
               />
+
+              {usernameStatus === "checking" && <p>Checking username...</p>}
+              {usernameStatus === "available" && (
+                <p className="text-green-600">Username available</p>
+              )}
+              {usernameStatus === "taken" && (
+                <p className="text-red-600">Username taken</p>
+              )}
+
               <p className="text-[12px] leading-tight text-gray-400">
                 User name is a name that appears on your profile link . It is
                 used to identify you, so please do not use your Real name as the
@@ -153,6 +212,14 @@ const EscortRegister = () => {
                 onChange={handleChange}
                 required
               />
+              {errors && <p className="text-red-600">{errors}</p>}
+              {emailStatus === "checking" && <p>Checking email...</p>}
+              {emailStatus === "available" && (
+                <p className="text-green-600">Email available</p>
+              )}
+              {emailStatus === "taken" && (
+                <p className="text-red-600">Email already registered</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label className="font-bold" htmlFor="password">
@@ -301,6 +368,13 @@ const EscortRegister = () => {
                   required
                 />
               </div>
+                {phoneStatus === "checking" && <p>Checking phone...</p>}
+                {phoneStatus === "available" && (
+                  <p className="text-green-600">Phone available</p>
+                )}
+                {phoneStatus === "taken" && (
+                  <p className="text-red-600">Phone already in use</p>
+                )}
               <p className="text-[12px] leading-tight text-gray-400">
                 Your mobile number is determined by your country selection. To
                 change your country phone code, first change your country
@@ -325,7 +399,7 @@ const EscortRegister = () => {
               />
             </div>
             <button
-              disabled={loading}
+              disabled={loading || usernameStatus === "taken" || emailStatus === "taken" || phoneStatus === "taken" || !!errors}
               className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/50 mx-auto"
               type="submit"
             >

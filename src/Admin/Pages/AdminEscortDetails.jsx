@@ -19,7 +19,6 @@ const AdminEscortDetails = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${baseUrl}admin/getallescorts/${id}`);
-      console.log(response);
       setEscort(response.data);
     } catch (err) {
       console.log(err);

@@ -8,7 +8,6 @@ import Register from "./Pages/Register/Register";
 import RegisterCard from "./Pages/Register/RegisterCard";
 import ClientRegister from "./Pages/Register/ClientRegister";
 import EscortDetailsPage from "./Pages/EscortDetailsPage/EscortDetailsPage";
-import AdminHome from "./Admin/Pages/AdminHome";
 import SideNavbar from "./Components/SideNavbar/SideNavbar";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import AdminPending from "./Admin/Pages/AdminPending";
@@ -24,6 +23,7 @@ import Gallery from "./Pages/Register/Escorts/Gallery";
 import AdminPendingApprovalDetails from "./Admin/Pages/AdminPendingApprovalDetails";
 import AdminUserDetails from "./Admin/Pages/AdminUserDetails";
 import ProtectedRoutes from "./Contexts/ProtectedRoutes";
+import AdminProtectedRoute from "./Contexts/AdminProtectedRoute";
 import VerificationImage from "./Pages/Register/Escorts/VerificationImage";
 import EscortDashboard from "./Pages/EscortDashboardPage/EscortDashboard";
 import { FormProvider } from "./Contexts/FormContext";
@@ -50,6 +50,8 @@ import EscortBankPay from "./Pages/EscortPaymentMethods/EscortBankPay/EscortBank
 import EscortCryptoPay from "./Pages/EscortPaymentMethods/EscortCryptoPay/EscortCryptoPay";
 import AdminEscorts from "./Admin/Pages/AdminEscorts";
 import AdminEscortDetails from "./Admin/Pages/AdminEscortDetails";
+import AdminLogin from "./Admin/Pages/AdminLogin";
+import { AdminContextProvider } from "./Contexts/AdminContext";
 
 const App = () => {
   const location = useLocation();
@@ -59,7 +61,7 @@ const App = () => {
 
   return (
     <FormProvider>
-      <ScrollToTop /> {/* provides form state  */}
+      <ScrollToTop /> 
       <div className="flex">
         {/* Side Navbar (only show if NOT admin) */}
         {!isAdminRoute && (
@@ -124,6 +126,8 @@ const App = () => {
             <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
 
             {/* Admin  */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route element={<AdminProtectedRoute />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/premium" element={<AdminPremiumUsers />} />
             <Route path="/admin/users" element={<AdminUsers />} />
@@ -137,6 +141,7 @@ const App = () => {
               element={<AdminPendingApprovalDetails />}
             />
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
+            </Route>
           </Routes>
           </div>
           <ToastContainer />
