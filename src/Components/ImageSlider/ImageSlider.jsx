@@ -115,7 +115,7 @@ const ImageSlider = () => {
                       <p className="font-semibold text-lg">
                         {item?.user?.displayName}
                       </p>
-                      <CheckBadgeIcon className="text-green-500 h-5" />
+                      <CheckBadgeIcon className="text-blue-500 h-5" />
                     </div>
                     <HeartIcon className="h-5 text-red-500 justify-end" />
                   </div>

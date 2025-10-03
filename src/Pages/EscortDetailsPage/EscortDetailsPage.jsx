@@ -110,7 +110,7 @@ const EscortDetailsPage = () => {
                   <p className="font-bold text-2xl">
                     · {calculateAge(escort?.dob)}
                   </p>
-                  <CheckBadgeIcon className="text-green-500 h-5" />
+                  <CheckBadgeIcon className="text-blue-500 h-5" />
                 </div>
 
                 <div className="flex items-center gap-3 justify-start ">
