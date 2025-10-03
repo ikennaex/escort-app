@@ -42,19 +42,21 @@ const Escorts = () => {
     loadEscorts();
   }, [page]);
 
+  console.log(escorts);
+
   return (
     <div className="p-2 bg-black pb-10">
       <FilterBox open={open} handlePopUp={handlePopUp} />
-      {loading && (
-        <div className="flex items-center justify-center">
-          <Loader />
-        </div>
-      )}
 
       <div className="flex items-center justify-between">
         <p className="text-center text-white text-lg font-bold my-4">
           All Escorts
         </p>
+      {loading && (
+        <div className="flex items-center justify-center">
+          <Loader />
+        </div>
+      )}
         <div onClick={handlePopUp} className="flex">
           <SlidersHorizontal className="text-yellow-400 ml-auto" />
         </div>
@@ -115,9 +117,9 @@ const Escorts = () => {
                   {item.about?.split(" ").length > 20 ? "..." : ""}
                 </p>
               </div>
-              {isFresh(item.createdAt) && (
-                <div className="absolute top-3 right-[-40px] w-40 bg-yellow-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
-                  Fresh
+              {(item.premium) && (
+                <div className="absolute top-3 right-[-40px] w-40 bg-blue-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
+                  Premium
                 </div>
               )}
             </div>

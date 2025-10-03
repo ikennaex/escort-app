@@ -43,7 +43,7 @@ const ImageSlider = () => {
   useEffect(() => {
     const compute = () => {
       const w = window.innerWidth;
-      if (w >= 1024) setSlidesToShow(3);
+      if (w >= 1024) setSlidesToShow(5);
       else if (w >= 640) setSlidesToShow(2);
       else setSlidesToShow(1);
     };
@@ -99,21 +99,21 @@ const ImageSlider = () => {
       <Slider key={slidesToShow} {...settings}>
         {premiumEscorts?.map((item, index) => (
           <div key={index} className="px-2 w-full max-w-sm mx-auto">
-            <Link to={`/escorts/${item?.user._id}`}>
+            <Link to={`/escorts/${item?.user?._id}`}>
               <div className="w-full border-2 border-white overflow-hidden relative">
                 <img
-                  className="w-full h-96 object-cover object-top"
-                  src={item?.user.gallery?.[0]}
-                  alt={item?.user.displayName}
+                  className="w-full lg:h-80 h-96 object-cover object-top"
+                  src={item?.user?.gallery?.[0]}
+                  alt={item?.user?.displayName}
                 />
 
                 {/* Transparent content area */}
-                <div className="absolute bottom-0 left-0 right-0 bg-pink-950/70 text-white p-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-pink-950/70 h-2/5 text-white p-4 py-2">
                   {/* Name */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <p className="font-semibold text-lg">
-                        {item?.user.displayName}
+                        {item?.user?.displayName}
                       </p>
                       <CheckBadgeIcon className="text-green-500 h-5" />
                     </div>
@@ -121,37 +121,37 @@ const ImageSlider = () => {
                   </div>
 
                   {/* Phone */}
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-1">
                     <PhoneIcon className="h-5 text-customPink" />
                     <a
-                      href={`tel:${item?.user.phone}`}
+                      href={`tel:${item?.user?.phoneNumber}`}
                       className="text-blue-600 hover:underline"
                     >
-                      {item?.user.phoneNumber}
+                      {item?.user?.phoneNumber}
                     </a>
                   </div>
 
                   {/* Location */}
                   <div className="flex items-center gap-2 mb-3">
                     <MapPinIcon className="h-5 text-customPink" />
-                    <p className="text-sm">
-                      {item?.user.city +
+                    <p className="text-[12px]">
+                      {item?.user?.city +
                         ", " +
-                        item?.user.state +
+                        item?.user?.state +
                         ", " +
-                        item?.user.country}
+                        item?.user?.country}
                     </p>
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm leading-tight">
-                    {item?.user.heading?.split(" ").slice(0, 5).join(" ")}
-                    {item?.user.heading?.split(" ").length > 20 ? "..." : ""}
+                  <p className="text-[12px] leading-tight">
+                    {item?.user?.heading?.split(" ").slice(0, 5).join(" ")}
+                    {item?.user?.heading?.split(" ").length > 20 ? "..." : ""}
                   </p>
                 </div>
                 {isFresh(item?.createdAt) && (
-                  <div className="absolute top-3 right-[-40px] w-40 bg-yellow-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
-                    Fresh
+                  <div className="absolute top-3 right-[-40px] w-40 bg-blue-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
+                    Premium
                   </div>
                 )}
               </div>
