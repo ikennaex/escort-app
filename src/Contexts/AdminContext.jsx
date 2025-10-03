@@ -81,9 +81,10 @@ export const AdminContextProvider = ({ children }) => {
   useEffect(() => {
     const tryRefresh = async () => {
       try {
+        setLoading(true);
         const res = await api.post("admin/refresh");
-        setAdminAccessToken(res.data.adminAccessToken); // ✅ correct key
-        await fetchProfile();
+        console.log(res)
+        setAdminAccessToken(res.data.adminAccessToken);
       } catch (err) {
         console.log("Admin auto refresh failed:", err.response?.data || err.message);
         setAdmin(null);
@@ -103,7 +104,7 @@ export const AdminContextProvider = ({ children }) => {
     <AdminContext.Provider
       value={{ admin, api, loading, setAdmin, logout, fetchProfile, setAdminAccessToken }}
     >
-      {loading ? <div><Loader /></div> : children}
+      {loading ? <div className="h-screen mx-auto flex justify-center items-center my-auto"><Loader /></div> : children}
     </AdminContext.Provider>
   );
 };

@@ -8,7 +8,7 @@ const AdminProtectedRoutes = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen w-screen">
+      <div className="flex items-center justify-center mx-auto h-screen w-screen">
         <Loader />
       </div>
     );

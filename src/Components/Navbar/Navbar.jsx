@@ -26,7 +26,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-customGray flex flex-col fixed left-0 top-0 w-full h-30 z-50 px-4 py-3 gap-3 justify-between">
+    <div className="bg-customGray flex flex-col fixed left-0 top-0 w-full h-28 z-50 px-4 py-3 gap-3 justify-between">
       <FilterBox open = {open} handlePopUp = {handlePopUp}/>
        {/* mobile menu to show on mobile view only */}
 
