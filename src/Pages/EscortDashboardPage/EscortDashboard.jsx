@@ -42,7 +42,7 @@ const EscortDashboard = () => {
   const { user } = useContext(UserContext);
   const [bankDetails, setBankDetails] = useState();
   const [loading, setLoading] = useState(false);
-  const { api } = useContext(UserContext);
+  const { api, setUser } = useContext(UserContext);
   const [subscriptionDetails, setSubscriptionDetails] = useState("");
 
   const getBankDetails = async () => {
@@ -74,6 +74,20 @@ const EscortDashboard = () => {
     getSubcriptionDetails();
   }, []);
 
+  const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to logout?");
+    if (!confirmed) return;
+
+    try {
+      await api.post(`${baseUrl}auth/logout`);
+      setUser(null);
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      alert("Something went wrong during logout");
+    }
+  };
+
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
       {/* {!user && <Loader />} */}
@@ -91,7 +105,10 @@ const EscortDashboard = () => {
                 className="w-14 h-14 rounded-full object-cover"
               />
               <div>
-                <p className="font-bold text-lg flex items-center gap-1">{user.displayName} <CheckBadgeIcon className="text-blue-500 h-4" /></p>
+                <p className="font-bold text-lg flex items-center gap-1">
+                  {user.displayName}{" "}
+                  <CheckBadgeIcon className="text-blue-500 h-4" />
+                </p>
                 <p className="text-sm">@{user.username}</p>
               </div>
             </div>
@@ -176,8 +193,12 @@ const EscortDashboard = () => {
           <div className="flex justify-between items-center border-b pb-2">
             <p className="font-bold">PREMIUM</p>
             <p className="text-sm text-gray-500">
-              {subscriptionDetails.endDate > new Date() ? <span>Expires in </span> : <span>Expired </span>}
-              
+              {subscriptionDetails.endDate > new Date() ? (
+                <span>Expires in </span>
+              ) : (
+                <span>Expired </span>
+              )}
+
               {subscriptionDetails?.endDate
                 ? formatDistanceToNow(new Date(subscriptionDetails.endDate), {
                     addSuffix: true,
@@ -195,7 +216,7 @@ const EscortDashboard = () => {
           {/* Action Cards */}
           <div className="flex gap-4">
             {/* Boost My Profile */}
-            
+
             <div className="flex-1 rounded-xl bg-pink-500 text-white p-4 flex flex-col justify-between">
               <div>
                 <p className="font-bold">Boost My Profile</p>
@@ -204,9 +225,9 @@ const EscortDashboard = () => {
                 </p>
               </div>
               <Link to={`/escorts/boost-profile/${user._id}`}>
-              <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
-                BOOST NOW
-              </button>
+                <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
+                  BOOST NOW
+                </button>
               </Link>
             </div>
 
@@ -225,18 +246,22 @@ const EscortDashboard = () => {
           </div>
 
           {/* Footer Section */}
-          <div className="flex justify-between items-center text-sm">
+          <div className="flex flex-wrap justify-between items-center text-sm">
             <p className="text-pink-500">
-              Last login at <span className="font-bold">10:50 AM · Mon</span>
+              Last login at{" "}
+              <span className="font-bold">
+                {" "}
+                {user?.lastLogin
+                  ? format(new Date(user?.lastLogin), "MMM d, yyyy h:mm a")
+                  : "—"}
+              </span>
             </p>
             <p>
               Registered on{" "}
               <span className="font-bold">
-                <p>
-                  {user?.createdAt
-                    ? format(new Date(user.createdAt), "MMMM d, yyyy")
-                    : "—"}
-                </p>
+                {user?.createdAt
+                  ? format(new Date(user.createdAt), "MMM d, yyyy h:mm a")
+                  : "—"}
               </span>
             </p>
           </div>
@@ -244,8 +269,8 @@ const EscortDashboard = () => {
       </div>
 
       <div className="lg:w-[58%] mt-4 rounded-xl h-fit bg-pink-100">
-        <nav className="mx-3 rounded-lg bg-[#fff8f9] my-4 py-4 px-1">
-          <ul className="flex gap-6 whitespace-nowrap px-4 text-gray-700">
+        <nav className="rounded-lg bg-[#fff8f9] lg:h-fit my-4 py-4 px-2 shrink-0">
+          <ul className="flex overflow-x-auto gap-6 px-2 text-gray-700 scrollbar-hidden">
             <div
               onClick={() => setActiveTab("Menu")}
               className="flex gap-1 items-center cursor-pointer"
@@ -329,33 +354,33 @@ const EscortDashboard = () => {
               <p className="font-semibold mb-4">Menu</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {/* Item */}
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                  <Link to={`/escorts/${user._id}`}>
+                <Link to={`/escorts/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <User className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Profile</p>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/edit/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Pencil className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Edit Profile</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/booking/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Calendar className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Bookings</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/requests/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Hand className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Requests</p>
-                  </Link>
                 </div>
+                  </Link>
 
                 {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/wallet/${user._id}`}>
@@ -371,56 +396,59 @@ const EscortDashboard = () => {
                   </Link>
                 </div> */}
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/boost-profile/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Rocket className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Boost Profile</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/blacklist/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Ban className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Blacklisted Client</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/bank/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Landmark className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Edit Bank Details</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/events/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <CalendarDays className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Events</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/reports/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <FileWarning className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Pending Reports</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/change-password/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Lock className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Change Password</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/status/${user._id}`}>
+                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Activity className="h-8 w-8 text-green-500" />
                     <p className="mt-2 text-sm">Status</p>
-                  </Link>
                 </div>
+                  </Link>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <div
+                  onClick={handleLogout}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
                   <Power className="h-8 w-8 text-pink-500" />
                   <p className="mt-2 text-sm">Logout</p>
                 </div>
@@ -434,7 +462,7 @@ const EscortDashboard = () => {
           )}
         </div>
 
-        <div className="bg-[#fff8f9] my-4 mx-3 p-4 text-black">
+        <div className=" my-4 mx-3 p-4 text-black">
           {activeTab === "Gallery" && (
             <Gallery withDownloadButton withZoomButton withFullscreenButton>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">

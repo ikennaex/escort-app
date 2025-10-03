@@ -9,6 +9,7 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import { CheckIcon } from "lucide-react";
 import { useEffect } from "react";
+import { format } from "date-fns";
 
 const ProfileTabs = ({ escort }) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
@@ -156,6 +157,13 @@ const ProfileTabs = ({ escort }) => {
                 <p className="font-semibold text-customPink">Education</p>
                 <p className="font-semibold">{escort?.education}</p>
               </div>
+            </div>
+
+            <div className="flex">
+              <p className="font-bold text-customPink">Last Login:</p>
+              {escort?.lastLogin
+                ? format(new Date(escort?.lastLogin), "MMMM d, yyyy")
+                : "—"}
             </div>
 
             {/* RATES TABLE */}

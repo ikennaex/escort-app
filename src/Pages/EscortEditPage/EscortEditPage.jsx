@@ -277,7 +277,7 @@ const EscortEditPage = () => {
           ))}
         </div>
 
-        <div>
+                  <div>
             <p className="font-bold" htmlFor="incall-rate">
               Incall Rate
             </p>
@@ -288,20 +288,17 @@ const EscortEditPage = () => {
               id="shortimeIncall"
               name="shortimeIncall"
               required
-              value={formData.shortimeIncall}
             >
               <option value="">Select your short time rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (120000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="overnightIncall">Overnight</label>
@@ -310,20 +307,17 @@ const EscortEditPage = () => {
               id="overnightIncall"
               name="overnightIncall"
               required
-              value={formData.overnightIncall}
             >
               <option value="">Select your overnight rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (250000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="weekendIncall">Weekend</label>
@@ -332,20 +326,17 @@ const EscortEditPage = () => {
               id="weekendIncall"
               name="weekendIncall"
               required
-              value={formData.weekendIncall}
             >
               <option value="">Select your weekend rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (550000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -360,20 +351,17 @@ const EscortEditPage = () => {
               id="shortimeOutcall"
               name="shortimeOutcall"
               required
-              value={formData.shortimeOutcall}
             >
               <option value="">Select your short time rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (120000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="overnightOutcall">Overnight</label>
@@ -382,20 +370,17 @@ const EscortEditPage = () => {
               id="overnightOutcall"
               name="overnightOutcall"
               required
-              value={formData.overnightOutcall}
             >
               <option value="">Select your overnight rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (250000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
 
             <label htmlFor="weekendOutcall">Weekend</label>
@@ -404,20 +389,17 @@ const EscortEditPage = () => {
               id="weekendOutcall"
               name="weekendOutcall"
               required
-              value={formData.weekendOutcall}
             >
               <option value="">Select your weekend rate</option>
-              <option value="10000">10,000</option>
-              <option value="20000">20,000</option>
-              <option value="30000">30,000</option>
-              <option value="40000">40,000</option>
-              <option value="50000">50,000</option>
-              <option value="60000">60,000</option>
-              <option value="70000">70,000</option>
-              <option value="80000">80,000</option>
-              <option value="90000">90,000</option>
-              <option value="100000">100,000</option>
-              <option value="120000">120,000</option>
+              {/* this created an array of numbers from  10,000 to 120,000, intervals of 5000  */}
+              {Array.from({ length: (550000 - 10000) / 5000 + 1 }, (_, i) => {
+                const value = 10000 + i * 5000;
+                return (
+                  <option key={value} value={value}>
+                    {value.toLocaleString()}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
