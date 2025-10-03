@@ -26,22 +26,24 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-customGray flex-col fixed left-0 w-full h-32 top-0 z-50 px-4 py-3 flex gap-3 justify-between">
+    <div className="bg-customGray flex flex-col fixed left-0 top-0 w-full h-30 z-50 px-4 py-3 gap-3 justify-between">
       <FilterBox open = {open} handlePopUp = {handlePopUp}/>
        {/* mobile menu to show on mobile view only */}
 
       <MobileNav isOpen={isOpen} handleToggle={handleToggle} />
       {/* Left side: Hamburger + Logo */}
-      <div className="flex items-center gap-3">
+      
+
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between">
+        <div className="flex items-center gap-4 ">
         <Bars3Icon
           className="text-white h-8 cursor-pointer lg:hidden"
           onClick={handleToggle}
         />
         <Link to={"/"}>
         <img className="h-12" src= {logo} alt="oscrovilla logo" />
-          {/* <h1 className="text-xl text-white font-bold">OS Villa</h1> */}
         </Link>
-      </div>
+        </div>
 
       {/* Right side: Icons + Buttons */}
       <div className="flex justify-between items-center gap-6">
@@ -77,6 +79,8 @@ const Navbar = () => {
             </Link>
           </div>
         )}
+      </div>
+
       </div>
     </div>
   );
