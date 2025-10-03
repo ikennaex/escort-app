@@ -92,7 +92,7 @@ const EscortCryptoPay = () => {
         ))}
       </div>
 
-      <button className="bg-customPink mt-4 p-4">Upload result</button>
+      <button className="bg-customPink mt-4 p-4">Upload receipt</button>
 
       {/* Toast Alert */}
       {copied && (

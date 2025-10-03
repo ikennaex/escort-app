@@ -9,6 +9,7 @@ const EscortBoostProfile = () => {
       <div className="flex flex-col lg:flex-row gap-3 items-center justify-center">
         <div className="bg-pink-200 lg:w-2/5 w-full flex items-center flex-col rounded-xl p-5">
           <img
+          className="h-20"
             src="https://cdn-icons-png.flaticon.com/128/8983/8983163.png"
             alt=""
           />
@@ -21,6 +22,7 @@ const EscortBoostProfile = () => {
 
         <div className="bg-pink-200 lg:w-2/5 w-full flex items-center flex-col rounded-xl p-5">
           <img
+          className="h-20"
             src="https://cdn-icons-png.flaticon.com/128/5968/5968260.png"
             alt=""
           />

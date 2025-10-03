@@ -31,7 +31,7 @@ import { UserContext } from "../../Contexts/UserContext";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { CheckBadgeIcon, StarIcon } from "@heroicons/react/24/solid";
 import { format, formatDistanceToNow } from "date-fns";
 import { Gallery, Item } from "react-photoswipe-gallery";
 
@@ -91,7 +91,7 @@ const EscortDashboard = () => {
                 className="w-14 h-14 rounded-full object-cover"
               />
               <div>
-                <p className="font-bold text-lg">{user.displayName}</p>
+                <p className="font-bold text-lg flex items-center gap-1">{user.displayName} <CheckBadgeIcon className="text-blue-500 h-4" /></p>
                 <p className="text-sm">@{user.username}</p>
               </div>
             </div>
@@ -176,7 +176,8 @@ const EscortDashboard = () => {
           <div className="flex justify-between items-center border-b pb-2">
             <p className="font-bold">PREMIUM</p>
             <p className="text-sm text-gray-500">
-              <span>Expires in </span>
+              {subscriptionDetails.endDate > new Date() ? <span>Expires in </span> : <span>Expired </span>}
+              
               {subscriptionDetails?.endDate
                 ? formatDistanceToNow(new Date(subscriptionDetails.endDate), {
                     addSuffix: true,
@@ -194,6 +195,7 @@ const EscortDashboard = () => {
           {/* Action Cards */}
           <div className="flex gap-4">
             {/* Boost My Profile */}
+            
             <div className="flex-1 rounded-xl bg-pink-500 text-white p-4 flex flex-col justify-between">
               <div>
                 <p className="font-bold">Boost My Profile</p>
@@ -201,9 +203,11 @@ const EscortDashboard = () => {
                   More chances to match with extra features.
                 </p>
               </div>
+              <Link to={`/escorts/boost-profile/${user._id}`}>
               <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
                 BOOST NOW
               </button>
+              </Link>
             </div>
 
             {/* Make Available Today */}
