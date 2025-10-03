@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 const EscortContactAdmin = () => {
   const [formData, setFormData] = useState({
@@ -20,18 +20,18 @@ const EscortContactAdmin = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     toast.success("Your message has been sent to the admin!", {
-        autoClose: 3000,
-        position: "top-right",
-      });
+      autoClose: 3000,
+      position: "top-right",
+    });
     setFormData({ name: "", email: "", message: "" });
   };
 
   return (
     <div className="bg-pink-100 p-6 min-h-screen">
       <h2 className="text-2xl font-bold text-pink-500 mb-6">
-        Contact Admin
+        Contact Admin Via
       </h2>
-      <form
+      {/* <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md p-6 space-y-4 max-w-md mx-auto"
       >
@@ -83,7 +83,37 @@ const EscortContactAdmin = () => {
         >
           Send Message
         </button>
-      </form>
+      </form> */}
+
+      <div className="flex gap-3 p-4 justify-around">
+        <a
+          href="mailto:oscrovilla@gmail.com"
+          className="flex items-center gap-6 cursor-pointer bg-white p-4 px-8 rounded-xl hover:bg-gray-100 transition"
+        >
+          <img
+            className="h-8"
+            src="https://cdn-icons-png.flaticon.com/128/732/732200.png"
+            alt="Email Icon"
+          />
+          <span className="font-medium">Email</span>
+        </a>
+
+        <a
+          href="https://wa.me/447892944918"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-green-600 hover:underline"
+        >
+          <div className="flex items-center gap-6 cursor-pointer bg-green-50 p-4 px-8 rounded-xl">
+            <img
+              className="h-8"
+              src="https://cdn-icons-png.flaticon.com/128/3670/3670051.png"
+              alt=""
+            />
+            <span className="font-medium">WhatsApp</span>
+          </div>
+        </a>
+      </div>
     </div>
   );
 };
