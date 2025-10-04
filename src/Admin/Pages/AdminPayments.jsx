@@ -1,17 +1,20 @@
 import React from "react";
 import AdminSidebar from "../Components/AdminSidebar";
-import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { useEffect } from "react";
 import { useState } from "react";
 import { format } from "date-fns";
 import { PlusIcon } from "lucide-react";
+import { AdminContext } from "../../Contexts/AdminContext";
+import { useContext } from "react";
+import { Link } from "react-router";
 
 const AdminPayments = () => {
+  const {api} = useContext(AdminContext)
   const [subscriptionDetails, setSubscriptionDetails] = useState([]);
   const getSubscriptions = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/subscriptiondetails`);
+      const response = await api.get(`${baseUrl}admin/subscriptiondetails`);
       setSubscriptionDetails(response.data);
     } catch (err) {
       console.log(err);
@@ -30,9 +33,6 @@ const AdminPayments = () => {
       sub.user?.displayName?.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(filteredSubscriptions);
-
-  console.log(subscriptionDetails);
   return (
     <div className="flex text-white  mx-auto">
       <AdminSidebar />
@@ -82,6 +82,9 @@ const AdminPayments = () => {
                 <th className="px-4 py-3 text-left text-sm font-semibold">
                   End Date
                 </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold">
+                  Transaction ID
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -89,11 +92,13 @@ const AdminPayments = () => {
                 <tr
                   key={user.id}
                   className="border-t border-gray-700 hover:bg-gray-700 transition cursor-pointer"
-                  onClick={() =>
-                    (window.location.href = `/admin/escort/${user.user._id}`)
-                  }
                 >
-                  <td className="px-4 py-3">{user.user.displayName}</td>
+                  <td className="px-4 py-3">
+                    <Link to={`/admin/escort/${user.user._id}`}>
+                    {user.user.displayName}
+                    </Link>
+                    
+                    </td>
                   <td className="px-4 py-3 text-gray-300">
                     @{user.user.username}
                   </td>
@@ -105,6 +110,7 @@ const AdminPayments = () => {
                   <td className="px-4 py-3">
                     {format(new Date(user?.endDate), "MMMM d, yyyy")}
                   </td>
+                  <td className="px-4 py-3">{user.transactionRef}</td>
                 </tr>
               ))}
             </tbody>

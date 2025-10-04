@@ -6,11 +6,13 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { useContext } from "react";
 import { AdminContext } from "../../Contexts/AdminContext";
+import Loader from "../../Components/Loaders/Loader";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { admin, setAdmin, setAdminAccessToken } = useContext(AdminContext);
   const { api } = useContext(AdminContext);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,16 +29,19 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await api.post(`${baseUrl}admin/login`, formData);
-      console.log(response);
       alert(response.data.message);
       setAdmin(response.data.admin);
       setAdminAccessToken(response.data.adminAccessToken);
       setFormData({ email: "", password: "" });
       navigate("/admin");
     } catch (err) {
+      setLoading(false);
       alert(err.response.data.message);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,10 +97,11 @@ const AdminLogin = () => {
 
           {/* Submit Button */}
           <button
+          disabled={loading}
             type="submit"
-            className="w-full bg-customPink text-white py-2 px-4 rounded-lg focus:outline-none font-medium"
+            className="w-full bg-customPink text-white py-2 px-4 rounded-lg focus:outline-none font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {loading ? <div className="mx-auto flex justify-center"><Loader/></div> : "Login"}
           </button>
         </form>
       </div>

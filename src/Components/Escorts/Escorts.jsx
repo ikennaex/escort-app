@@ -11,6 +11,7 @@ import Loader from "../Loaders/Loader";
 import { SlidersHorizontal } from "lucide-react";
 import FilterBox from "../FilterBox/FilterBox";
 import { isFresh } from "./FreshBadge";
+import EscortSkeletonLoader from "../Loaders/EscortSkeletonLoader";
 
 const Escorts = () => {
   const [loading, setLoading] = useState(true);
@@ -42,8 +43,6 @@ const Escorts = () => {
     loadEscorts();
   }, [page]);
 
-  console.log(escorts);
-
   return (
     <div className="p-2 bg-black pb-10">
       <FilterBox open={open} handlePopUp={handlePopUp} />
@@ -52,15 +51,28 @@ const Escorts = () => {
         <p className="text-center text-white text-lg font-bold my-4">
           All Escorts
         </p>
-      {loading && (
-        <div className="flex items-center justify-center">
-          <Loader />
-        </div>
-      )}
         <div onClick={handlePopUp} className="flex">
           <SlidersHorizontal className="text-yellow-400 ml-auto" />
         </div>
       </div>
+
+      {loading && (
+        <div className="flex justify-center">
+          {/* Mobile: show only 1 */}
+          <div className="grid grid-cols-1 gap-4 sm:hidden w-full mx-auto place-items-center">
+            <EscortSkeletonLoader />
+          </div>
+
+          {/* Tablet and up: show 4 */}
+          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Array(4)
+              .fill()
+              .map((_, i) => (
+                <EscortSkeletonLoader key={i} />
+              ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-3">
         {error && (
@@ -117,7 +129,7 @@ const Escorts = () => {
                   {item.about?.split(" ").length > 20 ? "..." : ""}
                 </p>
               </div>
-              {(item.premium) && (
+              {item.premium && (
                 <div className="absolute top-3 right-[-40px] w-40 bg-blue-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
                   Premium
                 </div>

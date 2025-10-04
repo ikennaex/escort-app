@@ -3,22 +3,24 @@ import { Link, useParams } from "react-router-dom";
 import AdminSidebar from "../Components/AdminSidebar";
 import { baseUrl } from "../../baseUrl";
 import { useEffect } from "react";
-import axios from "axios";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import { format } from "date-fns";
 import Loader from "../../Components/Loaders/Loader";
+import { useContext } from "react";
+import { AdminContext } from "../../Contexts/AdminContext";
 
 const AdminEscortDetails = () => {
   const [escort, setEscort] = useState([]);
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [isPremium, setIsPremium] = useState(escort?.isPremium);
+  const { api } = useContext(AdminContext);
 
   const fetchEscortDetails = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${baseUrl}admin/getallescorts/${id}`);
+      const response = await api.get(`${baseUrl}admin/getallescorts/${id}`);
       setEscort(response.data);
     } catch (err) {
       console.log(err);
@@ -32,7 +34,38 @@ const AdminEscortDetails = () => {
     fetchEscortDetails();
   }, []);
 
-  console.log(escort);
+  // control img dimension
+  const [dimensions, setDimensions] = useState({});
+
+  useEffect(() => {
+    escort?.gallery?.forEach((img, i) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          [i]: { width: image.naturalWidth, height: image.naturalHeight },
+        }));
+      };
+    });
+  }, [escort?.gallery]);
+
+  // useEffect for verification image
+  useEffect(() => {
+    if (escort?.verificationImage) {
+      const image = new Image();
+      image.src = escort.verificationImage;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          verification: {
+            width: image.naturalWidth,
+            height: image.naturalHeight,
+          },
+        }));
+      };
+    }
+  }, [escort?.verificationImage]);
 
   const SectionCard = ({ title, children }) => (
     <div className="bg-customGray rounded-xl p-5 mb-6 shadow-lg">
@@ -45,9 +78,7 @@ const AdminEscortDetails = () => {
     <div className="flex text-white mx-auto">
       <AdminSidebar />
       <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
-        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-">
-          Escort Details
-        </h1>
+        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-">Escort Details</h1>
 
         {loading ? (
           <div className="flex items-center justify-center mx-auto h-screen">
@@ -55,43 +86,43 @@ const AdminEscortDetails = () => {
           </div>
         ) : (
           <div className="">
-              <p className="my-3">
-                <span className="font-semibold text-customPink">
-                  Account created on:{" "}
-                </span>
-                {escort?.createdAt
-                  ? format(new Date(escort.createdAt), "PPP")
-                  : "—"}
-              </p>
+            <p className="my-3">
+              <span className="font-semibold text-customPink">
+                Account created on:{" "}
+              </span>
+              {escort?.createdAt
+                ? format(new Date(escort.createdAt), "PPP")
+                : "—"}
+            </p>
 
             {/* Basic Info */}
             <SectionCard title="Basic Info">
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <p>
                   <span className="font-medium">Display Name:</span>{" "}
-                  {escort.displayName}
+                  {escort?.displayName}
                 </p>
                 <p>
                   <span className="font-medium">Username:</span> @
-                  {escort.username}
+                  {escort?.username}
                 </p>
                 <p>
-                  <span className="font-medium">Email:</span> {escort.email}
+                  <span className="font-medium">Email:</span> {escort?.email}
                 </p>
                 <p>
                   <span className="font-medium">Phone:</span>{" "}
-                  {escort.phoneNumber}
+                  {escort?.phoneNumber}
                 </p>
                 <p>
                   <span className="font-medium">DOB:</span>{" "}
-                  {new Date(escort.dob).toLocaleDateString()}
+                  {new Date(escort?.dob).toLocaleDateString()}
                 </p>
                 <p>
-                  <span className="font-medium">Gender:</span> {escort.gender}
+                  <span className="font-medium">Gender:</span> {escort?.gender}
                 </p>
                 <p>
-                  <span className="font-medium">Location:</span> {escort.city},{" "}
-                  {escort.state}, {escort.country}
+                  <span className="font-medium">Location:</span> {escort?.city},{" "}
+                  {escort?.state}, {escort?.country}
                 </p>
               </div>
             </SectionCard>
@@ -100,51 +131,52 @@ const AdminEscortDetails = () => {
             <SectionCard title="Profile">
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <p>
-                  <span className="font-medium">Heading:</span> {escort.heading}
+                  <span className="font-medium">Heading:</span>{" "}
+                  {escort?.heading}
                 </p>
                 <p>
                   <span className="font-medium">Education:</span>{" "}
-                  {escort.education || "N/A"}
+                  {escort?.education || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Occupation:</span>{" "}
-                  {escort.occupation || "N/A"}
+                  {escort?.occupation || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Ethnicity:</span>{" "}
-                  {escort.ethnicity || "N/A"}
+                  {escort?.ethnicity || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Bust Size:</span>{" "}
-                  {escort.bustSize || "N/A"}
+                  {escort?.bustSize || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Height:</span>{" "}
-                  {escort.height || "N/A"}
+                  {escort?.height || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Weight:</span>{" "}
-                  {escort.weight || "N/A"}
+                  {escort?.weight || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Body Build:</span>{" "}
-                  {escort.bodyBuild || "N/A"}
+                  {escort?.bodyBuild || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Looks:</span>{" "}
-                  {escort.looks || "N/A"}
+                  {escort?.looks || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Smoker:</span>{" "}
-                  {escort.smoker || "N/A"}
+                  {escort?.smoker || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Orientation:</span>{" "}
-                  {escort.sexualOrientation || "N/A"}
+                  {escort?.sexualOrientation || "N/A"}
                 </p>
                 <p>
                   <span className="font-medium">Language:</span>{" "}
-                  {escort.language || "N/A"}
+                  {escort?.language || "N/A"}
                 </p>
               </div>
             </SectionCard>
@@ -154,25 +186,38 @@ const AdminEscortDetails = () => {
               <SectionCard title="Gallery">
                 <Gallery>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {escort.gallery.map((img, idx) => (
-                      <Item
-                        key={idx}
-                        original={img}
-                        thumbnail={img}
-                        width="1024"
-                        height="768"
-                      >
-                        {({ ref, open }) => (
-                          <img
-                            ref={ref}
-                            onClick={open}
-                            src={img}
-                            alt={`escort-${idx}`}
-                            className="w-full h-32 object-cover rounded-lg cursor-pointer hover:scale-105 transition"
-                          />
-                        )}
-                      </Item>
-                    ))}
+                    {escort?.gallery?.map((img, index) => {
+                      const dim = dimensions[index] || {
+                        width: 1024,
+                        height: 768,
+                      };
+                      return (
+                        <Item
+                          key={index}
+                          original={img}
+                          thumbnail={img}
+                          width={dim.width}
+                          height={dim.height}
+                          caption={`Photo ${index + 1} of ${
+                            escort?.displayName
+                          }`}
+                        >
+                          {({ ref, open }) => (
+                            <div
+                              ref={ref}
+                              onClick={open}
+                              className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                            >
+                              <img
+                                src={img}
+                                alt="Gallery"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                        </Item>
+                      );
+                    })}
                   </div>
                 </Gallery>
               </SectionCard>
@@ -184,8 +229,8 @@ const AdminEscortDetails = () => {
                 <Item
                   original={escort?.verificationImage}
                   thumbnail={escort?.verificationImage}
-                  width="1024"
-                  height="768"
+                  width={dimensions.verification?.width || 1024}
+                  height={dimensions.verification?.height || 768}
                 >
                   {({ ref, open }) => (
                     <img
@@ -268,7 +313,6 @@ const AdminEscortDetails = () => {
                 </button>
               </div>
             )}
-
           </div>
         )}
       </div>

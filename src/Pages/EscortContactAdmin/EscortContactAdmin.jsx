@@ -18,7 +18,6 @@ const EscortContactAdmin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     toast.success("Your message has been sent to the admin!", {
       autoClose: 3000,
       position: "top-right",

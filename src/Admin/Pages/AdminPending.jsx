@@ -4,13 +4,16 @@ import AdminSidebar from "../Components/AdminSidebar";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { differenceInYears, format } from "date-fns";
+import { AdminContext } from "../../Contexts/AdminContext";
+import { useContext } from "react";
 
 const AdminPending = () => {
   const [escorts, setEscorts] = useState([]);
+  const {api} = useContext(AdminContext)
 
   const pendingVerification = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/getunverifiedescorts`);
+      const response = await api.get(`${baseUrl}admin/getunverifiedescorts`);
       setEscorts(response.data);
     } catch (err) {
       console.log(err);

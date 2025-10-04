@@ -16,6 +16,7 @@ import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import Loader from "../Loaders/Loader";
 import { isFresh } from "../Escorts/FreshBadge";
+import EscortSkeletonLoader from "../Loaders/EscortSkeletonLoader";
 
 const ImageSlider = () => {
   const [slidesToShow, setSlidesToShow] = useState(1);
@@ -26,7 +27,6 @@ const ImageSlider = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${baseUrl}escorts/premium`);
-      console.log(response);
       setPremiumEscorts(response.data.escortDoc);
       setLoading(false);
     } catch (err) {
@@ -92,8 +92,20 @@ const ImageSlider = () => {
   return (
     <div className="w-full mx-auto p-1 ">
       {loading && (
-        <div className="flex justify-center items-center">
-          <Loader />
+        <div className="flex justify-center">
+          {/* Mobile: show only 1 */}
+          <div className="grid grid-cols-1 gap-4 sm:hidden w-full mx-auto place-items-center">
+            <EscortSkeletonLoader />
+          </div>
+
+          {/* Tablet and up: show 4 */}
+          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Array(4)
+              .fill()
+              .map((_, i) => (
+                <EscortSkeletonLoader key={i} />
+              ))}
+          </div>
         </div>
       )}
       <Slider key={slidesToShow} {...settings}>

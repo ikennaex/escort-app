@@ -3,8 +3,11 @@ import AdminSidebar from "../Components/AdminSidebar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
+import { AdminContext } from "../../Contexts/AdminContext";
+import { useContext } from "react";
 
 const AdminDashboard = () => {
+  const {api} = useContext(AdminContext)
   const users = [
     { username: "jdoe", name: "John Doe", role: "Admin", age: 28 },
     { username: "asmith", name: "Alice Smith", role: "Premium", age: 24 },
@@ -26,7 +29,7 @@ const AdminDashboard = () => {
 
   const getAllEscorts = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/getallescorts`);
+      const response = await api.get(`${baseUrl}admin/getallescorts`);
       setEscorts(response.data);
     } catch (err) {
       console.log(err);
@@ -35,7 +38,7 @@ const AdminDashboard = () => {
 
   const getAllClients = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/getallclients`);
+      const response = await api.get(`${baseUrl}admin/getallclients`);
       setClients(response.data);
     } catch (err) {
       console.log(err);
@@ -44,7 +47,7 @@ const AdminDashboard = () => {
 
   const pendingVerification = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/getunverifiedescorts`);
+      const response = await api.get(`${baseUrl}admin/getunverifiedescorts`);
       setUnverifiedEscorts(response.data);
     } catch (err) {
       console.log(err);
@@ -53,7 +56,7 @@ const AdminDashboard = () => {
 
   const getpremiumEscorts = async () => {
     try {
-      const response = await axios.get(`${baseUrl}admin/getpremiumescorts`);
+      const response = await api.get(`${baseUrl}admin/getpremiumescorts`);
       setPremiumEscorts(response.data);
     } catch (err) {
       console.log(err);

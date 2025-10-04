@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Clock,
@@ -11,9 +11,27 @@ import {
   CreditCard,
 } from "lucide-react"; // icons
 import { logo } from "../../../imports";
+import { baseUrl } from "../../baseUrl";
+import { AdminContext } from "../../Contexts/AdminContext";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {setAdmin, api} = useContext(AdminContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to logout?");
+    if (!confirmed) return;
+
+    try {
+      await api.post(`${baseUrl}admin/logout`);
+      setAdmin(null);
+      navigate("/admin/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      alert("Something went wrong during logout");
+    }
+  };
 
   return (
     <>
@@ -91,7 +109,7 @@ const AdminSidebar = () => {
 
         {/* Logout */}
         <div className="p-4 border-t border-gray-700">
-          <button className="flex items-center gap-3 w-full px-4 py-2 rounded-lg transition">
+          <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-2 rounded-lg transition">
             <LogOut size={20} />
             <span className="hidden md:inline">Logout</span>
           </button>

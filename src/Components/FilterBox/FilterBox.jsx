@@ -65,6 +65,7 @@ const FilterBox = ({ open, handlePopUp }) => {
     try {
       const queryString = new URLSearchParams(filters).toString();
       const response = await axios.get(`${baseUrl}escorts/search?${queryString}`)
+      console.log(response)
       setFilteredEscorts(response.data);
       handlePopUp()
       navigate(`/search?${queryString}`)

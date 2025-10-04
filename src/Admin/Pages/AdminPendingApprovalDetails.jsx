@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "../Components/AdminSidebar";
-import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { useNavigate, useParams } from "react-router";
 import { Gallery, Item } from "react-photoswipe-gallery";
@@ -8,6 +7,8 @@ import "photoswipe/dist/photoswipe.css";
 import Loader from "../../Components/Loaders/Loader";
 import { format } from "date-fns";
 import { toast } from 'react-toastify';
+import { AdminContext } from "../../Contexts/AdminContext";
+import { useContext } from "react";
 
 const SectionCard = ({ title, children }) => (
   <div className="bg-customGray rounded-xl p-5 mb-6 shadow-lg">
@@ -22,10 +23,11 @@ const AdminPendingApprovalDetails = () => {
   const navigate = useNavigate()
   const [escort, setEscort] = useState(null);
   const { id } = useParams();
+  const {api} = useContext(AdminContext)
 
   const pendingVerification = async () => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${baseUrl}admin/getunverifiedescorts/${id}`
       );
       setEscort(response.data);
@@ -36,7 +38,7 @@ const AdminPendingApprovalDetails = () => {
 
   const approveEscort = async (id) => {
     try {
-      const response = await axios.patch(`${baseUrl}admin/approveescort/${id}`);
+      const response = await api.patch(`${baseUrl}admin/approveescort/${id}`);
       toast.success(response.data.message, {
         autoClose: 3000,
         position: "top-right",
@@ -53,7 +55,7 @@ const AdminPendingApprovalDetails = () => {
 
   const rejectEscort = async (id) => {
     try {
-      await axios.post(`${baseUrl}admin/rejectescort/${id}`);
+      await api.post(`${baseUrl}admin/rejectescort/${id}`);
       toast.success('Escort rejected!', {
         autoClose: 3000,
         position: "top-right",
