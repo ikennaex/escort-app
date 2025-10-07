@@ -305,7 +305,7 @@
       "Udi",
       "Uzo Uwani"
     ],
-    "Abuja (FCT)": ["Abuja Municipal", "Bwari", "Gwagwalada", "Kuje", "Kwali", "Abaji"],
+    "Abuja Federal Capital Territory": ["Abuja Municipal", "Garki", "Wuse", "Maitama", "Asokoro", "Gwarinpa", "Jabi", "Utako", "Wuye", "Apo", "Gwagwalada", "Kuje"],
     "Gombe": [
       "Akko",
       "Balanga",
@@ -559,6 +559,7 @@
       "Festac",
       "Ikoyi",
       "Lekki-Ajah",
+      "Lekki",
       "Ibeju-Lekki",
       "Ifako-Ijaiye",
       "Ikeja",

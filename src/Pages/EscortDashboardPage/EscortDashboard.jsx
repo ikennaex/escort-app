@@ -24,6 +24,7 @@ import {
   Power,
   Trash2,
   Activity,
+  Plus,
 } from "lucide-react";
 import { Link } from "react-router";
 import { useContext } from "react";
@@ -87,6 +88,12 @@ const EscortDashboard = () => {
       alert("Something went wrong during logout");
     }
   };
+
+
+  // handle image delete 
+  // const handleDelete = () => {
+  //   window.
+  // }
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -361,26 +368,26 @@ const EscortDashboard = () => {
                   </div>
                 </Link>
 
-                  <Link to={`/escorts/edit/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/edit/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Pencil className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Edit Profile</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/booking/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/booking/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Calendar className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Bookings</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/requests/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/requests/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Hand className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Requests</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
                 {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Link to={`/escorts/wallet/${user._id}`}>
@@ -396,54 +403,54 @@ const EscortDashboard = () => {
                   </Link>
                 </div> */}
 
-                  <Link to={`/escorts/boost-profile/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/boost-profile/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Rocket className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Boost Profile</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/blacklist/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/blacklist/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Ban className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Blacklisted Client</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/bank/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/bank/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Landmark className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Edit Bank Details</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/events/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/events/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <CalendarDays className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">My Events</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/reports/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/reports/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <FileWarning className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Pending Reports</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/change-password/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/change-password/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Lock className="h-8 w-8 text-pink-500" />
                     <p className="mt-2 text-sm">Change Password</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
-                  <Link to={`/escorts/status/${user._id}`}>
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <Link to={`/escorts/status/${user._id}`}>
+                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                     <Activity className="h-8 w-8 text-green-500" />
                     <p className="mt-2 text-sm">Status</p>
-                </div>
-                  </Link>
+                  </div>
+                </Link>
 
                 <div
                   onClick={handleLogout}
@@ -460,39 +467,56 @@ const EscortDashboard = () => {
               </div>
             </>
           )}
-        </div>
 
-        <div className=" my-4 mx-3 p-4 text-black">
-          {activeTab === "Gallery" && (
-            <Gallery withDownloadButton withZoomButton withFullscreenButton>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
-                {user?.gallery.map((img, index) => (
-                  <Item
-                    key={index}
-                    original={img}
-                    thumbnail={img}
-                    width="1024"
-                    height="768"
-                    caption={`Photo ${index + 1} of ${user?.displayName}`}
-                  >
-                    {({ ref, open }) => (
-                      <div
-                        ref={ref}
-                        onClick={open}
-                        className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
-                      >
-                        <img
-                          src={img}
-                          alt="Gallery"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                  </Item>
-                ))}
-              </div>
-            </Gallery>
-          )}
+          <div className="text-black">
+            {activeTab === "Gallery" && (
+              <Gallery withDownloadButton withZoomButton withFullscreenButton>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
+            <button className="bg-customPink flex items-center gap-2 py-2">
+              <Plus className="h-5 text-white" />
+              <p>add image</p>
+            </button>
+                  {user?.gallery.map((img, index) => (
+                    <Item
+                      key={index}
+                      original={img}
+                      thumbnail={img}
+                      width="1024"
+                      height="768"
+                      caption={`Photo ${index + 1} of ${user?.displayName}`}
+                    >
+                      {({ ref, open }) => (
+                        <div
+                          ref={ref}
+                          onClick={open}
+                          className="relative w-full aspect-square border-2 border-dotted border-pink-400 rounded-lg overflow-hidden cursor-pointer group"
+                        >
+                          <img
+                            src={img}
+                            alt="Gallery"
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+
+                          {/* Overlay on hover */}
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation(); // prevents triggering open()
+                                handleDelete(); // your delete function
+                              }}
+                              className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600 transition"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </Item>
+                  ))}
+                </div>
+              </Gallery>
+            )}
+          </div>
         </div>
       </div>
     </div>
