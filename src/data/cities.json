@@ -305,7 +305,26 @@
       "Udi",
       "Uzo Uwani"
     ],
-    "Abuja Federal Capital Territory": ["Abuja Municipal", "Garki", "Wuse", "Maitama", "Asokoro", "Gwarinpa", "Jabi", "Utako", "Wuye", "Apo", "Gwagwalada", "Kuje"],
+    "Abuja Federal Capital Territory": [
+      "Abuja",
+      "Asokoro",
+      "Gwarinpa",
+      "Wuse 2",
+      "Maitama",
+      "Bwari",
+      "Lugbe",
+      "Kubwa",
+      "Gwagwalada",
+      "Nyanya",
+      "Zuba",
+      "Mpape",
+      "Jahi",
+      "Lokogoma",
+      "Galadimawa",
+      "Jabi",
+      "Life Camp",
+      "Kuje"
+    ],
     "Gombe": [
       "Akko",
       "Balanga",
@@ -845,7 +864,7 @@
       "Zurmi"
     ]
   },
-  
+
   "GH": {
     "Greater Accra": [
       "Accra Metropolitan",
@@ -1143,6 +1162,4 @@
       "Wa West"
     ]
   }
-
-
 }
