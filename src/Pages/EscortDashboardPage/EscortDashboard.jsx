@@ -200,14 +200,14 @@ const EscortDashboard = () => {
           <div className="flex justify-between items-center border-b pb-2">
             <p className="font-bold">PREMIUM</p>
             <p className="text-sm text-gray-500">
-              {subscriptionDetails.endDate > new Date() ? (
+              {subscriptionDetails?.endDate > new Date() ? (
                 <span>Expires in </span>
               ) : (
                 <span>Expired </span>
               )}
 
               {subscriptionDetails?.endDate
-                ? formatDistanceToNow(new Date(subscriptionDetails.endDate), {
+                ? formatDistanceToNow(new Date(subscriptionDetails?.endDate), {
                     addSuffix: true,
                   })
                 : "No end date"}
