@@ -28,7 +28,7 @@ const EscortContactAdmin = () => {
   return (
     <div className="bg-pink-100 p-6 min-h-screen">
       <h2 className="text-2xl font-bold text-pink-500 mb-6">
-        Contact Admin Via
+        Contact Support Via
       </h2>
       {/* <form
         onSubmit={handleSubmit}
