@@ -35,6 +35,7 @@ import Loader from "../../Components/Loaders/Loader";
 import { CheckBadgeIcon, StarIcon } from "@heroicons/react/24/solid";
 import { format, formatDistanceToNow } from "date-fns";
 import { Gallery, Item } from "react-photoswipe-gallery";
+import imageCompression from "browser-image-compression";
 
 const EscortDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,27 +94,39 @@ const EscortDashboard = () => {
 const handleImageUpload = async (e) => {
   if (!e.target.files || e.target.files.length === 0) return;
 
-  const filesArray = Array.from(e.target.files); // Convert FileList to array
+  const filesArray = Array.from(e.target.files);
   const formData = new FormData();
 
-  filesArray.forEach((file) => formData.append("gallery", file));
+  for (let file of filesArray) {
+    // Compress only if larger than 3MB
+    if (file.size / 1024 / 1024 > 3) {
+      file = await imageCompression(file, {
+        maxSizeMB: 1,             // compress to ~1MB
+        maxWidthOrHeight: 1920,   // resize if bigger
+        useWebWorker: true,       // faster compression
+      });
+    }
+
+    formData.append("gallery", file);
+  }
 
   try {
     setLoading(true);
 
     const response = await api.put(`${baseUrl}escortgallery`, formData);
-    console.log("Upload successful:", response.data);
 
     // Update user state immediately
     setUser((prev) => ({
       ...prev,
       gallery: response.data.gallery,
     }));
+
+    console.log("Upload successful:", response.data);
   } catch (err) {
     console.error("Upload failed:", err.response?.data || err.message);
   } finally {
     setLoading(false);
-    e.target.value = ""; // Reset input so same file can be reselected
+    e.target.value = ""; // reset input so same files can be reselected
   }
 };
 
