@@ -17,77 +17,77 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router'
 import { UserContext } from "../../Contexts/UserContext";
 
-const {user} = useContext(UserContext);
-
-const menu = [
-  {
-    icon: <HomeIcon className="h-5" />,
-    title: "Home",
-    path: "/",
-  },
-  {
-    icon: <UserIcon className="h-5" />,
-    title: "Profile",
-    path: `/escorts/${user?._id}`,
-  },
-  {
-    icon: <PhotoIcon className="h-5" />,
-    title: "Feed",
-    path: "/feed",
-  },
-  {
-    icon: <MegaphoneIcon className="h-5" />,
-    title: "Adverts",
-    path: "/adverts",
-  },
-  {
-    icon: <CalendarDaysIcon className="h-5" />,
-    title: "Events",
-    path: "/events",
-  },
-  {
-    icon: <VideoCameraIcon className="h-5" />,
-    title: "Naughty Videos",
-    path: "/events",
-  },
-  {
-    icon: <BedSingleIcon className="h-5" />,
-    title: "Rooms",
-    path: "/rooms",
-  },
-  {
-    icon: <ChatBubbleLeftRightIcon className="h-5" />,
-    title: "Reviews",
-    path: "/reviews",
-  },
-  {
-    icon: <ArchiveBoxXMarkIcon className="h-5" />,
-    title: "Blacklisted",
-    path: "/blacklisted",
-  },
-  {
-    icon: <PencilSquareIcon className="h-5" />,
-    title: "Blogs",
-    path: "/blogs",
-  },
-  {
-    icon: <HandThumbUpIcon className="h-5" />,
-    title: "Testimonials",
-    path: "/testimonials",
-  },
-  {
-    icon: <QuestionMarkCircleIcon className="h-5" />,
-    title: "FAQs",
-    path: "/faqs",
-  },
-  {
-    icon: <ChatBubbleBottomCenterIcon className="h-5" />,
-    title: "Contact Admin",
-    path: "/contact-admin",
-  },
-];
 
 const MobileNav = ({ isOpen, handleToggle }) => {
+  const {user} = useContext(UserContext);
+  
+  const menu = [
+    {
+      icon: <HomeIcon className="h-5" />,
+      title: "Home",
+      path: "/",
+    },
+    {
+      icon: <UserIcon className="h-5" />,
+      title: "Profile",
+      path: `/escorts/${user?._id}`,
+    },
+    {
+      icon: <PhotoIcon className="h-5" />,
+      title: "Feed",
+      path: "/feed",
+    },
+    {
+      icon: <MegaphoneIcon className="h-5" />,
+      title: "Adverts",
+      path: "/adverts",
+    },
+    {
+      icon: <CalendarDaysIcon className="h-5" />,
+      title: "Events",
+      path: "/events",
+    },
+    {
+      icon: <VideoCameraIcon className="h-5" />,
+      title: "Naughty Videos",
+      path: "/events",
+    },
+    {
+      icon: <BedSingleIcon className="h-5" />,
+      title: "Rooms",
+      path: "/rooms",
+    },
+    {
+      icon: <ChatBubbleLeftRightIcon className="h-5" />,
+      title: "Reviews",
+      path: "/reviews",
+    },
+    {
+      icon: <ArchiveBoxXMarkIcon className="h-5" />,
+      title: "Blacklisted",
+      path: "/blacklisted",
+    },
+    {
+      icon: <PencilSquareIcon className="h-5" />,
+      title: "Blogs",
+      path: "/blogs",
+    },
+    {
+      icon: <HandThumbUpIcon className="h-5" />,
+      title: "Testimonials",
+      path: "/testimonials",
+    },
+    {
+      icon: <QuestionMarkCircleIcon className="h-5" />,
+      title: "FAQs",
+      path: "/faqs",
+    },
+    {
+      icon: <ChatBubbleBottomCenterIcon className="h-5" />,
+      title: "Contact Admin",
+      path: "/contact-admin",
+    },
+  ];
   return (
     <div className={`fixed inset-0 z-50 flex ${isOpen ? "visible" : "invisible"}`}>
       {/* Overlay */}
