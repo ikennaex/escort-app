@@ -86,7 +86,7 @@ const EscortContactAdmin = () => {
 
       <div className="flex flex-wrap gap-3 p-4 justify-around">
         <a
-          href="mailto:oscrovilla@gmail.com"
+          href="mailto:support@oscrovilla.com"
           className="flex items-center gap-6 cursor-pointer bg-white p-4 px-8 rounded-xl hover:bg-gray-100 transition"
         >
           <img
