@@ -25,7 +25,7 @@ const menu = [
   {
     icon: <UserIcon className="h-5" />,
     title: "Profile",
-    path: "/profile",
+    path: `/escorts/${user?._id}`,
   },
   {
     icon: <PhotoIcon className="h-5" />,
