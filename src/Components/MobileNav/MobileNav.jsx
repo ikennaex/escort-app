@@ -13,8 +13,11 @@ import {
   VideoCameraIcon,
 } from "@heroicons/react/24/solid";
 import { BedSingleIcon } from "lucide-react";
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router'
+import { UserContext } from "../../Contexts/UserContext";
+
+const {user} = useContext(UserContext);
 
 const menu = [
   {
