@@ -87,19 +87,19 @@ const SideNavbar = ({collapsed, setCollapsed}) => {
     },
     {
       icon: <ChatBubbleBottomCenterIcon className="h-5" />,
-      title: "Contact Admin",
+      title: "Contact Support",
       path: "/contact-admin",
-    },
-    {
-      icon: <Cog6ToothIcon className="h-5" />,
-      title: "Settings",
-      path: "/settings",
-    },
-    {
-      icon: <ArrowLeftStartOnRectangleIcon className="h-5" />,
-      title: "Logout",
-      path: "/logout",
-    },
+    }
+    // {
+    //   icon: <Cog6ToothIcon className="h-5" />,
+    //   title: "Settings",
+    //   path: "/settings",
+    // },
+    // {
+    //   icon: <ArrowLeftStartOnRectangleIcon className="h-5" />,
+    //   title: "Logout",
+    //   path: "/logout",
+    // },
   ];
 
   return (

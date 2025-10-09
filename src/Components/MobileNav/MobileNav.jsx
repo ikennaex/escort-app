@@ -84,7 +84,7 @@ const MobileNav = ({ isOpen, handleToggle }) => {
     },
     {
       icon: <ChatBubbleBottomCenterIcon className="h-5" />,
-      title: "Contact Admin",
+      title: "Contact Support",
       path: "/contact-admin",
     },
   ];
