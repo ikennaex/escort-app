@@ -52,6 +52,7 @@ import AdminEscorts from "./Admin/Pages/AdminEscorts";
 import AdminEscortDetails from "./Admin/Pages/AdminEscortDetails";
 import AdminLogin from "./Admin/Pages/AdminLogin";
 import { AdminContextProvider } from "./Contexts/AdminContext";
+import AdminReports from "./Admin/Pages/AdminReports";
 
 const App = () => {
   const location = useLocation();
@@ -155,6 +156,7 @@ const App = () => {
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/admin/premium" element={<AdminPremiumUsers />} />
                 <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/reports" element={<AdminReports />} />
                 <Route
                   path="/admin/subscriptions"
                   element={<AdminPayments />}

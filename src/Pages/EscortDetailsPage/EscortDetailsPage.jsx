@@ -21,6 +21,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../Components/ImageSlider/imageslider.css"
+import ReportEscort from "../../Components/Escorts/ReportEscort";
 
 const calculateAge = (dob) => {
   if (!dob) return null;
@@ -156,9 +157,10 @@ const EscortDetailsPage = () => {
                   </div>
                   <div className="flex items-center justify-center gap-1 bg-pink-200 rounded-xl px-2 py-1">
                     <FlagIcon className="h-5 text-pink-500" />{" "}
-                    <p className="text-[10px] font-bold text-pink-500">
+                    <p className="text-[10px] font-bold text-pink-500 cursor-pointer">
                       Report
                     </p>
+                    {/* <ReportEscort /> */}
                   </div>
                   <div className="flex items-center justify-center gap-1 bg-orange-200 rounded-xl px-2 py-1">
                     <ShareIcon className="h-5 text-orange-500" />
