@@ -1,10 +1,8 @@
 import {
     ArchiveBoxXMarkIcon,
-  ArrowLeftStartOnRectangleIcon,
   CalendarDaysIcon,
   ChatBubbleBottomCenterIcon,
   ChatBubbleLeftRightIcon,
-  Cog6ToothIcon,
   HandThumbUpIcon,
   HomeIcon,
   MegaphoneIcon,
@@ -83,16 +81,6 @@ const menu = [
     icon: <ChatBubbleBottomCenterIcon className="h-5" />,
     title: "Contact Admin",
     path: "/contact-admin",
-  },
-  {
-    icon: <Cog6ToothIcon className="h-5" />,
-    title: "Settings",
-    path: "/settings",
-  },
-  {
-    icon: <ArrowLeftStartOnRectangleIcon className="h-5" />,
-    title: "Logout",
-    path: "/logout",
   },
 ];
 
