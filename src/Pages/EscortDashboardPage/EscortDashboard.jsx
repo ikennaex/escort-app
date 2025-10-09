@@ -121,8 +121,10 @@ const handleImageUpload = async (e) => {
       gallery: response.data.gallery,
     }));
 
-    console.log("Upload successful:", response.data);
+    // console.log("Upload successful:", response.data);
+    alert("Upload successful");
   } catch (err) {
+    alert("Upload failed");
     console.error("Upload failed:", err.response?.data || err.message);
   } finally {
     setLoading(false);
@@ -143,7 +145,7 @@ const handleImageUpload = async (e) => {
         data: { escortId: user._id, imageUrl }, // send payload in "data"
       });
 
-      console.log("Image deleted:", response.data);
+      // console.log("Image deleted:", response.data);
 
       setUser((prevUser) => ({
         ...prevUser,

@@ -6,8 +6,6 @@ const IncompleteRegistration = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
-  console.log("User in IncompleteRegistration:", user.registrationStep);
-
     const handleRedirect = () => {
     switch (user?.registrationStep) {
       case "additionalDetails":
