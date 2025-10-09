@@ -90,26 +90,33 @@ const EscortDashboard = () => {
   };
 
   // handle image upload
-  const handleImageUpload = async (e) => {
-    const files = e.target.files ? [...e.target.files] : [];
-    if (!files.length) return;
+const handleImageUpload = async (e) => {
+  if (!e.target.files || e.target.files.length === 0) return;
 
-    const formData = new FormData();
-    files.forEach((file) => formData.append("gallery", file));
+  const filesArray = Array.from(e.target.files); // Convert FileList to array
+  const formData = new FormData();
 
-    try {
-      const response = await api.post(`${baseUrl}escortgallery/add`, formData);
-      console.log("Upload successful:", response.data);
+  filesArray.forEach((file) => formData.append("gallery", file));
 
-      setUser((prev) => ({
-        ...prev,
-        gallery: response.data.gallery,
-      }));
-    } catch (error) {
-      alert(error.response?.data?.message || "Upload failed");
-      console.error("Upload failed:", error.response?.data || error.message);
-    }
-  };
+  try {
+    setLoading(true);
+
+    const response = await api.put(`${baseUrl}escortgallery`, formData);
+    console.log("Upload successful:", response.data);
+
+    // Update user state immediately
+    setUser((prev) => ({
+      ...prev,
+      gallery: response.data.gallery,
+    }));
+  } catch (err) {
+    console.error("Upload failed:", err.response?.data || err.message);
+  } finally {
+    setLoading(false);
+    e.target.value = ""; // Reset input so same file can be reselected
+  }
+};
+
 
   // handle image delete
   const handleDelete = async (imageUrl) => {
@@ -538,6 +545,7 @@ const EscortDashboard = () => {
                     <input
                       type="file"
                       accept="image/*"
+                      multiple
                       className="hidden"
                       onChange={handleImageUpload}
                     />
