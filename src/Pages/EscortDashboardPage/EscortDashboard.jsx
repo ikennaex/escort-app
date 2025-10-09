@@ -106,6 +106,7 @@ const handleImageUpload = async (e) => {
       gallery: response.data.gallery, // updates UI immediately
     }));
   } catch (error) {
+    alert(error.response?.data?.message || "Upload failed");
     console.error("Upload failed:", error.response?.data || error.message);
   }
 };
