@@ -89,27 +89,27 @@ const EscortDashboard = () => {
     }
   };
 
-
   // handle image upload
-const handleImageUpload = async (e) => {
-  const files = Array.from(e.target.files);
-  if (files.length === 0) return;
+  const handleImageUpload = async (e) => {
+    const files = e.target.files ? [...e.target.files] : [];
+    if (!files.length) return;
 
-  const formData = new FormData();
-  files.forEach((file) => formData.append("gallery", file));
+    const formData = new FormData();
+    files.forEach((file) => formData.append("gallery", file));
 
-  try {
-    const response = await api.post(`${baseUrl}escortgallery/add`, formData);
-    console.log("Upload successful:", response.data);
-    setUser((prev) => ({
-      ...prev,
-      gallery: response.data.gallery, // updates UI immediately
-    }));
-  } catch (error) {
-    alert(error.response?.data?.message || "Upload failed");
-    console.error("Upload failed:", error.response?.data || error.message);
-  }
-};
+    try {
+      const response = await api.post(`${baseUrl}escortgallery/add`, formData);
+      console.log("Upload successful:", response.data);
+
+      setUser((prev) => ({
+        ...prev,
+        gallery: response.data.gallery,
+      }));
+    } catch (error) {
+      alert(error.response?.data?.message || "Upload failed");
+      console.error("Upload failed:", error.response?.data || error.message);
+    }
+  };
 
   // handle image delete
   const handleDelete = async (imageUrl) => {
@@ -136,7 +136,9 @@ const handleImageUpload = async (e) => {
 
   // delete profile
   const handleDeleteProfile = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your profile? This action cannot be undone."
+    );
     if (!confirmed) return;
 
     try {
@@ -145,10 +147,10 @@ const handleImageUpload = async (e) => {
       navigate("/");
       window.location.reload();
     } catch (err) {
-      alert(err.response.data.message)
+      alert(err.response.data.message);
       console.error("Error deleting profile:", err.response?.data);
     }
-  }
+  };
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -515,7 +517,10 @@ const handleImageUpload = async (e) => {
                   <p className="mt-2 text-sm">Logout</p>
                 </div>
 
-                <div onClick={handleDeleteProfile} className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <div
+                  onClick={handleDeleteProfile}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
                   <Trash2 className="h-8 w-8 text-red-500" />
                   <p className="mt-2 text-sm">Delete Profile</p>
                 </div>
