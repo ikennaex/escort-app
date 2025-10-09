@@ -28,7 +28,7 @@ const Escorts = () => {
 
   const loadEscorts = async () => {
     try {
-      const response = await fetchEscorts(page, 10);
+      const response = await fetchEscorts(page, 50);
       setEscorts(response.escortDoc);
       setTotalPages(response.totalPages);
       setLoading(false);
@@ -42,6 +42,14 @@ const Escorts = () => {
   useEffect(() => {
     loadEscorts();
   }, [page]);
+
+  // Sort escorts to have premium ones first
+
+  const sortedEscorts = escorts.sort((a, b) => {
+    if (a.premium && !b.premium) return -1;
+    if (!a.premium && b.premium) return 1;
+    return 0; // keep same order otherwise
+  });
 
   return (
     <div className="p-2 bg-black pb-10">
@@ -80,7 +88,7 @@ const Escorts = () => {
             {error}
           </div>
         )}
-        {escorts.map((item) => (
+        {sortedEscorts.map((item) => (
           <Link to={`/escorts/${item._id}`}>
             <div
               key={item._id}

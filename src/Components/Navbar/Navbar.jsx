@@ -50,13 +50,13 @@ const Navbar = () => {
         {/* Icons */}
         <div className="flex gap-3">
           <MagnifyingGlassIcon onClick={handlePopUp} className="text-white h-7 bg-customPink p-1 rounded-full cursor-pointer" />
-          <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
+          {/* <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" /> */}
           <Link to='/notifications' ><BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" /></Link>
         </div>
 
         {/* Buttons */}
         {user ? (
-          <Link to={`/escortdashboard/${user._id}`} >
+          <Link to={user?.registrationComplete ? `/escortdashboard/${user._id}` : ""}>
           <p className="flex items-center gap-2 text-md font-semibold text-white">
             {user? <img className="h-6 w-6 rounded-full" src= {user.gallery?.[0]} alt="" />
           :  

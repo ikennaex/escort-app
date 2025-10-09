@@ -90,10 +90,64 @@ const EscortDashboard = () => {
   };
 
 
-  // handle image delete 
-  // const handleDelete = () => {
-  //   window.
-  // }
+  // handle image upload
+const handleImageUpload = async (e) => {
+  const files = Array.from(e.target.files);
+  if (files.length === 0) return;
+
+  const formData = new FormData();
+  files.forEach((file) => formData.append("gallery", file));
+
+  try {
+    const response = await api.post(`${baseUrl}escortgallery/add`, formData);
+    console.log("Upload successful:", response.data);
+    setUser((prev) => ({
+      ...prev,
+      gallery: response.data.gallery, // updates UI immediately
+    }));
+  } catch (error) {
+    console.error("Upload failed:", error.response?.data || error.message);
+  }
+};
+
+  // handle image delete
+  const handleDelete = async (imageUrl) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this image?"
+    );
+    if (!confirmed) return;
+
+    try {
+      const response = await api.delete(`${baseUrl}escortgallery`, {
+        data: { escortId: user._id, imageUrl }, // send payload in "data"
+      });
+
+      console.log("Image deleted:", response.data);
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        gallery: prevUser.gallery.filter((img) => img !== imageUrl),
+      }));
+    } catch (error) {
+      console.error("Error deleting image:", error.response?.data);
+    }
+  };
+
+  // delete profile
+  const handleDeleteProfile = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+    if (!confirmed) return;
+
+    try {
+      await api.delete(`${baseUrl}escortdelete`);
+      alert("Profile deleted successfully.");
+      navigate("/");
+      window.location.reload();
+    } catch (err) {
+      alert(err.response.data.message)
+      console.error("Error deleting profile:", err.response?.data);
+    }
+  }
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -460,7 +514,7 @@ const EscortDashboard = () => {
                   <p className="mt-2 text-sm">Logout</p>
                 </div>
 
-                <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
+                <div onClick={handleDeleteProfile} className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
                   <Trash2 className="h-8 w-8 text-red-500" />
                   <p className="mt-2 text-sm">Delete Profile</p>
                 </div>
@@ -472,10 +526,16 @@ const EscortDashboard = () => {
             {activeTab === "Gallery" && (
               <Gallery withDownloadButton withZoomButton withFullscreenButton>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
-            <button className="bg-customPink flex items-center gap-2 py-2">
-              <Plus className="h-5 text-white" />
-              <p>add image</p>
-            </button>
+                  <label className="bg-customPink flex items-center justify-center gap-2 py-2 px-4 rounded-lg cursor-pointer hover:opacity-90 transition">
+                    <Plus className="h-5 text-white" />
+                    <p className="text-white">Add Image</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleImageUpload}
+                    />
+                  </label>
                   {user?.gallery.map((img, index) => (
                     <Item
                       key={index}
@@ -502,7 +562,7 @@ const EscortDashboard = () => {
                             <button
                               onClick={(e) => {
                                 e.stopPropagation(); // prevents triggering open()
-                                handleDelete(); // your delete function
+                                handleDelete(img); // your delete function
                               }}
                               className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600 transition"
                             >

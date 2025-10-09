@@ -1,6 +1,7 @@
 import {
   ArchiveBoxXMarkIcon,
   ArrowLeftStartOnRectangleIcon,
+  Bars3Icon,
   CalendarDaysIcon,
   ChatBubbleBottomCenterIcon,
   ChatBubbleLeftRightIcon,
@@ -15,12 +16,12 @@ import {
   VideoCameraIcon,
 } from "@heroicons/react/24/solid";
 import { BedSingleIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 
-const SideNavbar = () => {
+const SideNavbar = ({collapsed, setCollapsed}) => {
   const { user } = useContext(UserContext);
 
   const menu = [
@@ -102,17 +103,24 @@ const SideNavbar = () => {
   ];
 
   return (
-    <div className="bg-customGray mt-28 overflow-y-auto py-6 scrollbar-hidden h-full w-full">
-      {/* <h2 className="hidden lg:block text-white text-lg font-bold p-4">Menu</h2> */}
+    <div
+      className={`bg-customGray mt-24 overflow-y-auto py-6 scrollbar-hidden h-full ${
+        collapsed ? "w-16" : "w-full"
+      }`}
+    >
+      {/* Toggle Button */}
+      <Bars3Icon
+        className="text-white h-6 cursor-pointer px-4"
+        onClick={() => setCollapsed(!collapsed)}
+      />
+
       <ul>
         {menu.map((item) => (
-          <Link to={item.path}>
-            <div
-              className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink cursor-pointer"
-              key={item.title}
-            >
+          <Link to={item.path} key={item.title}>
+            <div className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink cursor-pointer">
               <div>{item.icon}</div>
-              <li className="hidden lg:block">{item.title}</li>
+              {/* Only hide/show title on toggle */}
+              {!collapsed && <li className="hidden lg:block">{item.title}</li>}
             </div>
           </Link>
         ))}
