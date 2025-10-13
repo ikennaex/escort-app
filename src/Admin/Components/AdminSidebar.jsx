@@ -114,6 +114,14 @@ const AdminSidebar = () => {
             <AlertCircle size={20} />
             <span className=" md:inline">Reports</span>
           </Link>
+
+          <Link
+            to="/admin/blacklist"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+          >
+            <AlertCircle size={20} />
+            <span className=" md:inline">Blacklisted</span>
+          </Link>
         </nav>
 
         {/* Logout */}

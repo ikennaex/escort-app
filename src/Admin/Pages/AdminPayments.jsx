@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { Link } from "react-router";
 
 const AdminPayments = () => {
-  const {api} = useContext(AdminContext)
+  const { api } = useContext(AdminContext);
   const [subscriptionDetails, setSubscriptionDetails] = useState([]);
   const getSubscriptions = async () => {
     try {
@@ -38,17 +38,16 @@ const AdminPayments = () => {
       <AdminSidebar />
       <div className="flex-1 p-3 md:p-6 md:ml-64 mx-auto">
         <div className="flex justify-between">
-        <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-6">
-          Premium Subscriptions
-        </h1>
+          <h1 className="text-2xl font-bold md:mt-0 mt-12 mb-6">
+            Premium Subscriptions
+          </h1>
 
-        <div className="">
-          <button className="bg-customPink py-3 flex items-center gap-2">
-            <PlusIcon className="h-4 text-white" />
-          Make User Premium
-          </button>
-        </div>
-
+          <div className="">
+            <button className="bg-customPink py-3 flex items-center gap-2">
+              <PlusIcon className="h-4 text-white" />
+              Make User Premium
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
@@ -93,12 +92,11 @@ const AdminPayments = () => {
                   key={user.id}
                   className="border-t border-gray-700 hover:bg-gray-700 transition cursor-pointer"
                 >
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-customPink">
                     <Link to={`/admin/escort/${user.user._id}`}>
-                    {user.user.displayName}
+                      {user.user.displayName}
                     </Link>
-                    
-                    </td>
+                  </td>
                   <td className="px-4 py-3 text-gray-300">
                     @{user.user.username}
                   </td>

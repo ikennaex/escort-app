@@ -75,7 +75,7 @@ const AdminEscorts = () => {
                   key={user._id}
                   className="border-t border-gray-700 hover:bg-gray-700 transition"
                 >
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-customPink">
                     <Link
                       to={`/admin/escort/${user._id}`}
                       className="block w-full h-full"

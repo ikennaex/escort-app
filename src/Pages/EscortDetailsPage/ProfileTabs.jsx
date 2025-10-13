@@ -34,7 +34,7 @@ const ProfileTabs = ({ escort }) => {
     <div className="pb-5 rounded-lg lg:flex lg:gap-2">
       {/* NAV */}
       <nav className=" rounded-lg bg-[#fff8f9] lg:h-fit my-4 py-4 px-2 lg:w-64 shrink-0">
-        <ul className="flex overflow-x-auto lg:flex-col gap-6 px-2 text-gray-700 scrollbar-hide">
+        <ul className="flex overflow-x-auto lg:flex-col gap-6 px-2 text-gray-700 scrollbar-hidden">
           <div
             onClick={() => setActiveTab("About")}
             className="flex flex-none gap-2 items-center cursor-pointer"

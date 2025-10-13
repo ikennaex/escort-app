@@ -17,10 +17,9 @@ import Loader from "../../Components/Loaders/Loader";
 import { LightbulbIcon } from "lucide-react";
 import Slider from "react-slick";
 
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../../Components/ImageSlider/imageslider.css"
+import "../../Components/ImageSlider/imageslider.css";
 import ReportEscort from "../../Components/Escorts/ReportEscort";
 
 const calculateAge = (dob) => {
@@ -33,8 +32,8 @@ const EscortDetailsPage = () => {
   const [escort, setEscort] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
   const sliderRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchEscort = async () => {
     try {
@@ -58,12 +57,17 @@ const EscortDetailsPage = () => {
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     speed: 500,
     cssEase: "ease",
     swipeToSlide: true,
     variableWidth: false,
     adaptiveHeight: true,
+  };
+
+  // handle show modal for report escort
+  const handleShowModal = () => {
+    setShowModal(true);
   };
 
   return (
@@ -77,13 +81,11 @@ const EscortDetailsPage = () => {
           {error && <p className="text-center">{error}</p>}
 
           <div className="lg:flex bg-[#fff8f9] rounded-lg w-full p-2 lg:pb-5">
-
             <div className="w-full lg:w-96 mx-auto lg:mx-0 mb-5">
               <Slider ref={sliderRef} {...settings}>
                 {Array.isArray(escort.gallery) && escort.gallery.length > 0 ? (
                   escort.gallery.map((img, index) => (
                     <div key={index} className="lg:px-4">
-   
                       <div className="lg:w-[300px] lg:h-[400px] h-[300px]  flex items-center justify-center bg-white rounded-xl">
                         <img
                           className="max-w-full max-h-full object-contain mb-10"
@@ -157,10 +159,19 @@ const EscortDetailsPage = () => {
                   </div>
                   <div className="flex items-center justify-center gap-1 bg-pink-200 rounded-xl px-2 py-1">
                     <FlagIcon className="h-5 text-pink-500" />{" "}
-                    <p className="text-[10px] font-bold text-pink-500 cursor-pointer">
+                    <p
+                      className="text-[10px] font-bold text-pink-500 cursor-pointer"
+                      onClick={() => setShowModal(true)}
+                    >
                       Report
                     </p>
-                    {/* <ReportEscort /> */}
+                    {showModal && (
+                      <ReportEscort
+                        handleShowModal={handleShowModal}
+                        setShowModal={setShowModal}
+                        showModal={showModal}
+                      />
+                    )}
                   </div>
                   <div className="flex items-center justify-center gap-1 bg-orange-200 rounded-xl px-2 py-1">
                     <ShareIcon className="h-5 text-orange-500" />

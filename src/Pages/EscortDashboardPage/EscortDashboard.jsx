@@ -279,7 +279,7 @@ const handleImageUpload = async (e) => {
           <div className="flex justify-between items-center border-b pb-2">
             <p className="font-bold">PREMIUM</p>
             <p className="text-sm text-gray-500">
-              {subscriptionDetails?.endDate > new Date() ? (
+              {new Date(subscriptionDetails?.endDate) > new Date() ? (
                 <span>Expires in </span>
               ) : (
                 <span>Expired </span>
