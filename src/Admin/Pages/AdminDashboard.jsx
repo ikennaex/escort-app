@@ -7,7 +7,7 @@ import { AdminContext } from "../../Contexts/AdminContext";
 import { useContext } from "react";
 
 const AdminDashboard = () => {
-  const {api} = useContext(AdminContext)
+  const { api } = useContext(AdminContext);
   const users = [
     { username: "jdoe", name: "John Doe", role: "Admin", age: 28 },
     { username: "asmith", name: "Alice Smith", role: "Premium", age: 24 },
@@ -18,6 +18,10 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
   const [unverifiedEscorts, setUnverifiedEscorts] = useState([]);
   const [premiumEscorts, setPremiumEscorts] = useState([]);
+  const [stats, setStats] = useState({
+    escortsLast24Hours: 0,
+    escortsLast7Days: 0,
+  });
 
   const [search, setSearch] = useState("");
   const filteredUsers = users.filter(
@@ -63,11 +67,21 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchStats = async () => {
+    try {
+      const response = await api.get("/admin/user-stats");
+      setStats(response.data.data);
+    } catch (err) {
+      console.error("Error fetching stats:", err);
+    }
+  };
+
   useEffect(() => {
     getAllEscorts();
     getAllClients();
     pendingVerification();
     getpremiumEscorts();
+    fetchStats();
   }, []);
 
   return (
@@ -128,7 +142,9 @@ const AdminDashboard = () => {
 
           {/* Premium Escorts */}
           <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
-            <p className="text-base md:text-lg font-medium">Premium Subscriptions</p>
+            <p className="text-base md:text-lg font-medium">
+              Premium Subscriptions
+            </p>
             <p className="text-3xl font-bold my-2">
               {premiumEscorts?.length || "0"}
             </p>
@@ -141,57 +157,22 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* <div className="bg-customGray rounded-lg shadow-md p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-            <h2 className="text-xl font-semibold">Recently added users</h2>
-            <input
-              type="text"
-              placeholder="Search users..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="px-4 py-2 rounded-md text-black outline-none focus:ring-2 focus:ring-customPink w-full md:w-auto"
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <p className="text-sm text-gray-400">Joined (Last 24h)</p>
+            <h3 className="text-2xl font-bold text-customPink">
+              {stats.escortsLast24Hours}
+            </h3>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full border border-customGray rounded-lg">
-              <thead className="bg-gray-700 rounded-lg">
-                <tr>
-                  <th className="px-2 py-2 text-left">Username</th>
-                  <th className="px-2 py-2 text-left">Name</th>
-                  <th className="px-2 py-2 text-left">Role</th>
-                  <th className="px-2 py-2 text-left">Age</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map((user, index) => (
-                  <tr key={index} className="border-t border-gray-700">
-                    <td className="px-2 py-2">{user.username}</td>
-                    <td className="px-2 py-2">{user.name}</td>
-                    <td className="px-2 py-2">{user.role}</td>
-                    <td className="px-2 py-2">{user.age}</td>
-                  </tr>
-                ))}
-                {filteredUsers.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan="4"
-                      className="px-4 py-4 text-center text-gray-400"
-                    >
-                      No users found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <p className="text-sm text-gray-400">Joined (Last 7 days)</p>
+            <h3 className="text-2xl font-bold text-customPink">
+              {stats.escortsLast7Days}
+            </h3>
           </div>
-          <Link
-            className="bg-customPink px-4 py-2 font-bold mt-6 rounded-md"
-            to="/admin/users"
-          >
-            See all
-          </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );

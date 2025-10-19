@@ -3,12 +3,16 @@ import AdminSidebar from "../Components/AdminSidebar";
 import { AdminContext } from "../../Contexts/AdminContext";
 import { ChevronDown, ChevronUp, AlertTriangle, Ban } from "lucide-react";
 import { Link } from "react-router";
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const AdminReports = () => {
   const { api } = useContext(AdminContext);
   const [reports, setReports] = useState([]);
   const [expanded, setExpanded] = useState(null);
   const [loading, setLoading] = useState(true);
+
+
+  const [dimensions, setDimensions] = useState({});
 
   const fetchReports = async () => {
     try {
@@ -26,6 +30,39 @@ const AdminReports = () => {
     fetchReports();
   }, []);
 
+  useEffect(() => {
+    if (!reports || reports.length === 0) return;
+
+    reports.forEach((report) => {
+      if (!report.images || report.images.length === 0) return;
+
+      report.images.forEach((img, index) => {
+        const key = `${report._id}-${index}`;
+        if (dimensions[key]) return;
+
+        const image = new Image();
+        image.src = img;
+
+        image.onload = () => {
+          setDimensions((prev) => ({
+            ...prev,
+            [key]: {
+              width: image.naturalWidth,
+              height: image.naturalHeight,
+            },
+          }));
+        };
+
+        image.onerror = () => {
+          setDimensions((prev) => ({
+            ...prev,
+            [key]: { width: 1024, height: 768 },
+          }));
+        };
+      });
+    });
+  }, [reports]);
+
   const handleBlacklist = async (report) => {
     try {
       window.confirm("Are you sure you want to blacklist this escort?");
@@ -36,7 +73,6 @@ const AdminReports = () => {
         proof: report.images || [],
       });
       console.log("Escort blacklisted:", response.data);
-
       alert(response.data.message);
     } catch (err) {
       console.error("Error blacklisting escort:", err);
@@ -70,9 +106,7 @@ const AdminReports = () => {
             <table className="min-w-full border border-gray-700 bg-gray-800 rounded-lg overflow-hidden">
               <thead className="bg-gray-700">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold">
-                    #
-                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-semibold">#</th>
                   <th className="px-4 py-3 text-left text-sm font-semibold">
                     Escort
                   </th>
@@ -155,23 +189,50 @@ const AdminReports = () => {
                                 <h4 className="font-medium text-white mb-2">
                                   Proof Images:
                                 </h4>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                                  {report.images.map((img, idx) => (
-                                    <img
-                                      key={idx}
-                                      src={img}
-                                      alt={`proof-${idx}`}
-                                      className="rounded-lg shadow-sm w-full h-32 object-cover border border-gray-700"
-                                    />
-                                  ))}
-                                </div>
+                                <Gallery>
+                                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                                    {report.images.map((img, index) => {
+                                      const key = `${report._id}-${index}`;
+                                      const dim = dimensions[key] || {
+                                        width: 1024,
+                                        height: 768,
+                                      };
+                                      return (
+                                        <Item
+                                          key={key}
+                                          original={img}
+                                          thumbnail={img}
+                                          width={dim.width}
+                                          height={dim.height}
+                                          caption={`Photo ${index + 1} of ${
+                                            report?.escort?.username ||
+                                            "Unknown"
+                                          }`}
+                                        >
+                                          {({ ref, open }) => (
+                                            <div
+                                              ref={ref}
+                                              onClick={open}
+                                              className="w-full aspect-square flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                                            >
+                                              <img
+                                                src={img}
+                                                alt="Gallery"
+                                                className="w-full h-full object-cover"
+                                              />
+                                            </div>
+                                          )}
+                                        </Item>
+                                      );
+                                    })}
+                                  </div>
+                                </Gallery>
                               </div>
                             )}
                             <button
                               onClick={() => handleBlacklist(report)}
                               className="border-2 border-customPink hover:bg-customPink flex gap-3"
                             >
-                              {" "}
                               <Ban className="h-5" /> Blacklist Escort
                             </button>
                           </div>

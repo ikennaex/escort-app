@@ -10,6 +10,7 @@ import {
   X,
   CreditCard,
   AlertCircle,
+  Star,
 } from "lucide-react"; // icons
 import { logo } from "../../../imports";
 import { baseUrl } from "../../baseUrl";
@@ -108,6 +109,14 @@ const AdminSidebar = () => {
           </Link>
 
           <Link
+            to="/admin/premium-requests"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+          >
+            <Star size={20} />
+            <span className=" md:inline">Premium Payments Request</span>
+          </Link>
+          
+          <Link
             to="/admin/reports"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition"
           >
@@ -122,6 +131,7 @@ const AdminSidebar = () => {
             <AlertCircle size={20} />
             <span className=" md:inline">Blacklisted</span>
           </Link>
+
         </nav>
 
         {/* Logout */}
