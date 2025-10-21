@@ -146,7 +146,7 @@ const AdminPremiumRequests = () => {
                       <td className="px-4 py-3 capitalize">{req.plan}</td>
                       {/* <td className="px-4 py-3">{req.plan}</td> */}
                       <td className="px-4 py-3">
-                        ₦{req.amount.toLocaleString()}
+                        {req.amount >= 1000 ? "₦" : "$"}{req.amount.toLocaleString()}
                       </td>
                       <td className="px-4 py-3">
                         {new Date(req.createdAt).toLocaleDateString("en-GB")}
