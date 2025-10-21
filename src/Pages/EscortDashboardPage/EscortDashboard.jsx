@@ -91,47 +91,46 @@ const EscortDashboard = () => {
   };
 
   // handle image upload
-const handleImageUpload = async (e) => {
-  if (!e.target.files || e.target.files.length === 0) return;
+  const handleImageUpload = async (e) => {
+    if (!e.target.files || e.target.files.length === 0) return;
 
-  const filesArray = Array.from(e.target.files);
-  const formData = new FormData();
+    const filesArray = Array.from(e.target.files);
+    const formData = new FormData();
 
-  for (let file of filesArray) {
-    // Compress only if larger than 3MB
-    if (file.size / 1024 / 1024 > 3) {
-      file = await imageCompression(file, {
-        maxSizeMB: 1,             // compress to ~1MB
-        maxWidthOrHeight: 1920,   // resize if bigger
-        useWebWorker: true,       // faster compression
-      });
+    for (let file of filesArray) {
+      // Compress only if larger than 3MB
+      if (file.size / 1024 / 1024 > 3) {
+        file = await imageCompression(file, {
+          maxSizeMB: 1, // compress to ~1MB
+          maxWidthOrHeight: 1920, // resize if bigger
+          useWebWorker: true, // faster compression
+        });
+      }
+
+      formData.append("gallery", file);
     }
 
-    formData.append("gallery", file);
-  }
+    try {
+      setLoading(true);
 
-  try {
-    setLoading(true);
+      const response = await api.put(`${baseUrl}escortgallery`, formData);
 
-    const response = await api.put(`${baseUrl}escortgallery`, formData);
+      // Update user state immediately
+      setUser((prev) => ({
+        ...prev,
+        gallery: response.data.gallery,
+      }));
 
-    // Update user state immediately
-    setUser((prev) => ({
-      ...prev,
-      gallery: response.data.gallery,
-    }));
-
-    // console.log("Upload successful:", response.data);
-    alert("Upload successful");
-  } catch (err) {
-    alert("Upload failed");
-    console.error("Upload failed:", err.response?.data || err.message);
-  } finally {
-    setLoading(false);
-    e.target.value = ""; // reset input so same files can be reselected
-  }
-};
-
+      // console.log("Upload successful:", response.data);
+      alert("Upload successful");
+    } catch (err) {
+      alert("Upload failed");
+      console.error("Upload failed:", err.response?.data || err.message);
+    } finally {
+      setLoading(false);
+      e.target.value = ""; // reset input so same files can be reselected
+    }
+  };
 
   // handle image delete
   const handleDelete = async (imageUrl) => {
@@ -173,6 +172,21 @@ const handleImageUpload = async (e) => {
       console.error("Error deleting profile:", err.response?.data);
     }
   };
+
+  // set correct dimension to images
+  const [dimensions, setDimensions] = useState({});
+  useEffect(() => {
+    user?.gallery?.forEach((img, i) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          [i]: { width: image.naturalWidth, height: image.naturalHeight },
+        }));
+      };
+    });
+  }, [user?.gallery]);
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -565,43 +579,50 @@ const handleImageUpload = async (e) => {
                       onChange={handleImageUpload}
                     />
                   </label>
-                  {user?.gallery.map((img, index) => (
-                    <Item
-                      key={index}
-                      original={img}
-                      thumbnail={img}
-                      width="1024"
-                      height="768"
-                      caption={`Photo ${index + 1} of ${user?.displayName}`}
-                    >
-                      {({ ref, open }) => (
-                        <div
-                          ref={ref}
-                          onClick={open}
-                          className="relative w-full aspect-square border-2 border-dotted border-pink-400 rounded-lg overflow-hidden cursor-pointer group"
-                        >
-                          <img
-                            src={img}
-                            alt="Gallery"
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
+                  {user?.gallery.map((img, index) => {
+                    const dim = dimensions[index] || {
+                      width: 1024,
+                      height: 768,
+                    };
 
-                          {/* Overlay on hover */}
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation(); // prevents triggering open()
-                                handleDelete(img); // your delete function
-                              }}
-                              className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600 transition"
-                            >
-                              Delete
-                            </button>
+                    return (
+                      <Item
+                        key={index}
+                        original={img}
+                        thumbnail={img}
+                        width={dim.width}
+                        height={dim.height}
+                        caption={`Photo ${index + 1} of ${user?.displayName}`}
+                      >
+                        {({ ref, open }) => (
+                          <div
+                            ref={ref}
+                            onClick={open}
+                            className="relative w-full aspect-square border-2 border-dotted border-pink-400 rounded-lg overflow-hidden cursor-pointer group"
+                          >
+                            <img
+                              src={img}
+                              alt="Gallery"
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+
+                            {/* Overlay on hover */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation(); // prevents triggering open()
+                                  handleDelete(img); // your delete function
+                                }}
+                                className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600 transition"
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </Item>
-                  ))}
+                        )}
+                      </Item>
+                    );
+                  })}
                 </div>
               </Gallery>
             )}

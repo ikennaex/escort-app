@@ -117,7 +117,7 @@ const SideNavbar = ({collapsed, setCollapsed}) => {
       <ul>
         {menu.map((item) => (
           <Link to={item.path} key={item.title}>
-            <div className="flex items-center gap-1 text-white p-4 text-sm hover:bg-customPink cursor-pointer">
+            <div className="flex items-center gap-1 text-white p-3 text-sm hover:bg-customPink cursor-pointer">
               <div>{item.icon}</div>
               {/* Only hide/show title on toggle */}
               {!collapsed && <li className="hidden lg:block">{item.title}</li>}

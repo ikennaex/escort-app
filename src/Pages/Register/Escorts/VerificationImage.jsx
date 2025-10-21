@@ -61,7 +61,7 @@ const VerificationImage = () => {
         position: "top-right",
       });
       markStepCompleted(5);
-      navigate(`/escortdashboard/${user.id}`);
+      // navigate(`/escortdashboard/${user.id}`);
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {

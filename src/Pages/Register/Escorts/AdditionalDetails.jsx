@@ -106,6 +106,8 @@ const AdditionalDetails = () => {
               <option value="">Select your education level</option>
               <option value="Primary School">Primary School</option>
               <option value="High School">High School</option>
+              <option value="OND">OND</option>
+              <option value="HND">HND</option>
               <option value="Bachelor's Degree">Bachelor's Degree</option>
               <option value="Master's Degree">Master's Degree</option>
               <option value="PhD">PhD</option>
