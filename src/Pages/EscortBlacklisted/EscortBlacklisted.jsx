@@ -26,7 +26,8 @@ const AdminBlacklistedEscorts = () => {
     <div className="bg-[#0A0E27] min-h-screen text-white px-6 py-8">
       {/* Header */}
       <h2 className="text-2xl font-bold mb-2">Blacklisted Escorts</h2>
-      <p className="text-gray-400 mb-8">Speak Up. Stay Safe.</p>
+      <p className="text-gray-400">Speak Up. Stay Safe.</p>
+      <p className="text-gray-400 mb-8">Present your findings. Tell us what happened, to enable us take the necessary actions.</p>
 
       {/* Banner */}
       <div className="bg-purple-800 text-center text-white p-6 rounded-xl mb-6">

@@ -188,6 +188,12 @@ const EscortDashboard = () => {
     });
   }, [user?.gallery]);
 
+  if (user.isActive === false) {
+    return (
+      navigate("/")
+    )
+  }
+
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
       {/* {!user && <Loader />} */}
