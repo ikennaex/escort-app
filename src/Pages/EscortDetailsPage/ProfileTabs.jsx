@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { format } from "date-fns";
 
 const ProfileTabs = ({ escort, reports }) => {
-  const [activeTab, setActiveTab] = useState("About"); // default tab
+  const [activeTab, setActiveTab] = useState(reports ? "Reports" : "About"); // default tab
 
   // control img dimension
   const [dimensions, setDimensions] = useState({});
