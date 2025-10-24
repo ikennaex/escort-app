@@ -55,6 +55,7 @@ import { AdminContextProvider } from "./Contexts/AdminContext";
 import AdminReports from "./Admin/Pages/AdminReports";
 import AdminBlacklistedEscorts from "./Admin/Pages/AdminBlacklistedEscorts";
 import AdminPremiumRequests from "./Admin/Pages/AdminPremiumRequests";
+import EscortBlacklistDetails from "./Pages/EscortBlacklistDetails/EscortBlacklistDetails";
 
 const App = () => {
   const location = useLocation();
@@ -151,6 +152,9 @@ const App = () => {
               />
               <Route path="/escorts/:id" element={<EscortDetailsPage />} />
               <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
+
+              {/* blacklisted escorts details page */}
+              <Route path="blacklist/:id" element={<EscortBlacklistDetails />} />
 
               {/* Admin  */}
               <Route path="/admin/login" element={<AdminLogin />} />

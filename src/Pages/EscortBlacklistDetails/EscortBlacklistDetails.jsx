@@ -9,7 +9,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { BsCake, BsGenderAmbiguous, BsRulers } from "react-icons/bs";
 import React, { useEffect, useState, useRef } from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
-import ProfileTabs from "./ProfileTabs";
+// import ProfileTabs from "./ProfileTabs";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { useParams } from "react-router";
@@ -21,19 +21,21 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../Components/ImageSlider/imageslider.css";
 import ReportEscort from "../../Components/Escorts/ReportEscort";
+import ProfileTabs from "../EscortDetailsPage/ProfileTabs";
 
 const calculateAge = (dob) => {
   if (!dob) return null;
   return differenceInYears(new Date(), new Date(dob));
 };
 
-const EscortDetailsPage = () => {
+const EscortBlacklistDetails = () => {
   const { id } = useParams();
   const [escort, setEscort] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const sliderRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
+  const [reports, setReports] = useState([]);
 
   const fetchEscort = async () => {
     try {
@@ -47,8 +49,19 @@ const EscortDetailsPage = () => {
     }
   };
 
+  const fetchBlacklistedEscort = async () => {
+    try {
+        const response = await axios.get(`${baseUrl}admin/blacklisted-escort/${id}`);
+        setReports(response.data.blacklistedEscort);
+        console.log(response.data); 
+    } catch (err) {
+        console.log(err);
+    }
+  }
+
   useEffect(() => {
     fetchEscort();
+    fetchBlacklistedEscort()
   }, []);
 
   const settings = {
@@ -69,18 +82,6 @@ const EscortDetailsPage = () => {
   const handleShowModal = () => {
     setShowModal(true);
   };
-
-  const handleViewCounter = async () => {
-    try {
-      await axios.post(`${baseUrl}view/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    handleViewCounter();
-  }, []);
 
   return (
     <>
@@ -248,11 +249,11 @@ const EscortDetailsPage = () => {
               </div>
             </div>
           </div>
-          {!error && <ProfileTabs escort={escort} />}
+          {!error && <ProfileTabs escort={escort} reports={reports} />}
         </div>
       )}
     </>
   );
 };
 
-export default EscortDetailsPage;
+export default EscortBlacklistDetails;

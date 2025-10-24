@@ -20,7 +20,6 @@ const AdminBlacklistedEscorts = () => {
     fetchBlacklistedEscorts();
   }, []);
 
-  console.log(blacklistedEscorts);
 
   return (
     <div className="bg-[#0A0E27] min-h-screen text-white px-6 py-8">
@@ -45,7 +44,7 @@ const AdminBlacklistedEscorts = () => {
           </p>
         ) : (
           blacklistedEscorts.map((escort, index) => (
-            <Link to={`/escorts/${escort?.escort?._id}`} key={index}>
+            <Link to={`/blacklist/${escort?.escort?._id}`} key={index}>
             <div
               key={index}
               className="bg-gray-900 border border-pink-500/40 rounded-xl overflow-hidden shadow-lg hover:shadow-pink-600/30 transition"

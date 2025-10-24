@@ -173,6 +173,29 @@ const EscortDashboard = () => {
     }
   };
 
+    const handleShare = async () => {
+    const profileUrl = `${window.location.origin}/escorts/${user.username || user._id}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${user?.displayName}'s Profile`,
+          text: `Check out ${user?.displayName}'s profile on our OscroVilla.com.`,
+          url: profileUrl,
+        });
+      } catch (err) {
+        console.error("Share canceled or failed:", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(profileUrl);
+        alert("Profile link copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    }
+  };
+
   // set correct dimension to images
   const [dimensions, setDimensions] = useState({});
   useEffect(() => {
@@ -221,9 +244,9 @@ const EscortDashboard = () => {
 
             <div className="flex items-center gap-3">
               <div className="flex items-center ">
-                <Eye className="w-4 h-4 mr-1" /> 0
+                <Eye className="w-4 h-4 mr-1" /> {user.views || 0} views
               </div>
-              <button className="flex items-center gap-1 bg-orange-100 text-orange-600 text-sm px-3 py-1 rounded-full">
+              <button onClick={handleShare} className="flex items-center gap-1 bg-orange-100 text-orange-600 text-sm px-3 py-1 rounded-full">
                 <Share className="w-4 h-4" /> Share
               </button>
             </div>

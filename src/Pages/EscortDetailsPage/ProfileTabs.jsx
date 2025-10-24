@@ -7,11 +7,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
-import { CheckIcon } from "lucide-react";
+import { Ban, CheckIcon } from "lucide-react";
 import { useEffect } from "react";
 import { format } from "date-fns";
 
-const ProfileTabs = ({ escort }) => {
+const ProfileTabs = ({ escort, reports }) => {
   const [activeTab, setActiveTab] = useState("About"); // default tab
 
   // control img dimension
@@ -35,6 +35,22 @@ const ProfileTabs = ({ escort }) => {
       {/* NAV */}
       <nav className=" rounded-lg bg-[#fff8f9] lg:h-fit my-4 py-4 px-2 lg:w-64 shrink-0">
         <ul className="flex overflow-x-auto lg:flex-col gap-6 px-2 text-gray-700 scrollbar-hidden">
+          {reports && (
+            <div
+              onClick={() => setActiveTab("Reports")}
+              className="flex flex-none gap-2 items-center cursor-pointer"
+            >
+              <Ban className="h-4" />
+              <li
+                className={
+                  activeTab === "Reports" ? "font-bold text-pink-600" : ""
+                }
+              >
+                Reports
+              </li>
+            </div>
+          )}
+
           <div
             onClick={() => setActiveTab("About")}
             className="flex flex-none gap-2 items-center cursor-pointer"
@@ -108,6 +124,61 @@ const ProfileTabs = ({ escort }) => {
 
       {/* CONTENT */}
       <div className="bg-[#fff8f9] my-4  p-6 flex-1 rounded-lg">
+        {activeTab === "Reports" && (
+          <>
+            <div>
+              <p className="font-semibold text-lg mb-4">Reports</p>
+              {reports.map((report, index) => (
+                <div key={index} className="p-3 mb-2">
+                  <p className="uppercase font-semibold">{report.reason}</p>
+                  <p className="text-gray-600 text-sm">{report.details}</p>
+
+                  <Gallery
+                    withDownloadButton
+                    withZoomButton
+                    withFullscreenButton
+                  >
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
+                      {report?.proof.map((img, index) => {
+                        const dim = dimensions[index] || {
+                          width: 1024,
+                          height: 768,
+                        };
+                        return (
+                          <Item
+                            key={index}
+                            original={img}
+                            thumbnail={img}
+                            width={dim.width}
+                            height={dim.height}
+                            caption={`Photo ${index + 1} of ${
+                              escort?.displayName
+                            }`}
+                          >
+                            {({ ref, open }) => (
+                              <div
+                                ref={ref}
+                                onClick={open}
+                                className="w-full aspect-square border-2 border-dotted border-pink-400 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                              >
+                                <img
+                                  src={img}
+                                  alt="Gallery"
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                          </Item>
+                        );
+                      })}
+                    </div>
+                  </Gallery>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
         {activeTab === "About" && (
           <>
             <p className="font-semibold text-lg">About</p>
@@ -159,11 +230,18 @@ const ProfileTabs = ({ escort }) => {
               </div>
             </div>
 
-            <div className="flex">
-              <p className="font-bold text-customPink">Last Login:</p>
-              {escort?.lastLogin
-                ? format(new Date(escort?.lastLogin), "MMMM d, yyyy")
-                : "—"}
+            <div className="flex lg:flex-row lg:justify-around flex-col">
+              <div className="flex">
+                <p className="font-bold text-customPink mr-2">Last Login:</p>
+                {escort?.lastLogin
+                  ? format(new Date(escort?.lastLogin), "MMMM d, yyyy")
+                  : "—"}
+              </div>
+
+              <div className="flex">
+                <p className="font-bold text-customPink mr-2">Profile Viewed:</p>
+                {escort?.views} times
+              </div>
             </div>
 
             {/* RATES TABLE */}
