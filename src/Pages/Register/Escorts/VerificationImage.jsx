@@ -6,7 +6,7 @@ import Loader from "../../../Components/Loaders/Loader";
 import { useNavigate } from "react-router";
 import { User } from "lucide-react";
 import { FormContext } from "../../../Contexts/FormContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 const VerificationImage = () => {
   const [preview, setPreview] = useState(null);
@@ -55,13 +55,16 @@ const VerificationImage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response);
       toast.success(response.data.message, {
         autoClose: 3000,
         position: "top-right",
       });
       markStepCompleted(5);
-      // navigate(`/escortdashboard/${user.id}`);
+      navigate("/");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {
