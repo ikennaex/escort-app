@@ -174,7 +174,7 @@ const EscortDashboard = () => {
   };
 
     const handleShare = async () => {
-    const profileUrl = `${window.location.origin}/escorts/${user.username || user._id}`;
+    const profileUrl = `${window.location.origin}/escorts/${user?._id}`;
 
     if (navigator.share) {
       try {
