@@ -69,6 +69,39 @@ const AdminPendingApprovalDetails = () => {
     pendingVerification();
   }, []);
 
+    // control img dimension
+    const [dimensions, setDimensions] = useState({});
+  
+    useEffect(() => {
+      escort?.gallery?.forEach((img, i) => {
+        const image = new Image();
+        image.src = img;
+        image.onload = () => {
+          setDimensions((prev) => ({
+            ...prev,
+            [i]: { width: image.naturalWidth, height: image.naturalHeight },
+          }));
+        };
+      });
+    }, [escort?.gallery]);
+  
+    // useEffect for verification image
+    useEffect(() => {
+      if (escort?.verificationImage) {
+        const image = new Image();
+        image.src = escort.verificationImage;
+        image.onload = () => {
+          setDimensions((prev) => ({
+            ...prev,
+            verification: {
+              width: image.naturalWidth,
+              height: image.naturalHeight,
+            },
+          }));
+        };
+      }
+    }, [escort?.verificationImage]);
+
   if (!escort) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-400">
@@ -177,52 +210,66 @@ const AdminPendingApprovalDetails = () => {
         {/* Gallery */}
         {escort.gallery?.length > 0 && (
           <SectionCard title="Gallery">
-            <Gallery>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {escort.gallery.map((img, idx) => (
-                  <Item
-                    key={idx}
-                    original={img}
-                    thumbnail={img}
-                    width="1024"
-                    height="768"
-                  >
-                    {({ ref, open }) => (
-                      <img
-                        ref={ref}
-                        onClick={open}
-                        src={img}
-                        alt={`escort-${idx}`}
-                        className="w-full h-32 object-cover rounded-lg cursor-pointer hover:scale-105 transition"
-                      />
-                    )}
-                  </Item>
-                ))}
-              </div>
-            </Gallery>
+                <Gallery>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {escort?.gallery?.map((img, index) => {
+                      const dim = dimensions[index] || {
+                        width: 1024,
+                        height: 768,
+                      };
+                      return (
+                        <Item
+                          key={index}
+                          original={img}
+                          thumbnail={img}
+                          width={dim.width}
+                          height={dim.height}
+                          caption={`Photo ${index + 1} of ${
+                            escort?.displayName
+                          }`}
+                        >
+                          {({ ref, open }) => (
+                            <div
+                              ref={ref}
+                              onClick={open}
+                              className="w-full aspect-square flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
+                            >
+                              <img
+                                src={img}
+                                alt="Gallery"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                        </Item>
+                      );
+                    })}
+                  </div>
+                </Gallery>
           </SectionCard>
         )}
 
         {/* Verification */}
         <SectionCard title="Verification Image">
-          <Gallery>
-            <Item
-              original={escort?.verificationImage}
-              thumbnail={escort?.verificationImage}
-              width="1024"
-              height="768"
-            >
-              {({ ref, open }) => (
-                <img
-                  ref={ref}
-                  onClick={open}
-                  src={escort?.verificationImage}
-                  alt="verification"
-                  className="w-40 h-40 object-cover rounded-lg border border-gray-700 cursor-pointer"
-                />
-              )}
-            </Item>
-          </Gallery>
+              <Gallery>
+                <Item
+                  original={escort?.verificationImage}
+                  thumbnail={escort?.verificationImage}
+                  width={dimensions.verification?.width || 1024}
+                  height={dimensions.verification?.height || 768}
+                >
+                  {({ ref, open }) => (
+                    <img
+                      ref={ref}
+                      onClick={open}
+                      src={escort?.verificationImage}
+                      alt="verification"
+                      className="w-40 h-40 object-cover rounded-lg border border-gray-700 cursor-pointer"
+                    />
+                  )}
+                </Item>
+              </Gallery>
+          
           <p className="mt-2 text-sm text-gray-400">
             Confirm if this matches with the gallery.
           </p>

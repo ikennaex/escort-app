@@ -69,8 +69,9 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await api.get("/admin/user-stats");
+      const response = await api.get("/admin/getescortcount");
       setStats(response.data.data);
+      console.log("Fetched stats:", response.data);
     } catch (err) {
       console.error("Error fetching stats:", err);
     }
@@ -157,8 +158,8 @@ const AdminDashboard = () => {
           </div>
         </div>
 
+        <p className="text-2xl font-bold mb-6 md:mt-0 mt-12">Analytics</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-
           <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
             <p className="text-sm text-gray-400">Joined (Last 24h)</p>
             <h3 className="text-2xl font-bold text-customPink">

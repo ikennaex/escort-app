@@ -75,7 +75,7 @@ const EscortBankPay = () => {
             </h2>
             <ol className="list-decimal list-inside text-gray-700 space-y-2 text-sm">
               <li>
-                Make a bank transfer to the account below using your username as the
+                Make a bank transfer to the account below using your REAL NAME as the
                 payment reference.
               </li>
               <li>
