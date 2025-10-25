@@ -47,6 +47,14 @@ const EscortDashboard = () => {
   const { api, setUser } = useContext(UserContext);
   const [subscriptionDetails, setSubscriptionDetails] = useState("");
 
+  const handleNavigation = (path) => {
+    if (!user.isActive) {
+      alert("Your profile is not yet active");
+      return;
+    }
+    navigate(path);
+  };
+
   const getBankDetails = async () => {
     try {
       setLoading(true);
@@ -173,7 +181,7 @@ const EscortDashboard = () => {
     }
   };
 
-    const handleShare = async () => {
+  const handleShare = async () => {
     const profileUrl = `${window.location.origin}/escorts/${user?._id}`;
 
     if (navigator.share) {
@@ -211,11 +219,11 @@ const EscortDashboard = () => {
     });
   }, [user?.gallery]);
 
-  if (user.isActive === false) {
-    return (
-      navigate("/")
-    )
-  }
+  // if (user.isActive === false) {
+  //   return (
+  //     navigate("/")
+  //   )
+  // }
 
   return (
     <div className="lg:flex min-h-screen bg-pink-200 text-white gap-5 justify-center">
@@ -246,7 +254,10 @@ const EscortDashboard = () => {
               <div className="flex items-center ">
                 <Eye className="w-4 h-4 mr-1" /> {user.views || 0} views
               </div>
-              <button onClick={handleShare} className="flex items-center gap-1 bg-orange-100 text-orange-600 text-sm px-3 py-1 rounded-full">
+              <button
+                onClick={handleShare}
+                className="flex items-center gap-1 bg-orange-100 text-orange-600 text-sm px-3 py-1 rounded-full"
+              >
                 <Share className="w-4 h-4" /> Share
               </button>
             </div>
@@ -353,11 +364,11 @@ const EscortDashboard = () => {
                   More chances to match with extra features.
                 </p>
               </div>
-              <Link to={`/escorts/boost-profile/${user._id}`}>
+              <div onClick={() => handleNavigation(`/escorts/boost-profile/${user._id}`)}>
                 <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
                   BOOST NOW
                 </button>
-              </Link>
+              </div>
             </div>
 
             {/* Make Available Today */}
@@ -480,121 +491,117 @@ const EscortDashboard = () => {
         <div className="bg-[#fff8f9] my-4 mx-3 p-4 text-black">
           {activeTab === "Menu" && (
             <>
-              <p className="font-semibold mb-4">Menu</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {/* Item */}
-                <Link to={`/escorts/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <User className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Profile</p>
-                  </div>
-                </Link>
+          <p className="font-semibold mb-4">Menu</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div
+              onClick={() => handleNavigation(`/escorts/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <User className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">My Profile</p>
+            </div>
 
-                <Link to={`/escorts/edit/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Pencil className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Edit Profile</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/edit/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Pencil className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Edit Profile</p>
+            </div>
 
-                <Link to={`/escorts/booking/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Calendar className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Bookings</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/booking/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Calendar className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">My Bookings</p>
+            </div>
 
-                <Link to={`/escorts/requests/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Hand className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Requests</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/requests/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Hand className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">My Requests</p>
+            </div>
 
-                {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                  <Link to={`/escorts/wallet/${user._id}`}>
-                    <Wallet className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Wallet</p>
-                  </Link>
-                </div> */}
+            <div
+              onClick={() => handleNavigation(`/escorts/boost-profile/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Rocket className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Boost Profile</p>
+            </div>
 
-                {/* <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                  <Link to={`/escorts/gifts/${user._id}`}>
-                    <Gift className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Gifts</p>
-                  </Link>
-                </div> */}
+            <div
+              onClick={() => handleNavigation(`/escorts/blacklist/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Ban className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Blacklisted Client</p>
+            </div>
 
-                <Link to={`/escorts/boost-profile/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Rocket className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Boost Profile</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/bank/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Landmark className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Edit Bank Details</p>
+            </div>
 
-                <Link to={`/escorts/blacklist/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Ban className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Blacklisted Client</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/events/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <CalendarDays className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">My Events</p>
+            </div>
 
-                <Link to={`/escorts/bank/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Landmark className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Edit Bank Details</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/reports/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <FileWarning className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Pending Reports</p>
+            </div>
 
-                <Link to={`/escorts/events/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <CalendarDays className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">My Events</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/change-password/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Lock className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Change Password</p>
+            </div>
 
-                <Link to={`/escorts/reports/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <FileWarning className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Pending Reports</p>
-                  </div>
-                </Link>
+            <div
+              onClick={() => handleNavigation(`/escorts/status/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Activity className="h-8 w-8 text-green-500" />
+              <p className="mt-2 text-sm">Status</p>
+            </div>
 
-                <Link to={`/escorts/change-password/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Lock className="h-8 w-8 text-pink-500" />
-                    <p className="mt-2 text-sm">Change Password</p>
-                  </div>
-                </Link>
+            <div
+              onClick={handleLogout}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Power className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Logout</p>
+            </div>
 
-                <Link to={`/escorts/status/${user._id}`}>
-                  <div className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50">
-                    <Activity className="h-8 w-8 text-green-500" />
-                    <p className="mt-2 text-sm">Status</p>
-                  </div>
-                </Link>
-
-                <div
-                  onClick={handleLogout}
-                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-                >
-                  <Power className="h-8 w-8 text-pink-500" />
-                  <p className="mt-2 text-sm">Logout</p>
-                </div>
-
-                <div
-                  onClick={handleDeleteProfile}
-                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-                >
-                  <Trash2 className="h-8 w-8 text-red-500" />
-                  <p className="mt-2 text-sm">Delete Profile</p>
-                </div>
-              </div>
-            </>
+            <div
+              onClick={handleDeleteProfile}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <Trash2 className="h-8 w-8 text-red-500" />
+              <p className="mt-2 text-sm">Delete Profile</p>
+            </div>
+          </div>
+        </>
           )}
 
           <div className="text-black">
-            {activeTab === "Gallery" && (
+            {activeTab === "Gallery" && user.isActive !== false && (
               <Gallery withDownloadButton withZoomButton withFullscreenButton>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                   <label className="bg-customPink flex items-center justify-center gap-2 py-2 px-4 rounded-lg cursor-pointer hover:opacity-90 transition">
