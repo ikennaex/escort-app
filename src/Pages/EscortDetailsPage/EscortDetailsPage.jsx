@@ -53,7 +53,7 @@ const EscortDetailsPage = () => {
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
