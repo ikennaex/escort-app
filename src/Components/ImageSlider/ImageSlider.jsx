@@ -162,7 +162,7 @@ const ImageSlider = () => {
                   </p>
                 </div>
                 {isFresh(item?.createdAt) && (
-                  <div className="absolute top-3 right-[-40px] w-40 bg-blue-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
+                  <div className="absolute top-3 right-[-60px] w-40 bg-blue-500 text-white text-center text-xs font-bold py-1 transform rotate-45 shadow-lg drop-shadow-xl">
                     Premium
                   </div>
                 )}
