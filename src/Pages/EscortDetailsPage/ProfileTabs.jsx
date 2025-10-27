@@ -240,7 +240,7 @@ const ProfileTabs = ({ escort, reports }) => {
 
               <div className="flex">
                 <p className="font-bold text-customPink mr-2">Profile Viewed:</p>
-                {escort?.views} times
+                <span className="bg-customPink rounded-2xl px-3 text-white mr-2">{escort?.views}</span> times
               </div>
             </div>
 
