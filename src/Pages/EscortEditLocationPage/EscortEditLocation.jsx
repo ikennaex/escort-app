@@ -16,7 +16,7 @@ const EscortEditLocation = () => {
     city: "",
   });
 
-  const countries = Country.getAllCountries();
+  const countries = Country?.getAllCountries();
   // this is to select specific countries only
   const targetNames = ["Nigeria", "Ghana"];
 
@@ -89,7 +89,7 @@ const EscortEditLocation = () => {
           </label>
           <select onChange={handleChange} id="country" name="country" required>
             <option value="">Select your country</option>
-            {selectedCountries.map((country) => (
+            {selectedCountries?.map((country) => (
               <option key={country.isoCode} value={country.isoCode}>
                 {country.name}
               </option>
