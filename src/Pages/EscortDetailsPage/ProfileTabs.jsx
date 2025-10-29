@@ -29,6 +29,7 @@ const ProfileTabs = ({ escort, reports }) => {
       };
     });
   }, [escort?.gallery]);
+  
 
   return (
     <div className="pb-5 rounded-lg lg:flex lg:gap-2">
@@ -53,7 +54,7 @@ const ProfileTabs = ({ escort, reports }) => {
 
           <div
             onClick={() => setActiveTab("About")}
-            className="flex flex-none gap-2 items-center cursor-pointer"
+            className="flex flex-none gap-2 items-center cursor-pointer sample"
           >
             <InformationCircleIcon className="h-4" />
             <li
@@ -134,9 +135,7 @@ const ProfileTabs = ({ escort, reports }) => {
                   <p className="text-gray-600 text-sm">{report.details}</p>
 
                   <Gallery
-                    withDownloadButton={false}
-                    // withZoomButton
-                    // withFullscreenButton
+                    withDownloadButton = {false}
                   >
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                       {report?.proof.map((img, index) => {
@@ -313,7 +312,7 @@ const ProfileTabs = ({ escort, reports }) => {
         {activeTab === "Gallery" && (
           <>
             <p className="font-semibold text-lg mb-2">Gallery</p>
-            <Gallery withDownloadButton withZoomButton withFullscreenButton>
+            <Gallery withDownloadButton = {false} withZoomButton withFullscreenButton>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                 {escort?.gallery.map((img, index) => {
                   const dim = dimensions[index] || { width: 1024, height: 768 };

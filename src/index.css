@@ -80,14 +80,14 @@ body {
 
 
 
-
-.pswp__button--download,
-.pswp__download-button,
-.pswp__button--share-download,
-.pswp__button--share,
-.pswp__share-tooltip {
+.pswp__button--download {
   display: none !important;
-  pointer-events: none !important;
-  visibility: hidden !important;
 }
 
+/*
+  Alternatively, you can hide the entire share button
+  which often includes the download option
+*/
+.pswp__button--share {
+  display: none !important;
+}
