@@ -134,9 +134,9 @@ const ProfileTabs = ({ escort, reports }) => {
                   <p className="text-gray-600 text-sm">{report.details}</p>
 
                   <Gallery
-                    withDownloadButton
-                    withZoomButton
-                    withFullscreenButton
+                    withDownloadButton={false}
+                    // withZoomButton
+                    // withFullscreenButton
                   >
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                       {report?.proof.map((img, index) => {

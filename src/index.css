@@ -77,3 +77,17 @@ body {
     opacity: 1;
   }
 }
+
+
+
+
+.pswp__button--download,
+.pswp__download-button,
+.pswp__button--share-download,
+.pswp__button--share,
+.pswp__share-tooltip {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
