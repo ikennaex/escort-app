@@ -85,6 +85,13 @@ const EscortRegister = () => {
   const phoneStatus = useAvailability("phoneNumber", formData.phoneNumber);
 
   const countries = Country.getAllCountries();
+  // this is to select specific countries only
+  const targetNames = ["Nigeria", "Ghana"];
+
+  const selectedCountries = countries.filter((country) =>
+    targetNames.includes(country.name)
+  );
+
   const states = formData.country
     ? State.getStatesOfCountry(formData.country)
     : [];
@@ -268,7 +275,7 @@ const EscortRegister = () => {
                 required
               >
                 <option value="">Select your country</option>
-                {countries.map((country) => (
+                {selectedCountries.map((country) => (
                   <option key={country.isoCode} value={country.isoCode}>
                     {country.name}
                   </option>
@@ -368,13 +375,13 @@ const EscortRegister = () => {
                   required
                 />
               </div>
-                {phoneStatus === "checking" && <p>Checking phone...</p>}
-                {phoneStatus === "available" && (
-                  <p className="text-green-600">Phone available</p>
-                )}
-                {phoneStatus === "taken" && (
-                  <p className="text-red-600">Phone already in use</p>
-                )}
+              {phoneStatus === "checking" && <p>Checking phone...</p>}
+              {phoneStatus === "available" && (
+                <p className="text-green-600">Phone available</p>
+              )}
+              {phoneStatus === "taken" && (
+                <p className="text-red-600">Phone already in use</p>
+              )}
               <p className="text-[12px] leading-tight text-gray-400">
                 Your mobile number is determined by your country selection. To
                 change your country phone code, first change your country
@@ -399,7 +406,13 @@ const EscortRegister = () => {
               />
             </div>
             <button
-              disabled={loading || usernameStatus === "taken" || emailStatus === "taken" || phoneStatus === "taken" || !!errors}
+              disabled={
+                loading ||
+                usernameStatus === "taken" ||
+                emailStatus === "taken" ||
+                phoneStatus === "taken" ||
+                !!errors
+              }
               className="bg-customPink text-white py-2 px-4 rounded disabled:bg-customPink/50 mx-auto"
               type="submit"
             >

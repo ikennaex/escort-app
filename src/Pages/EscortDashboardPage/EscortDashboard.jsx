@@ -25,6 +25,8 @@ import {
   Trash2,
   Activity,
   Plus,
+  LocateIcon,
+  LocationEditIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 import { useContext } from "react";
@@ -507,6 +509,14 @@ const EscortDashboard = () => {
             >
               <Pencil className="h-8 w-8 text-pink-500" />
               <p className="mt-2 text-sm">Edit Profile</p>
+            </div>
+
+            <div
+              onClick={() => handleNavigation(`/escorts/edit-location/${user._id}`)}
+              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+            >
+              <LocationEditIcon className="h-8 w-8 text-pink-500" />
+              <p className="mt-2 text-sm">Edit Location</p>
             </div>
 
             <div
