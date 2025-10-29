@@ -78,9 +78,9 @@ const EscortEditLocation = () => {
 
         <div>
             <p className="font-semibold">Your current location details</p>
-            <p >Country: <span>{user.country || "—"}</span></p>
-            <p>State: <span>{user.state || "—"}</span></p>
-            <p>City: <span>{user.city || "—"}</span></p>
+            <p >Country: <span>{user?.country || "—"}</span></p>
+            <p>State: <span>{user?.state || "—"}</span></p>
+            <p>City: <span>{user?.city || "—"}</span></p>
         </div>
 
         <div className="flex flex-col">
