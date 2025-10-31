@@ -111,7 +111,7 @@ const EscortRegister = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "email" ? value.toLowerCase() : value,
     }));
   };
 
@@ -216,6 +216,7 @@ const EscortRegister = () => {
                 type="email"
                 id="email"
                 name="email"
+                style={{ textTransform: "lowercase" }}
                 onChange={handleChange}
                 required
               />
