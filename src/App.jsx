@@ -57,6 +57,7 @@ import AdminBlacklistedEscorts from "./Admin/Pages/AdminBlacklistedEscorts";
 import AdminPremiumRequests from "./Admin/Pages/AdminPremiumRequests";
 import EscortBlacklistDetails from "./Pages/EscortBlacklistDetails/EscortBlacklistDetails";
 import EscortEditLocation from "./Pages/EscortEditLocationPage/EscortEditLocation";
+import VideoGuide from "./Pages/Register/Escorts/VideoGuide";
 
 const App = () => {
   const location = useLocation();
@@ -133,6 +134,7 @@ const App = () => {
               </Route>
 
               {/* Onboarding Routes */}
+              <Route path="/escort-guide" element={<VideoGuide />} />
               <Route path="/escort-details" element={<AdditionalDetails />} />
               <Route path="/escort-services" element={<Services />} />
               <Route path="/escort-rates" element={<Rates />} />

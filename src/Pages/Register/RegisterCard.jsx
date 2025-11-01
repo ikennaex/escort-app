@@ -69,7 +69,7 @@ const RegisterCard = () => {
               </li>
             ))}
           </ul>
-          <Link to="/register-escort">
+          <Link to="/escort-guide">
             <button className="mt-6 w-full bg-customPink text-white py-2 px-4 rounded-lg hover:bg-pink-500 transition">
               Register as Escort
             </button>
