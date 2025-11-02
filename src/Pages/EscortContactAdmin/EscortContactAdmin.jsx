@@ -98,7 +98,7 @@ const EscortContactAdmin = () => {
         </a>
 
         <a
-          href="https://wa.me/447892944918"
+          href="https://wa.me/447564453149"
           target="_blank"
           rel="noopener noreferrer"
           className="text-green-600 hover:underline"
