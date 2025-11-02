@@ -216,7 +216,7 @@ const EscortRegister = () => {
                 type="email"
                 id="email"
                 name="email"
-                style={{ textTransform: "lowercase" }}
+                style={{ textTransform: "lowercase" }}e
                 onChange={handleChange}
                 required
               />
