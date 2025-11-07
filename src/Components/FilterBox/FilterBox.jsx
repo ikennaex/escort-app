@@ -37,6 +37,15 @@ const FilterBox = ({ open, handlePopUp }) => {
   };
 
   const countries = Country.getAllCountries();
+
+    // this is to select specific countries only
+  const targetNames = ["Nigeria", "Ghana"];
+
+  const selectedCountries = countries.filter((country) =>
+    targetNames.includes(country.name)
+  );
+
+
   const states = filters.country
     ? State.getStatesOfCountry(filters.country)
     : [];
@@ -127,7 +136,7 @@ const FilterBox = ({ open, handlePopUp }) => {
                   required
                 >
                   <option value="">Select a country</option>
-                  {countries.map((country) => (
+                  {selectedCountries.map((country) => (
                     <option key={country.isoCode} value={country.isoCode}>
                       {country.name}
                     </option>
