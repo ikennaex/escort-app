@@ -49,7 +49,7 @@ function useAvailability(field, value) {
 }
 
 const EscortRegister = () => {
-  const { api } = useContext(UserContext);
+  const { api, setUser, setAccessToken } = useContext(UserContext);
   const [showVerify, setShowVerify] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState("");
@@ -136,6 +136,8 @@ const EscortRegister = () => {
       const response = await api.post(`${baseUrl}auth/escortsignup`, finalData);
       // setShowVerify(true);  // add this back when email issue is resolved 
       console.log(response);
+      setUser(response.data.user);
+      setAccessToken(response.data.accessToken)
       toast.success(response.data.message, {
         autoClose: 3000,
         position: "top-right",

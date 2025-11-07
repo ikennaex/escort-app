@@ -53,22 +53,6 @@ api.interceptors.response.use(
   }
 );
 
-  // login
-  const login = async (identifier, password) => {
-      const navigate = useNavigate()
-    try {
-      const res = await api.post("auth/signin", { identifier, password });
-      setAccessToken(res.data.accessToken);
-      setUser(res.data.user);
-      setLoading(false)
-      navigate("/")
-      return { success: true };
-    } catch (err) {
-      console.error("Login failed:", err.response?.data || err.message);
-      setLoading(false)
-      return { success: false, message: err.response?.data?.message || "Login failed" };
-    }
-  };
 
   // logout
   const logout = async () => {
@@ -110,7 +94,7 @@ api.interceptors.response.use(
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, api, loading, setUser, login, logout, fetchProfile, setAccessToken }}>
+    <UserContext.Provider value={{ user, api, loading, setUser, logout, fetchProfile, setAccessToken }}>
       {children}
     </UserContext.Provider>
   );
