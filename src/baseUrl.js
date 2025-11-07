@@ -5,5 +5,4 @@ export const baseUrl = isDev
   : "https://escort-app-backend.vercel.app/";
 
 
-
   // https://escort-app-backend-wapy.onrender.com/
