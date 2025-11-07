@@ -9,6 +9,8 @@ import Loader from "../../../Components/Loaders/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 import axios from "axios";
+import { FormContext } from "../../../Contexts/FormContext";
+import { useNavigate } from "react-router";
 
 // Calculate the latest allowed birthdate (today - 18 years)
 const today = new Date();
@@ -65,6 +67,10 @@ const EscortRegister = () => {
     phoneNumber: "",
     heading: "",
   });
+  const navigate = useNavigate()
+
+  // mark complete step 
+    const { markStepCompleted } = useContext(FormContext);
 
   const validateEmail = (email) => {
     // email must contain @ and .
@@ -128,12 +134,14 @@ const EscortRegister = () => {
       setLoading(true);
       // sending final data because it appends countryCode
       const response = await api.post(`${baseUrl}auth/escortsignup`, finalData);
-      setShowVerify(true);
+      // setShowVerify(true);  // add this back when email issue is resolved 
       console.log(response);
       toast.success(response.data.message, {
         autoClose: 3000,
         position: "top-right",
       });
+      markStepCompleted(1);
+      navigate("/escort-details");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {
