@@ -39,7 +39,7 @@ const Escorts = () => {
     }
   };
 
-  useEffect(() => {a
+  useEffect(() => {
     loadEscorts();
   }, [page]);
 
