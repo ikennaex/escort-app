@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../Components/AdminSidebar";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import { differenceInYears, format } from "date-fns";
 import { AdminContext } from "../../Contexts/AdminContext";
-import { useContext } from "react";
+import Loader from "../../Components/Loaders/Loader";
 
 const AdminPending = () => {
   const [escorts, setEscorts] = useState([]);
-  const {api} = useContext(AdminContext)
+  const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
+  const { api } = useContext(AdminContext);
+  const [loading, setLoading] = useState(false)
 
   const pendingVerification = async () => {
     try {
+      setLoading(true)
       const response = await api.get(`${baseUrl}admin/getunverifiedescorts`);
       setEscorts(response.data);
     } catch (err) {
+      setLoading(false)
       console.log(err);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -29,21 +35,43 @@ const AdminPending = () => {
     pendingVerification();
   }, []);
 
+  // Apply the filter logic
+  const filteredEscorts = escorts.filter((escort) => {
+    if (filter === "complete") return escort.registrationComplete === true;
+    if (filter === "incomplete") return escort.registrationComplete === false;
+    return true; // "all" shows everything
+  });
+
   return (
     <div className="flex text-white min-h-screen">
       <AdminSidebar />
       <main className="flex-1 p-4 md:p-8 md:ml-64">
-        <h1 className="text-3xl font-bold mb-8">
-          Pending Approvals ({escorts.length}) 
-        </h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold">
+            Pending Approvals ({filteredEscorts.length})
+          </h1>
 
-        {escorts.length === 0 ? (
+          {/* Filter Dropdown */}
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="bg-gray-800 border border-gray-600 text-white px-3 py-2 rounded-md"
+          >
+            <option className="text-white" value="all">All</option>
+            <option className="text-white" value="complete">Registration Complete</option>
+            <option className="text-white" value="incomplete">Not Complete</option>
+          </select>
+        </div>
+
+        {loading ? <Loader /> : ""}
+
+        {filteredEscorts.length === 0 && loading == false ? (
           <p className="text-gray-400 text-center mt-12">
-            No pending escorts found.
+            No escorts found for this filter.
           </p>
         ) : (
           <div className="space-y-4">
-            {escorts.map((user) => (
+            {filteredEscorts.map((user) => (
               <Link
                 key={user._id}
                 to={`/admin/pending/${user._id}`}
@@ -57,8 +85,16 @@ const AdminPending = () => {
                       Age: {calculateAge(user.dob)}
                     </p>
                     <p>
-                      <span className="font-semibold text-customPink">Account created on:{" "}</span>
+                      <span className="font-semibold text-customPink">
+                        Account created on:{" "}
+                      </span>
                       {format(new Date(user.createdAt), "PPP")}
+                    </p>
+                    <p>
+                      <span className="text-sm text-gray-400">
+                        Registration Complete:{" "}
+                      </span>
+                      {user.registrationComplete ? "✅ Yes" : "❌ No"}
                     </p>
                   </div>
 
