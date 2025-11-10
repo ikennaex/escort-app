@@ -6,24 +6,22 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import Loader from "../../Components/Loaders/Loader";
 import { format } from "date-fns";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { AdminContext } from "../../Contexts/AdminContext";
 import { useContext } from "react";
 
 const SectionCard = ({ title, children }) => (
   <div className="bg-customGray rounded-xl p-5 mb-6 shadow-lg">
-    <h3 className="text-lg font-semibold mb-3 pb-2">
-      {title}
-    </h3>
+    <h3 className="text-lg font-semibold mb-3 pb-2">{title}</h3>
     {children}
   </div>
 );
 
 const AdminPendingApprovalDetails = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [escort, setEscort] = useState(null);
   const { id } = useParams();
-  const {api} = useContext(AdminContext)
+  const { api } = useContext(AdminContext);
 
   const pendingVerification = async () => {
     try {
@@ -43,7 +41,25 @@ const AdminPendingApprovalDetails = () => {
         autoClose: 3000,
         position: "top-right",
       });
-      navigate("/admin/pending")
+      navigate("/admin/pending");
+    } catch (err) {
+      toast.success(err.response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
+      console.error(err);
+    }
+  };
+  
+  const rejectEscort = async (id) => {
+    try {
+      const response = await api.patch(`${baseUrl}admin/rejectescort/${id}`);
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        position: "top-right",
+      });
+      navigate("/admin/pending");
+      console.log("escort rejected")
     } catch (err) {
       toast.success(err.response.data.message, {
         autoClose: 3000,
@@ -53,54 +69,42 @@ const AdminPendingApprovalDetails = () => {
     }
   };
 
-  const rejectEscort = async (id) => {
-    try {
-      await api.post(`${baseUrl}admin/rejectescort/${id}`);
-      toast.success('Escort rejected!', {
-        autoClose: 3000,
-        position: "top-right",
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     pendingVerification();
   }, []);
 
-    // control img dimension
-    const [dimensions, setDimensions] = useState({});
-  
-    useEffect(() => {
-      escort?.gallery?.forEach((img, i) => {
-        const image = new Image();
-        image.src = img;
-        image.onload = () => {
-          setDimensions((prev) => ({
-            ...prev,
-            [i]: { width: image.naturalWidth, height: image.naturalHeight },
-          }));
-        };
-      });
-    }, [escort?.gallery]);
-  
-    // useEffect for verification image
-    useEffect(() => {
-      if (escort?.verificationImage) {
-        const image = new Image();
-        image.src = escort.verificationImage;
-        image.onload = () => {
-          setDimensions((prev) => ({
-            ...prev,
-            verification: {
-              width: image.naturalWidth,
-              height: image.naturalHeight,
-            },
-          }));
-        };
-      }
-    }, [escort?.verificationImage]);
+  // control img dimension
+  const [dimensions, setDimensions] = useState({});
+
+  useEffect(() => {
+    escort?.gallery?.forEach((img, i) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          [i]: { width: image.naturalWidth, height: image.naturalHeight },
+        }));
+      };
+    });
+  }, [escort?.gallery]);
+
+  // useEffect for verification image
+  useEffect(() => {
+    if (escort?.verificationImage) {
+      const image = new Image();
+      image.src = escort.verificationImage;
+      image.onload = () => {
+        setDimensions((prev) => ({
+          ...prev,
+          verification: {
+            width: image.naturalWidth,
+            height: image.naturalHeight,
+          },
+        }));
+      };
+    }
+  }, [escort?.verificationImage]);
 
   if (!escort) {
     return (
@@ -210,66 +214,64 @@ const AdminPendingApprovalDetails = () => {
         {/* Gallery */}
         {escort.gallery?.length > 0 && (
           <SectionCard title="Gallery">
-                <Gallery>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {escort?.gallery?.map((img, index) => {
-                      const dim = dimensions[index] || {
-                        width: 1024,
-                        height: 768,
-                      };
-                      return (
-                        <Item
-                          key={index}
-                          original={img}
-                          thumbnail={img}
-                          width={dim.width}
-                          height={dim.height}
-                          caption={`Photo ${index + 1} of ${
-                            escort?.displayName
-                          }`}
+            <Gallery>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {escort?.gallery?.map((img, index) => {
+                  const dim = dimensions[index] || {
+                    width: 1024,
+                    height: 768,
+                  };
+                  return (
+                    <Item
+                      key={index}
+                      original={img}
+                      thumbnail={img}
+                      width={dim.width}
+                      height={dim.height}
+                      caption={`Photo ${index + 1} of ${escort?.displayName}`}
+                    >
+                      {({ ref, open }) => (
+                        <div
+                          ref={ref}
+                          onClick={open}
+                          className="w-full aspect-square flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
                         >
-                          {({ ref, open }) => (
-                            <div
-                              ref={ref}
-                              onClick={open}
-                              className="w-full aspect-square flex items-center justify-center rounded-lg overflow-hidden cursor-pointer"
-                            >
-                              <img
-                                src={img}
-                                alt="Gallery"
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
-                        </Item>
-                      );
-                    })}
-                  </div>
-                </Gallery>
+                          <img
+                            src={img}
+                            alt="Gallery"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </Item>
+                  );
+                })}
+              </div>
+            </Gallery>
           </SectionCard>
         )}
 
         {/* Verification */}
         <SectionCard title="Verification Image">
-              <Gallery>
-                <Item
-                  original={escort?.verificationImage}
-                  thumbnail={escort?.verificationImage}
-                  width={dimensions.verification?.width || 1024}
-                  height={dimensions.verification?.height || 768}
-                >
-                  {({ ref, open }) => (
-                    <img
-                      ref={ref}
-                      onClick={open}
-                      src={escort?.verificationImage}
-                      alt="verification"
-                      className="w-40 h-40 object-cover rounded-lg border border-gray-700 cursor-pointer"
-                    />
-                  )}
-                </Item>
-              </Gallery>
-          
+          <Gallery>
+            <Item
+              original={escort?.verificationImage}
+              thumbnail={escort?.verificationImage}
+              width={dimensions.verification?.width || 1024}
+              height={dimensions.verification?.height || 768}
+            >
+              {({ ref, open }) => (
+                <img
+                  ref={ref}
+                  onClick={open}
+                  src={escort?.verificationImage}
+                  alt="verification"
+                  className="w-40 h-40 object-cover rounded-lg border border-gray-700 cursor-pointer"
+                />
+              )}
+            </Item>
+          </Gallery>
+
           <p className="mt-2 text-sm text-gray-400">
             Confirm if this matches with the gallery.
           </p>

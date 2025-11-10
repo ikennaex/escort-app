@@ -28,7 +28,7 @@ const Escorts = () => {
 
   const loadEscorts = async () => {
     try {
-      const response = await fetchEscorts(page, 50);
+      const response = await fetchEscorts(page, 500);
       setEscorts(response.escortDoc);
       setTotalPages(response.totalPages);
       setLoading(false);
@@ -39,12 +39,11 @@ const Escorts = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {a
     loadEscorts();
   }, [page]);
 
   // Sort escorts to have premium ones first
-
   const sortedEscorts = escorts.sort((a, b) => {
     if (a.premium && !b.premium) return -1;
     if (!a.premium && b.premium) return 1;
