@@ -97,14 +97,14 @@ const AdminDashboard = () => {
           <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
             <p className="text-base md:text-lg font-medium">All Users</p>
             <p className="text-3xl font-bold my-2">
-              {escorts.length + clients.length}
+              {stats.escortsCount}
             </p>
           </div>
 
           {/* All Escorts */}
           <div className="bg-gradient-to-r from-customPink to-pink-600 rounded-xl px-4 py-8 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
             <p className="text-base md:text-lg font-medium">All Escorts</p>
-            <p className="text-3xl font-bold my-2">{escorts?.length}</p>
+            <p className="text-3xl font-bold my-2">{stats.escortsCount}</p>
             <Link
               to="/admin/escorts"
               className="inline-block bg-white text-customPink font-semibold px-4 py-2 mt-2 rounded-md shadow hover:bg-gray-100 transition"
