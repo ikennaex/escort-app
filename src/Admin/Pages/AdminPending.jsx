@@ -8,11 +8,11 @@ import Loader from "../../Components/Loaders/Loader";
 
 const AdminPending = () => {
   const [escorts, setEscorts] = useState([]);
-  const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
+  const [filter, setFilter] = useState("all");
   const { api } = useContext(AdminContext);
   const [loading, setLoading] = useState(false);
 
-  // Pagination state
+  // Pagination
   const [page, setPage] = useState(1);
   const [limit] = useState(100);
   const [hasMore, setHasMore] = useState(true);
@@ -24,21 +24,26 @@ const AdminPending = () => {
         `${baseUrl}admin/getunverifiedescorts?page=${currentPage}&limit=${limit}`
       );
 
-      // If fewer results than limit, stop further loading
-      if (response.data.length < limit) {
+      const data = response.data;
+
+      // ✅ Safely handle object structure
+      const newEscorts = data.escorts || [];
+
+      // ✅ Detect if there are more
+      if (newEscorts.length < limit) {
         setHasMore(false);
       } else {
         setHasMore(true);
       }
 
-      // ✅ Append results if not the first page
+      // ✅ Append data when next page is clicked
       if (currentPage === 1) {
-        setEscorts(response.data);
+        setEscorts(newEscorts);
       } else {
-        setEscorts((prev) => [...prev, ...response.data]);
+        setEscorts((prev) => [...prev, ...newEscorts]);
       }
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching escorts:", err);
     } finally {
       setLoading(false);
     }
@@ -53,7 +58,7 @@ const AdminPending = () => {
     pendingVerification(page);
   }, [page]);
 
-  // Apply the filter logic
+  // Filter logic
   const filteredEscorts = escorts.filter((escort) => {
     if (filter === "complete") return escort.registrationComplete === true;
     if (filter === "incomplete") return escort.registrationComplete === false;
