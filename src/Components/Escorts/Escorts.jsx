@@ -12,6 +12,7 @@ import { SlidersHorizontal } from "lucide-react";
 import FilterBox from "../FilterBox/FilterBox";
 import { isFresh } from "./FreshBadge";
 import EscortSkeletonLoader from "../Loaders/EscortSkeletonLoader";
+import { differenceInYears } from "date-fns";
 
 const Escorts = () => {
   const [loading, setLoading] = useState(true);
@@ -26,10 +27,15 @@ const Escorts = () => {
     setOpen(!open);
   };
 
+  const calculateAge = (dob) => {
+  if (!dob) return null;
+  return differenceInYears(new Date(), new Date(dob));
+};
+
   const loadEscorts = async () => {
     try {
       const response = await fetchEscorts(page, 500);
-      setEscorts(response.escortDoc);
+      setEscorts(response.escortDoc || []);
       setTotalPages(response.totalPages);
       setLoading(false);
     } catch (err) {
@@ -105,7 +111,7 @@ const Escorts = () => {
                 {/* Name */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <p className="font-semibold text-md">{item.displayName}</p>
+                    <p className="font-semibold text-md">{item.displayName}, {calculateAge(item?.dob)}</p>
                     <CheckBadgeIcon className="text-blue-500 h-4" />
                   </div>
                   <HeartIcon className="h-5 text-red-500 justify-end" />

@@ -22,65 +22,82 @@ const Navbar = () => {
   };
 
   const handlePopUp = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
     <div className="bg-customGray flex flex-col fixed left-0 top-0 w-full h-28 z-50 px-4 py-3 gap-3 justify-between">
-      <FilterBox open = {open} handlePopUp = {handlePopUp}/>
-       {/* mobile menu to show on mobile view only */}
+      <FilterBox open={open} handlePopUp={handlePopUp} />
+      {/* mobile menu to show on mobile view only */}
 
       <MobileNav isOpen={isOpen} handleToggle={handleToggle} />
       {/* Left side: Hamburger + Logo */}
-      
 
       <div className="flex flex-col lg:flex-row lg:items-center justify-between">
         <div className="flex items-center gap-4 ">
-        <Bars3Icon
-          className="text-white h-8 cursor-pointer lg:hidden"
-          onClick={handleToggle}
-        />
-        <Link to={"/"}>
-        <img className="h-12" src= {logo} alt="oscrovilla logo" />
-        </Link>
-        </div>
-
-      {/* Right side: Icons + Buttons */}
-      <div className="flex justify-between items-center gap-6">
-        {/* Icons */}
-        <div className="flex gap-3">
-          <MagnifyingGlassIcon onClick={handlePopUp} className="text-white h-7 bg-customPink p-1 rounded-full cursor-pointer" />
-          {/* <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" /> */}
-          <Link to='/notifications' ><BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" /></Link>
-        </div>
-
-        {/* Buttons */}
-        {user ? (
-          <Link to={user?.registrationComplete ? `/escortdashboard/${user._id}` : ""}>
-          <p className="flex items-center gap-2 text-md font-semibold text-white">
-            {user? <img className="h-6 w-6 rounded-full" src= {user.gallery?.[0]} alt="" />
-          :  
-          <UserCircleIcon className="w-6 h-6 text-customPink" />
-          }
-            {"Hi " + user?.username || "there"}
-          </p>
+          <Bars3Icon
+            className="text-white h-8 cursor-pointer lg:hidden"
+            onClick={handleToggle}
+          />
+          <Link to={"/"}>
+            <img className="h-12" src={logo} alt="oscrovilla logo" />
           </Link>
-        ) : (
+        </div>
+
+        {/* Right side: Icons + Buttons */}
+        <div className="flex justify-between items-center gap-6">
+          {/* Icons */}
           <div className="flex gap-3">
-            <Link to={"/register-card"}>
-              <button className="bg-transparent border border-customPink text-sm text-white px-3 py-1 rounded-xl">
-                Sign Up
-              </button>
-            </Link>
-            <Link to={"/login"}>
-              <button className="bg-customPink text-sm text-white px-3 py-1 rounded-xl">
-                Login
-              </button>
+            <MagnifyingGlassIcon
+              onClick={handlePopUp}
+              className="text-white h-7 bg-customPink p-1 rounded-full cursor-pointer"
+            />
+            {/* <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" /> */}
+            <Link to="/notifications">
+              <BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
             </Link>
           </div>
-        )}
-      </div>
 
+          {/* Buttons */}
+          {user ? (
+            <Link
+              to={
+                user?.role === "client"
+                  ? `/clientdashboard`
+                  : user?.registrationComplete
+                  ? `/escortdashboard/${user._id}`
+                  : "#"
+              }
+            >
+              <p className="flex items-center gap-2 text-md font-semibold text-white">
+                {user?.gallery?.[0] ? (
+                  <img
+                    className="h-6 w-6 rounded-full"
+                    src={user.gallery[0]}
+                    alt="User avatar"
+                  />
+                ) : (
+                  <UserCircleIcon className="w-6 h-6 text-customPink" />
+                )}
+
+                {"Hi " + (user?.username || "there")}
+              </p>
+            </Link>
+          ) : (
+            <div className="flex gap-3">
+              <Link to={"/register-card"}>
+                <button className="bg-transparent border border-customPink text-sm text-white px-3 py-1 rounded-xl">
+                  Sign Up
+                </button>
+              </Link>
+              <Link to={"/login"}>
+                <button className="bg-customPink text-sm text-white px-3 py-1 rounded-xl">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

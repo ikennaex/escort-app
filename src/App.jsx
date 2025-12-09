@@ -58,6 +58,8 @@ import AdminPremiumRequests from "./Admin/Pages/AdminPremiumRequests";
 import EscortBlacklistDetails from "./Pages/EscortBlacklistDetails/EscortBlacklistDetails";
 import EscortEditLocation from "./Pages/EscortEditLocationPage/EscortEditLocation";
 import VideoGuide from "./Pages/Register/Escorts/VideoGuide";
+import ClientDashboard from "./Pages/ClientDashboard/ClientDashboard";
+import MissingPage from "./Pages/MissingPage/MissingPage";
 
 const App = () => {
   const location = useLocation();
@@ -186,6 +188,10 @@ const App = () => {
                 />
                 <Route path="/admin/user/:id" element={<AdminUserDetails />} />
               </Route>
+
+              {/* Client Routes  */}
+              <Route path="clientdashboard" element={<ClientDashboard />} />
+              <Route path="*" element={<MissingPage />} />
             </Routes>
           </div>
           <ToastContainer />

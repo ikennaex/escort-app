@@ -77,7 +77,7 @@ const RegisterCard = () => {
         </div>
 
         {/* Client Card */}
-        {/* <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+        <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Register as <span className="text-purple-600">Client</span>
           </h2>
@@ -94,7 +94,7 @@ const RegisterCard = () => {
               Register as Client
             </button>
           </Link>
-        </div> */}
+        </div>
 
       </div>
     </div>

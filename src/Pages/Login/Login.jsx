@@ -28,6 +28,7 @@ const Login = () => {
       setLoading(true);
       const response = await api.post("auth/signin", formData);
       setUser(response.data.user)
+      console.log(response)
       setAccessToken(response.data.accessToken);
       toast.success(response.data.message, {
         autoClose: 3000,

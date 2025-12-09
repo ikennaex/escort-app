@@ -23,9 +23,11 @@ const Homepage = () => {
     }
   }, [user]);
 
+  console.log(user)
+
   return (
     <div className="my-2">
-      {showIncomplete && <IncompleteRegistration />}
+      {showIncomplete && user?.role === "Escort" && <IncompleteRegistration />}
 
       <ImageSlider />
       <ClientNotice />
