@@ -174,6 +174,7 @@ const EscortDashboard = () => {
 
     try {
       await api.delete(`${baseUrl}escortdelete`);
+      setUser(null);
       alert("Profile deleted successfully.");
       navigate("/");
       window.location.reload();
