@@ -48,7 +48,6 @@ const ReportEscort = ({ handleShowModal, setShowModal, showModal }) => {
       });
 
       alert(response.data.message);
-      console.log("Report submitted:", response.data);
       
       // Reset form
       setShowModal(false);

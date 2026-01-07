@@ -28,7 +28,6 @@ const ClientDashboard = () => {
     const fetchBookings = async () => {
       try {
         const res = await api.get(`${baseUrl}client/booking`);
-        console.log(res);
         setBookings(res.data || []);
       } catch (err) {
         console.error("Failed to fetch bookings", err);

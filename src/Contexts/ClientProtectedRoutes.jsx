@@ -4,7 +4,6 @@ import { useClientAuth } from "./ClientAuthContext";
 
 const ClientProtectedRoutes = () => {
   const {loading, isClientAuthenticated} = useClientAuth()
-  console.log(isClientAuthenticated)
 
   if (loading) {
     return (

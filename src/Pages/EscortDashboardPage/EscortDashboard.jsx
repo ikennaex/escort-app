@@ -130,8 +130,6 @@ const EscortDashboard = () => {
         ...prev,
         gallery: response.data.gallery,
       }));
-
-      // console.log("Upload successful:", response.data);
       toast.success("Upload successful", {
         autoClose: 3000,
         position: "top-right",
@@ -159,8 +157,6 @@ const EscortDashboard = () => {
       const response = await api.delete(`${baseUrl}escortgallery`, {
         data: { escortId: user._id, imageUrl }, // send payload in "data"
       });
-
-      // console.log("Image deleted:", response.data);
 
       setUser((prevUser) => ({
         ...prevUser,

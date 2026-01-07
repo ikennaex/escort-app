@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useClientAuth } from "../../Contexts/ClientAuthContext";
 
 const ClientLogin = () => {
@@ -28,9 +28,7 @@ const ClientLogin = () => {
     try {
       setLoading(true);
       const response = await api.post("auth/signin", formData);
-      console.log(response)
-      setClient(response.data.user)
-      console.log(response)
+      setClient(response.data.user);
       setClientAccessToken(response.data.accessToken);
       toast.success(response.data.message, {
         autoClose: 3000,
@@ -58,7 +56,9 @@ const ClientLogin = () => {
       {!client && (
         <div className="flex items-center justify-center min-h-screen bg-customLightGray">
           <div className="mx-6 p-6 bg-pink-100 rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4 text-center">Oscro Villa Client Login</h1>
+            <h1 className="text-2xl font-bold mb-4 text-center">
+              Oscro Villa Client Login
+            </h1>
             <h2 className="text-lg font-semibold mb-4 text-gray-800">
               Login with Email, Phone Number, or Username
             </h2>

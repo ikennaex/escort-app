@@ -23,7 +23,6 @@ const EscortBankDetailsPage = () => {
       [name]: value,
     }));
   };
-  console.log(bankDetails);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,12 +33,10 @@ const EscortBankDetailsPage = () => {
         `${baseUrl}escorts/bankdetails`,
         bankDetails
       );
-      console.log(response);
       toast.success(response.data.message, {
         autoClose: 3000,
         position: "top-right",
       });
-      console.log(bankDetails);
       navigate(`/escortdashboard/${user._id}`);
     } catch (err) {
       console.log(err);

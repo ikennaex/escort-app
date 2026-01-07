@@ -71,7 +71,6 @@ const AdminDashboard = () => {
     try {
       const response = await api.get("/admin/getescortcount");
       setStats(response.data.data);
-      console.log("Fetched stats:", response.data);
     } catch (err) {
       console.error("Error fetching stats:", err);
     }

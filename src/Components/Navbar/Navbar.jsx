@@ -21,8 +21,6 @@ const Navbar = () => {
 
   let loggedUser = user || client
 
-  console.log(loggedUser)
-
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };

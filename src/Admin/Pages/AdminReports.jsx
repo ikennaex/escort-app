@@ -17,7 +17,6 @@ const AdminReports = () => {
   const fetchReports = async () => {
     try {
       const response = await api.get("admin/getreports");
-      console.log("Reports fetched:", response.data);
       setReports(response.data.reports || []);
     } catch (err) {
       console.error("Error fetching reports:", err);
@@ -72,7 +71,6 @@ const AdminReports = () => {
         details: report.details,
         proof: report.images || [],
       });
-      console.log("Escort blacklisted:", response.data);
       alert(response.data.message);
     } catch (err) {
       console.error("Error blacklisting escort:", err);

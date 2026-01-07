@@ -24,8 +24,6 @@ const AdminBlacklistedEscorts = () => {
     fetchBlacklistedEscorts();
   }, []);
 
-  console.log(blacklistedEscorts);
-
   return (
     <div className="flex text-white min-h-screen">
       <AdminSidebar />

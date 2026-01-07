@@ -59,7 +59,6 @@ const AdminPendingApprovalDetails = () => {
         position: "top-right",
       });
       navigate("/admin/pending");
-      console.log("escort rejected")
     } catch (err) {
       toast.success(err.response.data.message, {
         autoClose: 3000,

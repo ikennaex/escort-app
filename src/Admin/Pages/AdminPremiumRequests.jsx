@@ -56,8 +56,6 @@ const AdminPremiumRequests = () => {
     }
   }, [requests]);
 
-  console.log(requests);
-
   const handleApprove = async (request) => {
     if (!window.confirm("Approve this premium request?")) return;
     try {

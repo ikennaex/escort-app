@@ -17,7 +17,6 @@ const EscortViewBookings = () => {
     try {
       const res = await api.get(`escorts/booking`);
       setBookings(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }

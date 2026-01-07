@@ -24,7 +24,6 @@ const EscortCreateBooking = () => {
         ],
       };
 
-      console.log(payload);
       const res = await api.post("escorts/availability", payload);
 
       getAvailability();
@@ -42,7 +41,6 @@ const EscortCreateBooking = () => {
   const getAvailability = async () => {
     try {
       const res = await api.get("escorts/get/availability");
-      console.log(res);
       setAvailabilitySlots(res.data.availability);
     } catch (err) {
       console.log(err);

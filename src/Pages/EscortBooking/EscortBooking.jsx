@@ -12,7 +12,6 @@ const EscortBooking = () => {
   const [loading, setLoading] = useState(false);
   const { api } = useClientAuth();
   const navigate = useNavigate();
-  console.log(api);
 
   const [formData, setFormData] = useState({
     date: "",
