@@ -93,7 +93,7 @@ const EscortDashboard = () => {
     try {
       await api.post(`${baseUrl}auth/logout`);
       setUser(null);
-      navigate("/login");
+      navigate("/login/as");
     } catch (err) {
       console.error("Logout failed:", err);
       alert("Something went wrong during logout");
@@ -132,9 +132,15 @@ const EscortDashboard = () => {
       }));
 
       // console.log("Upload successful:", response.data);
-      alert("Upload successful");
+      toast.success("Upload successful", {
+        autoClose: 3000,
+        position: "top-right",
+      });
     } catch (err) {
-      alert("Upload failed");
+      toast.error("Upload failed", {
+        autoClose: 3000,
+        position: "top-right",
+      });
       console.error("Upload failed:", err.response?.data || err.message);
     } finally {
       setLoading(false);
@@ -175,7 +181,7 @@ const EscortDashboard = () => {
     try {
       await api.delete(`${baseUrl}escortdelete`);
       alert("Profile deleted successfully.");
-      await api.post(`${baseUrl}auth/logout`)
+      await api.post(`${baseUrl}auth/logout`);
       setUser(null);
       navigate("/");
       window.location.reload();
@@ -311,7 +317,7 @@ const EscortDashboard = () => {
         </div>
 
         {/**bank details */}
-        {bankDetails ? (
+        {/* {bankDetails ? (
           <div className="rounded-xl bg-pink-100 p-4 mt-4 flex flex-col gap-4 text-black">
             <p className="font-bold">Account Details</p>
             <div className="flex flex-col gap-2 text-sm">
@@ -330,7 +336,7 @@ const EscortDashboard = () => {
           <div className="rounded-xl bg-pink-100 p-4 mt-4 flex flex-col gap-4 text-black">
             <Loader />
           </div>
-        )}
+        )} */}
 
         <div className="mt-5 rounded-xl bg-pink-100 p-4 flex flex-col gap-6 text-black">
           {/* BOOST Section */}
@@ -368,7 +374,11 @@ const EscortDashboard = () => {
                   More chances to match with extra features.
                 </p>
               </div>
-              <div onClick={() => handleNavigation(`/escorts/boost-profile/${user._id}`)}>
+              <div
+                onClick={() =>
+                  handleNavigation(`/escorts/boost-profile/${user._id}`)
+                }
+              >
                 <button className="mt-4 border-2 border-yellow-400 text-yellow-400 font-bold rounded-full py-1 px-4">
                   BOOST NOW
                 </button>
@@ -429,7 +439,7 @@ const EscortDashboard = () => {
               </li>
             </div>
 
-            <div
+            {/* <div
               onClick={() => setActiveTab("Timeline")}
               className="flex gap-1 items-center cursor-pointer"
             >
@@ -442,9 +452,9 @@ const EscortDashboard = () => {
                 Timeline
               </li>
               ·<p>0</p>
-            </div>
+            </div> */}
 
-            <div
+            {/* <div
               onClick={() => setActiveTab("Story")}
               className="flex gap-1 items-center cursor-pointer"
             >
@@ -457,7 +467,7 @@ const EscortDashboard = () => {
                 Story
               </li>
               ·<p>0</p>
-            </div>
+            </div> */}
 
             <div
               onClick={() => setActiveTab("Gallery")}
@@ -495,121 +505,139 @@ const EscortDashboard = () => {
         <div className="bg-[#fff8f9] my-4 mx-3 p-4 text-black">
           {activeTab === "Menu" && (
             <>
-          <p className="font-semibold mb-4">Menu</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <div
-              onClick={() => handleNavigation(`/escorts/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <User className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">My Profile</p>
-            </div>
+              <p className="font-semibold mb-4">Menu</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div
+                  onClick={() => handleNavigation(`/escorts/${user._id}`)}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <User className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Profile</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/edit/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Pencil className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Edit Profile</p>
-            </div>
+                <div
+                  onClick={() => handleNavigation(`/escorts/edit/${user._id}`)}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Pencil className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Edit Profile</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/edit-location/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <LocationEditIcon className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Edit Location</p>
-            </div>
+                <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/edit-location/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <LocationEditIcon className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Edit Location</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/booking/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Calendar className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">My Bookings</p>
-            </div>
+                <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/booking/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Calendar className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Bookings</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/requests/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Hand className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">My Requests</p>
-            </div>
+                {/* <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/requests/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Hand className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Requests</p>
+                </div> */}
 
-            <div
-              onClick={() => handleNavigation(`/escorts/boost-profile/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Rocket className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Boost Profile</p>
-            </div>
+                <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/boost-profile/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Rocket className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Boost Profile</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/blacklist/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Ban className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Blacklisted Client</p>
-            </div>
+                <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/blacklist/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Ban className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Blacklisted Client</p>
+                </div>
 
-            <div
+                {/* <div
               onClick={() => handleNavigation(`/escorts/bank/${user._id}`)}
               className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
             >
               <Landmark className="h-8 w-8 text-pink-500" />
               <p className="mt-2 text-sm">Edit Bank Details</p>
-            </div>
+            </div> */}
 
-            <div
-              onClick={() => handleNavigation(`/escorts/events/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <CalendarDays className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">My Events</p>
-            </div>
+                {/* <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/events/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <CalendarDays className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">My Events</p>
+                </div> */}
 
-            <div
-              onClick={() => handleNavigation(`/escorts/reports/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <FileWarning className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Pending Reports</p>
-            </div>
+                {/* <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/reports/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <FileWarning className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Pending Reports</p>
+                </div> */}
 
-            <div
-              onClick={() => handleNavigation(`/escorts/change-password/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Lock className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Change Password</p>
-            </div>
+                <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/change-password/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Lock className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Change Password</p>
+                </div>
 
-            <div
-              onClick={() => handleNavigation(`/escorts/status/${user._id}`)}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Activity className="h-8 w-8 text-green-500" />
-              <p className="mt-2 text-sm">Status</p>
-            </div>
+                {/* <div
+                  onClick={() =>
+                    handleNavigation(`/escorts/status/${user._id}`)
+                  }
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Activity className="h-8 w-8 text-green-500" />
+                  <p className="mt-2 text-sm">Status</p>
+                </div> */}
 
-            <div
-              onClick={handleLogout}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Power className="h-8 w-8 text-pink-500" />
-              <p className="mt-2 text-sm">Logout</p>
-            </div>
+                <div
+                  onClick={handleLogout}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Power className="h-8 w-8 text-pink-500" />
+                  <p className="mt-2 text-sm">Logout</p>
+                </div>
 
-            <div
-              onClick={handleDeleteProfile}
-              className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
-            >
-              <Trash2 className="h-8 w-8 text-red-500" />
-              <p className="mt-2 text-sm">Delete Profile</p>
-            </div>
-          </div>
-        </>
+                <div
+                  onClick={handleDeleteProfile}
+                  className="flex flex-col items-center justify-center bg-white shadow-sm rounded-lg p-4 cursor-pointer hover:bg-pink-50"
+                >
+                  <Trash2 className="h-8 w-8 text-red-500" />
+                  <p className="mt-2 text-sm">Delete Profile</p>
+                </div>
+              </div>
+            </>
           )}
 
           <div className="text-black">

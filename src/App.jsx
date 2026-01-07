@@ -60,6 +60,13 @@ import EscortEditLocation from "./Pages/EscortEditLocationPage/EscortEditLocatio
 import VideoGuide from "./Pages/Register/Escorts/VideoGuide";
 import ClientDashboard from "./Pages/ClientDashboard/ClientDashboard";
 import MissingPage from "./Pages/MissingPage/MissingPage";
+import EscortCreateBooking from "./Pages/EscortCreateBooking/EscortCreateBooking";
+import EscortBooking from "./Pages/EscortBooking/EscortBooking";
+import LoginAs from "./Pages/LoginAs/LoginAs";
+import ClientLogin from "./Pages/Client/ClientLogin";
+import ClientBookings from "./Pages/Client/ClientBookings";
+import EscortViewBookings from "./Pages/EscortViewBookings/EscortViewBookings";
+import ClientProtectedRoutes from "./Contexts/ClientProtectedRoutes";
 
 const App = () => {
   const location = useLocation();
@@ -96,7 +103,9 @@ const App = () => {
           <div className="pt-28">
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login/escort" element={<Login />} />
+              <Route path="/login/client" element={<ClientLogin />} />
+              <Route path="/login/as" element={<LoginAs />} />
               <Route path="/register" element={<Register />} />
               <Route path="/register-client" element={<ClientRegister />} />
               <Route path="/register-escort" element={<EscortRegister />} />
@@ -115,6 +124,11 @@ const App = () => {
               <Route path="/settings" element={<EscortSetting />} />
               <Route path="/notifications" element={<EscortNotifications />} />
               <Route path="/search" element={<FilteredEscorts />} />
+              <Route path="/booking/:id" element={<EscortBooking />} />
+              <Route
+                path="/escorts/booking/:id"
+                element={<EscortViewBookings />}
+              />
 
               <Route element={<ProtectedRoutes />}>
                 {/* escort dashboard  */}
@@ -157,10 +171,20 @@ const App = () => {
               />
               <Route path="/escorts/:id" element={<EscortDetailsPage />} />
               <Route path="/escorts/edit/:id" element={<EscortEditPage />} />
-              <Route path="/escorts/edit-location/:id" element={<EscortEditLocation />} />
+              <Route
+                path="/escorts/edit-location/:id"
+                element={<EscortEditLocation />}
+              />
+              <Route
+                path="/escorts/createbooking/:id"
+                element={<EscortCreateBooking />}
+              />
 
               {/* blacklisted escorts details page */}
-              <Route path="blacklist/:id" element={<EscortBlacklistDetails />} />
+              <Route
+                path="blacklist/:id"
+                element={<EscortBlacklistDetails />}
+              />
 
               {/* Admin  */}
               <Route path="/admin/login" element={<AdminLogin />} />
@@ -169,8 +193,14 @@ const App = () => {
                 <Route path="/admin/premium" element={<AdminPremiumUsers />} />
                 <Route path="/admin/users" element={<AdminUsers />} />
                 <Route path="/admin/reports" element={<AdminReports />} />
-                <Route path="/admin/blacklist" element={<AdminBlacklistedEscorts />} />
-                <Route path="/admin/premium-requests" element={<AdminPremiumRequests />} />
+                <Route
+                  path="/admin/blacklist"
+                  element={<AdminBlacklistedEscorts />}
+                />
+                <Route
+                  path="/admin/premium-requests"
+                  element={<AdminPremiumRequests />}
+                />
                 <Route
                   path="/admin/subscriptions"
                   element={<AdminPayments />}
@@ -190,7 +220,11 @@ const App = () => {
               </Route>
 
               {/* Client Routes  */}
+              <Route element={<ClientProtectedRoutes />}>
               <Route path="clientdashboard" element={<ClientDashboard />} />
+              <Route path="/client/bookings" element={<ClientBookings />} />
+              </Route>
+
               <Route path="*" element={<MissingPage />} />
             </Routes>
           </div>

@@ -7,12 +7,12 @@ import {
 import { differenceInYears } from "date-fns";
 import { FaWhatsapp } from "react-icons/fa";
 import { BsCake, BsGenderAmbiguous, BsRulers } from "react-icons/bs";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
 import ProfileTabs from "./ProfileTabs";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Loader from "../../Components/Loaders/Loader";
 import { LightbulbIcon } from "lucide-react";
 import Slider from "react-slick";
@@ -21,6 +21,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../Components/ImageSlider/imageslider.css";
 import ReportEscort from "../../Components/Escorts/ReportEscort";
+import { UserContext } from "../../Contexts/UserContext";
+import { useClientAuth } from "../../Contexts/ClientAuthContext";
 
 const calculateAge = (dob) => {
   if (!dob) return null;
@@ -34,6 +36,8 @@ const EscortDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const sliderRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
+
+  const { isClientAuthenticated } = useClientAuth();
 
   const fetchEscort = async () => {
     try {
@@ -226,9 +230,14 @@ const EscortDetailsPage = () => {
                   <div className="text-white bg-green-500 px-5 py-2 rounded-2xl">
                     Chat
                   </div>
-                  <div className="text-white bg-pink-500 px-5 py-2 rounded-2xl">
-                    Book
-                  </div>
+
+                  <Link
+                    to={isClientAuthenticated ? `/booking/${id}` : "/login/as"}
+                  >
+                    <button className="text-white bg-pink-500 px-5 py-2 rounded-2xl hover:bg-pink-600 transition">
+                      Book
+                    </button>
+                  </Link>
                 </div>
 
                 <div className="flex lg:w-2/4 lg:gap-5 mx-auto justify-between w-3/4 items-center">

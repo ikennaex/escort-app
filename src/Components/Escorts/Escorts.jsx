@@ -120,12 +120,11 @@ const Escorts = () => {
                 {/* Phone */}
                 <div className="flex items-center gap-2 lg:mb-2">
                   <PhoneIcon className="h-4 text-white hidden md:block" />
-                  <a
-                    href={`tel:${item.phoneNumber}`}
+                  <p
                     className="text-blue-600 lg:text-sm text-[10px] hover:underline"
                   >
                     {item.phoneNumber}
-                  </a>
+                  </p>
                 </div>
 
                 {/* Location */}

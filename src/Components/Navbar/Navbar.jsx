@@ -11,11 +11,17 @@ import { UserContext } from "../../Contexts/UserContext";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { logo } from "../../../imports";
 import FilterBox from "../FilterBox/FilterBox";
+import { useClientAuth } from "../../Contexts/ClientAuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useContext(UserContext);
+  const { client } = useClientAuth()
   const [open, setOpen] = useState(false);
+
+  let loggedUser = user || client
+
+  console.log(loggedUser)
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -59,18 +65,18 @@ const Navbar = () => {
           </div>
 
           {/* Buttons */}
-          {user ? (
+          {loggedUser ? (
             <Link
               to={
-                user?.role === "client"
+                loggedUser?.role  === "client"
                   ? `/clientdashboard`
-                  : user?.registrationComplete
-                  ? `/escortdashboard/${user._id}`
+                  : loggedUser?.registrationComplete
+                  ? `/escortdashboard/${loggedUser._id}`
                   : "#"
               }
             >
               <p className="flex items-center gap-2 text-md font-semibold text-white">
-                {user?.gallery?.[0] ? (
+                {loggedUser?.gallery?.[0] ? (
                   <img
                     className="h-6 w-6 rounded-full"
                     src={user.gallery[0]}
@@ -80,7 +86,7 @@ const Navbar = () => {
                   <UserCircleIcon className="w-6 h-6 text-customPink" />
                 )}
 
-                {"Hi " + (user?.username || "there")}
+                {"Hi " + (loggedUser?.username || "there")}
               </p>
             </Link>
           ) : (
@@ -90,7 +96,7 @@ const Navbar = () => {
                   Sign Up
                 </button>
               </Link>
-              <Link to={"/login"}>
+              <Link to={"/login/as"}>
                 <button className="bg-customPink text-sm text-white px-3 py-1 rounded-xl">
                   Login
                 </button>
