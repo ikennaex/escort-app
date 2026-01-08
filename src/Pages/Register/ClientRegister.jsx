@@ -15,7 +15,7 @@ const ClientRegister = () => {
     try {
       const response = await axios.post(`${baseUrl}auth/clientsignup`, {email, password})
       alert(response.data.message)
-      navigate("/login")
+      navigate("/login/as")
     } catch (err) {
       alert(err.response.data.message)
       console.log(err.response.data.message)
