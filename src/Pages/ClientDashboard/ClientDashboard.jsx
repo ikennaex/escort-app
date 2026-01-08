@@ -129,7 +129,7 @@ const ClientDashboard = () => {
             </p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full min-w-[700px] text-sm">
                 <thead>
                   <tr className="text-left text-gray-400 border-b">
                     <th className="py-3 font-medium">Escort</th>
