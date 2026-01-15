@@ -9,6 +9,7 @@ const ClientLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { api, client, setClient, setClientAccessToken } = useClientAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -86,20 +87,31 @@ const ClientLogin = () => {
               <div>
                 <label
                   htmlFor="password"
-                  class="block text-sm font-medium text-gray-600"
+                  className="block text-sm font-medium text-gray-600"
                 >
                   Password
                 </label>
-                <input
-                  onChange={handleChange}
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  placeholder="Enter your password"
-                  className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+
+                <div className="relative">
+                  <input
+                    onChange={handleChange}
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    placeholder="Enter your password"
+                    className="w-full mt-1 p-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
               </div>
 
               <button

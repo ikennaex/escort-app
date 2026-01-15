@@ -2,12 +2,13 @@ import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { UserContext } from "../../Contexts/UserContext";
 import Loader from "../../Components/Loaders/Loader";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { api, user, setUser, setAccessToken } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -27,7 +28,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await api.post("auth/signin", formData);
-      setUser(response.data.user)
+      setUser(response.data.user);
       setAccessToken(response.data.accessToken);
       toast.success(response.data.message, {
         autoClose: 3000,
@@ -83,20 +84,31 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="password"
-                  class="block text-sm font-medium text-gray-600"
+                  className="block text-sm font-medium text-gray-600"
                 >
                   Password
                 </label>
-                <input
-                  onChange={handleChange}
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  placeholder="Enter your password"
-                  className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+
+                <div className="relative">
+                  <input
+                    onChange={handleChange}
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    placeholder="Enter your password"
+                    className="w-full mt-1 p-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
               </div>
 
               <button

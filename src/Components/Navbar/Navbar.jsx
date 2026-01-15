@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Bars3Icon,
   BellIcon,
@@ -12,14 +12,16 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { logo } from "../../../imports";
 import FilterBox from "../FilterBox/FilterBox";
 import { useClientAuth } from "../../Contexts/ClientAuthContext";
+import { baseUrl } from "../../baseUrl";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useContext(UserContext);
-  const { client } = useClientAuth()
+  const { user, api } = useContext(UserContext);
+  const { client } = useClientAuth();
   const [open, setOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
-  let loggedUser = user || client
+  let loggedUser = user || client;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -28,6 +30,19 @@ const Navbar = () => {
   const handlePopUp = () => {
     setOpen(!open);
   };
+
+  const getNotificationCount = async () => {
+    try {
+      const res = await api.get(`${baseUrl}notifications/count`);
+      setUnreadCount(res.data.count)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getNotificationCount();
+  }, []);
 
   return (
     <div className="bg-customGray flex flex-col fixed left-0 top-0 w-full h-28 z-50 px-4 py-3 gap-3 justify-between">
@@ -57,8 +72,18 @@ const Navbar = () => {
               className="text-white h-7 bg-customPink p-1 rounded-full cursor-pointer"
             />
             {/* <ChatBubbleOvalLeftEllipsisIcon className="text-white h-7 p-1 rounded-full bg-customPink" /> */}
-            <Link to="/notifications">
+            <Link to="/notifications" className="relative">
               <BellIcon className="text-white h-7 p-1 rounded-full bg-customPink" />
+
+              {unreadCount > 0 && (
+                <span
+                  className="absolute -top-1 -right-1 bg-red-600 text-white text-xs 
+      min-w-[18px] h-[18px] flex items-center justify-center 
+      rounded-full font-semibold"
+                >
+                  {unreadCount}
+                </span>
+              )}
             </Link>
           </div>
 
@@ -66,7 +91,7 @@ const Navbar = () => {
           {loggedUser ? (
             <Link
               to={
-                loggedUser?.role  === "client"
+                loggedUser?.role === "client"
                   ? `/clientdashboard`
                   : loggedUser?.registrationComplete
                   ? `/escortdashboard/${loggedUser._id}`
