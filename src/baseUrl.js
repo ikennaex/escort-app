@@ -1,4 +1,4 @@
-const isDev = true; // set to true for local development
+const isDev = false; // set to true for local development
 const localhost = import.meta.env.VITE_LOCAL_HOST;
 const live = import.meta.env.VITE_LIVE_HOST;
 const liveTest = import.meta.env.VITE_LIVE_TEST_HOST;
